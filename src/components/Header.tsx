@@ -73,7 +73,7 @@ const Header = () => {
               onClick={() => scrollToSection('home')}
               className="text-2xl font-bold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-300 transition-all duration-300 relative group cursor-pointer"
             >
-              <span className="relative z-10">Portfolio</span>
+              <span className="relative z-10">Devanshu</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </button>
           </div>
