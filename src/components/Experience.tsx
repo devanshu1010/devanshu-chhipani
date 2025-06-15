@@ -1,10 +1,11 @@
 import React from "react";
 
+// Dummy logo images (one for each company, all Unsplash placeholders for demo)
 const experienceData = [
   {
     company: "Optimus AI Lab",
     position: "Mid-level Frontend Engineer",
-    logo: "/lovable-uploads/e548ee00-fa71-4780-9863-e8cdec22b503.png",
+    logo: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=128&q=80",
     start: "Nov 25, 2024",
     end: "Jan 8, 2025",
     present: false,
@@ -14,7 +15,7 @@ const experienceData = [
   {
     company: "Paydestal",
     position: "Frontend Developer",
-    logo: "/lovable-uploads/e548ee00-fa71-4780-9863-e8cdec22b503.png",
+    logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=128&q=80",
     start: "Sep 11, 2024",
     end: "",
     present: true,
@@ -24,7 +25,7 @@ const experienceData = [
   {
     company: "Educative",
     position: "Project Author",
-    logo: "/lovable-uploads/e548ee00-fa71-4780-9863-e8cdec22b503.png",
+    logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=128&q=80",
     start: "Dec 5, 2023",
     end: "Sep 16, 2024",
     present: false,
@@ -34,7 +35,7 @@ const experienceData = [
   {
     company: "Freecodecamp",
     position: "Technical Writer",
-    logo: "/lovable-uploads/e548ee00-fa71-4780-9863-e8cdec22b503.png",
+    logo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=128&q=80",
     start: "Aug 25, 2022",
     end: "Dec 6, 2023",
     present: false,
@@ -43,89 +44,128 @@ const experienceData = [
   },
 ];
 
-const Experience = () => {
+function formatDate(str: string) {
+  if (!str) return "";
+  const d = new Date(str);
+  // Use input as fallback if parsing fails
+  if (isNaN(d.getTime())) return str.toUpperCase();
+  return d.toLocaleDateString("en-US", {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric'
+  }).toUpperCase().replace(/,/g,'');
+}
+
+const Experience: React.FC = () => {
+  // Split into left and right columns for timeline alignment
+  const leftItems = experienceData.filter((_, i) => i % 2 === 0);
+  const rightItems = experienceData.filter((_, i) => i % 2 === 1);
+
+  // Make sure columns are equal length for visual symmetry
+  const maxRows = Math.max(leftItems.length, rightItems.length);
+
+  // Fill with empty to preserve layout if counts are uneven
+  const fillEmpty = (arr: typeof experienceData, max: number) =>
+    arr.concat(Array(max - arr.length).fill(null));
+
+  const left = fillEmpty(leftItems, maxRows);
+  const right = fillEmpty(rightItems, maxRows);
+
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white text-center mb-16">
-          Work Experience
-        </h2>
-        <div className="relative">
-          {/* Timeline vertical line */}
-          <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-sky-700/40 via-transparent to-sky-900/30 dark:from-sky-400/30 dark:to-sky-700/5 z-0 translate-x-[-50%]" />
-          <div className="grid md:grid-cols-2 gap-y-16 gap-x-8 relative z-10">
-            {experienceData.map((exp, idx) => {
-              // Alternate alignment left/right
-              const isLeft = idx % 2 === 0;
-              return (
-                <div
-                  key={exp.company + exp.position}
-                  className={`
-                    flex md:items-center md:min-h-[190px] relative group
-                    ${isLeft ? "md:justify-end text-left" : "md:justify-start text-left"}
-                  `}
-                  style={{ pointerEvents: "auto" }}
-                >
-                  {/* Connector dot */}
-                  {/** For wide screens, place dot at the timeline */}
-                  <div className={`
-                    hidden md:flex flex-col items-center absolute top-0 ${isLeft ? "right-[-49px]" : "left-[-49px]"}
-                  `}>
-                    <span className="w-6 h-6 rounded-full bg-neutral-800 border-4 border-sky-500 flex items-center justify-center dark:bg-neutral-800 dark:border-sky-400 z-10 shadow-xl">
+    <section id="experience" className="py-20 px-2 bg-[#1a1a1a] w-full">
+      <h2 className="text-center text-[2rem] sm:text-4xl font-bold text-white tracking-tight mb-20">
+        Work Experience
+      </h2>
+      <div className="max-w-6xl mx-auto flex justify-center relative">
+        {/* Timeline vertical line */}
+        <div className="hidden md:block absolute left-1/2 top-0 h-full w-[2px] bg-[#222] z-0" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 w-full relative z-10">
+          {/* Left column */}
+          <div className="flex flex-col gap-20 relative">
+            {left.map((exp, idx) => (
+              <div className="flex items-start" key={idx}>
+                {/* Vertical connector */}
+                <div className="hidden md:flex flex-col items-center mr-6">
+                  <span className="w-[68px] h-[68px] flex items-center justify-center rounded-xl bg-[#232323] shadow-lg">
+                    {exp && (
                       <img
                         src={exp.logo}
                         alt={exp.company}
-                        className="w-4 h-4 rounded-sm object-contain"
+                        className="w-11 h-11 rounded-xl object-cover"
                       />
-                    </span>
-                    {/* Line extend below unless last */}
-                    {idx !== experienceData.length - 1 && (
-                      <span className="flex-1 w-px bg-gradient-to-b from-sky-500/50 to-sky-900/0"></span>
                     )}
-                  </div>
-                  {/* Card */}
-                  <div className={`
-                    bg-[#141618]/90 dark:bg-white/5
-                    rounded-xl p-6 shadow-md border border-white/10
-                    min-w-[260px] md:max-w-lg
-                    relative
-                    transition duration-150
-                    hover:shadow-sky-400/10
-                    ${isLeft ? "ml-auto md:mr-8" : "mr-auto md:ml-8"}
-                  `}>
-                    <div className="flex items-center mb-2 md:hidden">
-                      <img
-                        src={exp.logo}
-                        alt={exp.company}
-                        className="w-8 h-8 rounded-md object-contain mr-3"
-                      />
-                      <span className="w-3 h-3 bg-sky-500 rounded-full"></span>
-                    </div>
-                    <h3 className="font-bold text-lg text-white tracking-wide mb-0 leading-snug">
-                      {exp.company}
-                    </h3>
-                    <div className="text-base text-gray-300 font-semibold mb-0.5">{exp.position}</div>
-                    <div className="uppercase tracking-widest text-xs mb-4 text-neutral-400 font-semibold flex items-center gap-2">
-                      {exp.start}
-                      {" - "}
-                      {exp.present ? (
-                        <span className="text-green-400 font-bold">PRESENT</span>
-                      ) : (
-                        exp.end
-                      )}
-                    </div>
-                    <div className="text-gray-400 leading-relaxed text-[15px]">
-                      {exp.description}
-                    </div>
-                  </div>
-                  {/* For mobile, a thin vertical line at left */}
-                  {idx !== experienceData.length - 1 && (
-                    <div className="absolute left-4 top-12 h-[calc(100%-3rem)] w-0.5 bg-gradient-to-b from-sky-800/30 to-transparent md:hidden"></div>
+                  </span>
+                  {/* Timeline vertical line */}
+                  {idx !== maxRows - 1 && (
+                    <span className="flex-1 w-[2px] bg-[#222]"></span>
                   )}
                 </div>
-              );
-            })}
+                {/* Experience Content */}
+                <div className={`flex-1 min-w-0`}>
+                  {exp && (
+                    <div className="mb-1">
+                      <div className="font-bold text-white text-lg sm:text-xl">{exp.company}</div>
+                      <div className="text-gray-200 text-[1rem] mb-1">{exp.position}</div>
+                      <div className="uppercase text-xs font-semibold tracking-wider text-[#bbbbbb] mb-3">
+                        {formatDate(exp.start)}
+                        {" - "}
+                        {exp.present ? (
+                          <span className="text-green-400">PRESENT</span>
+                        ) : (
+                          formatDate(exp.end)
+                        )}
+                      </div>
+                      <div className="text-[#BDBDBD] text-base sm:text-lg leading-relaxed">{exp.description}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
+          {/* Right column */}
+          <div className="flex flex-col gap-20 relative">
+            {right.map((exp, idx) => (
+              <div className="flex items-start" key={idx}>
+                {/* Vertical connector */}
+                <div className="hidden md:flex flex-col items-center mr-6">
+                  <span className="w-[68px] h-[68px] flex items-center justify-center rounded-xl bg-[#232323] shadow-lg">
+                    {exp && (
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        className="w-11 h-11 rounded-xl object-cover"
+                      />
+                    )}
+                  </span>
+                  {/* Timeline vertical line */}
+                  {idx !== maxRows - 1 && (
+                    <span className="flex-1 w-[2px] bg-[#222]"></span>
+                  )}
+                </div>
+                {/* Experience Content */}
+                <div className={`flex-1 min-w-0`}>
+                  {exp && (
+                    <div className="mb-1">
+                      <div className="font-bold text-white text-lg sm:text-xl">{exp.company}</div>
+                      <div className="text-gray-200 text-[1rem] mb-1">{exp.position}</div>
+                      <div className="uppercase text-xs font-semibold tracking-wider text-[#bbbbbb] mb-3">
+                        {formatDate(exp.start)}
+                        {" - "}
+                        {exp.present ? (
+                          <span className="text-green-400">PRESENT</span>
+                        ) : (
+                          formatDate(exp.end)
+                        )}
+                      </div>
+                      <div className="text-[#BDBDBD] text-base sm:text-lg leading-relaxed">{exp.description}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Mobile timeline: show single column with logo on left */}
+          <div className="md:hidden absolute left-8 top-0 bottom-0 w-[2px] bg-[#232323] z-0" />
         </div>
       </div>
     </section>
