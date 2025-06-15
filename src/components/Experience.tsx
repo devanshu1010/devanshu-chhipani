@@ -1,3 +1,4 @@
+
 import React from "react";
 
 // Dummy logo images (replace or update as needed)
@@ -64,136 +65,124 @@ const ExperienceCard: React.FC<{
   align: "left" | "right";
   isLast: boolean;
 }> = ({ exp, align, isLast }) => (
-  <div className={`relative w-full flex ${align === "left" ? "justify-end" : "justify-start"} group`}>
+  <div className={`relative w-full flex ${align === "left" ? "justify-end pr-8" : "justify-start pl-8"} group`}>
+    {/* Timeline connector for desktop */}
     <div
       className={`
-        flex flex-col items-center absolute top-6
-        ${align === "left" ? "right-[-38px]" : "left-[-38px]"}
-        z-10
-        hidden md:flex
+        absolute top-6 z-10 hidden md:flex flex-col items-center
+        ${align === "left" ? "right-0" : "left-0"}
       `}
     >
       {/* Timeline dot */}
-      <span className="w-5 h-5 rounded-full bg-sky-500 border-4 border-white dark:border-[#151719] shadow-md"></span>
-      {/* The vertical line */}
+      <div className="w-4 h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
+      {/* Timeline line */}
       {!isLast && (
-        <span className="flex-1 w-[2px] bg-gradient-to-b from-sky-500/80 to-transparent dark:from-sky-400/60 dark:to-transparent" style={{ minHeight: 56 }} />
+        <div className="w-0.5 bg-gray-300 dark:bg-gray-600 flex-1" style={{ minHeight: "120px" }}></div>
       )}
     </div>
+
     <div
       className={`
-        bg-white dark:bg-[#181c1f]
-        border border-neutral-200 dark:border-neutral-800 shadow-xl
-        rounded-2xl p-5 sm:p-6 max-w-xl w-full
-        transition-colors
-        group-hover:shadow-2xl
-        flex gap-6 relative z-20
-        ${align === "left" ? "md:ml-[48px]" : "md:mr-[48px]"}
+        bg-white dark:bg-gray-800
+        border border-gray-200 dark:border-gray-700 
+        rounded-xl p-6 max-w-md w-full
+        shadow-lg hover:shadow-xl
+        transition-all duration-300
+        relative z-20
       `}
     >
-      <img
-        src={exp.logo}
-        alt={exp.company}
-        className="w-14 h-14 rounded-xl object-cover border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-md shrink-0"
-      />
-      <div className="flex flex-col">
-        <span className="font-semibold text-neutral-800 dark:text-white text-lg">{exp.company}</span>
-        <span className="text-sky-700 dark:text-sky-300 text-base font-medium">{exp.position}</span>
-        <span className="mt-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-          {formatDate(exp.start)}
-          {" – "}
-          {exp.present ? (
-            <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
-          ) : (
-            formatDate(exp.end)
-          )}
-        </span>
-        <span className="mt-2 text-[0.97rem] text-neutral-600 dark:text-neutral-300">{exp.description}</span>
+      <div className="flex items-start gap-4">
+        <img
+          src={exp.logo}
+          alt={exp.company}
+          className="w-12 h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm shrink-0"
+        />
+        <div className="flex flex-col flex-1">
+          <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{exp.company}</h3>
+          <p className="text-sky-600 dark:text-sky-400 text-base font-medium">{exp.position}</p>
+          <p className="mt-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+            {formatDate(exp.start)}
+            {" – "}
+            {exp.present ? (
+              <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+            ) : (
+              formatDate(exp.end)
+            )}
+          </p>
+          <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{exp.description}</p>
+        </div>
       </div>
     </div>
   </div>
 );
 
-// Responsive and alternate-aligned time-line
+// Main Experience component
 const Experience: React.FC = () => {
-  // Split into two columns
-  const leftExperiences = experienceData.filter((_, i) => i % 2 === 0);
-  const rightExperiences = experienceData.filter((_, i) => i % 2 === 1);
-  const maxRows = Math.max(leftExperiences.length, rightExperiences.length);
-
-  // Ensure both columns have equal "height" for connector symmetry
-  const fillEmpty = (arr: typeof experienceData, max: number) =>
-    arr.concat(Array(max - arr.length).fill(null));
-
-  const left = fillEmpty(leftExperiences, maxRows);
-  const right = fillEmpty(rightExperiences, maxRows);
-
   return (
-    <section id="experience" className="relative z-10 w-full px-2 py-24 bg-transparent">
-      <h2 className="text-center font-bold text-2xl sm:text-4xl tracking-tight mb-16 text-neutral-900 dark:text-white">
-        <span className="inline-block bg-gradient-to-r from-sky-800/90 via-sky-500/80 to-blue-600/70 bg-clip-text text-transparent dark:from-sky-400/80 dark:via-blue-400/60 dark:to-sky-600/50">
+    <section id="experience" className="relative z-10 w-full px-4 py-24 bg-transparent">
+      <h2 className="text-center font-bold text-3xl sm:text-4xl tracking-tight mb-16 text-gray-900 dark:text-white">
+        <span className="inline-block bg-gradient-to-r from-sky-600 via-sky-500 to-blue-600 bg-clip-text text-transparent dark:from-sky-400 dark:via-sky-300 dark:to-blue-400">
           Work Experience
         </span>
       </h2>
-      <div className="max-w-5xl mx-auto px-2 md:px-0 grid grid-cols-1 md:grid-cols-2 md:gap-0 gap-10 relative">
-        {/* Timeline line - desktop */}
-        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-neutral-200 dark:bg-neutral-800 z-0"></div>
-        {/* Left side */}
-        <div className="flex flex-col gap-24 md:pr-6">
-          {left.map((exp, idx) =>
-            exp ? (
-              <ExperienceCard
-                exp={exp}
-                align="left"
-                isLast={idx === maxRows - 1 && right[maxRows - 1] === null}
-                key={idx}
-              />
-            ) : (
-              // Fill for symmetry if needed
-              <div key={idx} className="hidden md:block h-[140px]" />
-            )
-          )}
+
+      <div className="max-w-6xl mx-auto relative">
+        {/* Central timeline line for desktop */}
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600 transform -translate-x-px"></div>
+
+        {/* Desktop layout */}
+        <div className="hidden md:block space-y-12">
+          {experienceData.map((exp, idx) => (
+            <ExperienceCard
+              key={idx}
+              exp={exp}
+              align={idx % 2 === 0 ? "left" : "right"}
+              isLast={idx === experienceData.length - 1}
+            />
+          ))}
         </div>
-        {/* Right side */}
-        <div className="flex flex-col gap-24 md:pl-6">
-          {right.map((exp, idx) =>
-            exp ? (
-              <ExperienceCard
-                exp={exp}
-                align="right"
-                isLast={idx === maxRows - 1 && left[maxRows - 1] === null}
-                key={idx}
-              />
-            ) : (
-              // Fill for symmetry if needed
-              <div key={idx} className="hidden md:block h-[140px]" />
-            )
-          )}
+
+        {/* Mobile layout */}
+        <div className="md:hidden space-y-8 relative">
+          {/* Mobile timeline line */}
+          <div className="absolute left-6 top-6 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
+          
+          {experienceData.map((exp, idx) => (
+            <div key={idx} className="relative flex items-start">
+              {/* Mobile timeline dot */}
+              <div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-4 border-white dark:border-gray-900 shadow-lg transform -translate-x-1/2 z-10"></div>
+              
+              <div className="ml-12 w-full">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-lg">
+                  <div className="flex items-start gap-4">
+                    <img
+                      src={exp.logo}
+                      alt={exp.company}
+                      className="w-12 h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm shrink-0"
+                    />
+                    <div className="flex flex-col flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{exp.company}</h3>
+                      <p className="text-sky-600 dark:text-sky-400 text-base font-medium">{exp.position}</p>
+                      <p className="mt-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        {formatDate(exp.start)}
+                        {" – "}
+                        {exp.present ? (
+                          <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                        ) : (
+                          formatDate(exp.end)
+                        )}
+                      </p>
+                      <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{exp.description}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        {/* Timeline line mobile */}
-        <div className="md:hidden absolute left-6 top-0 bottom-0 w-0.5 bg-neutral-200 dark:bg-neutral-800 z-0" />
-      </div>
-      {/* For mobile, render a vertical stack with timeline dots/lines */}
-      <div className="md:hidden max-w-2xl mx-auto mt-12 flex flex-col gap-14 relative z-10">
-        {experienceData.map((exp, idx) => (
-          <div className="relative flex items-start" key={idx}>
-            <div className="flex flex-col items-center mr-4">
-              {/* Timeline dot */}
-              <span className="w-4 h-4 mt-2 rounded-full bg-sky-500 border-4 border-white dark:border-[#151719] shadow-md"></span>
-              {/* Timeline line */}
-              {idx !== experienceData.length - 1 && (
-                <span className="flex-1 w-[2px] bg-gradient-to-b from-sky-500/80 to-transparent dark:from-sky-400/60 dark:to-transparent" style={{ minHeight: 60 }} />
-              )}
-            </div>
-            <div className="flex-1">
-              <ExperienceCard exp={exp} align="left" isLast={idx === experienceData.length - 1} />
-            </div>
-          </div>
-        ))}
       </div>
     </section>
   );
 };
 
 export default Experience;
-
