@@ -36,7 +36,6 @@ const Header = () => {
     }
     setIsMenuOpen(false);
   };
-
   const navItems = [
     { name: 'Home', href: 'home' },
     { name: 'Experience', href: 'experience' },
@@ -71,10 +70,10 @@ const Header = () => {
           <div className="flex-shrink-0 flex items-center">
             <button 
               onClick={() => scrollToSection('home')}
-              className="text-2xl font-bold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-300 transition-all duration-300 relative group cursor-pointer"
+              className="text-2xl font-bold text-gray-900 dark:text-white hover:text-teal-500 dark:hover:text-teal-300 transition-all duration-300 relative group cursor-pointer"
             >
               <span className="relative z-10">Devanshu</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-blue-500 rounded-lg blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </button>
           </div>
 
@@ -85,7 +84,7 @@ const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 relative group cursor-pointer"
+                  className="text-gray-700 dark:text-gray-300 hover:text-teal-500 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 relative group cursor-pointer"
                 >
                   <span className="relative z-10">{item.name}</span>
                   <div className="absolute inset-0 bg-white/10 dark:bg-white/5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
@@ -96,7 +95,7 @@ const Header = () => {
             {/* Dark/Light Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300"
+              className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-teal-500 dark:hover:text-teal-300"
             >
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -112,7 +111,7 @@ const Header = () => {
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-400 hover:text-purple-600 dark:hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-400 hover:text-teal-500 dark:hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-200"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -126,7 +125,7 @@ const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 w-full text-left hover:bg-white/10 dark:hover:bg-white/10"
+                  className="text-gray-700 dark:text-gray-300 hover:text-teal-500 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 w-full text-left hover:bg-white/10 dark:hover:bg-white/10"
                 >
                   {item.name}
                 </button>
@@ -140,4 +139,3 @@ const Header = () => {
 };
 
 export default Header;
-

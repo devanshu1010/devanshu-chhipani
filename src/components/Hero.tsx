@@ -18,7 +18,7 @@ const Hero = () => {
         <div className="animate-fade-in">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
             Hi, I'm{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-500 via-sky-500 to-blue-500 dark:from-teal-400 dark:via-sky-400 dark:to-blue-400 bg-clip-text text-transparent bg-[size:200%_auto] animate-gradient-anim">
               Er. Devanshu Chhipani
             </span>
           </h1>
@@ -30,7 +30,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <button 
               onClick={() => scrollToSection('experience')}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-500 dark:to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform duration-200 shadow-lg hover:shadow-purple-500/25"
+              className="bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-500 dark:to-blue-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform duration-200 shadow-lg hover:shadow-teal-500/25"
             >
               View My Work
             </button>
