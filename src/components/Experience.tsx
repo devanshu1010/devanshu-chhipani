@@ -82,7 +82,7 @@ const ExperienceCard: React.FC<{
 
     <div
       className={`
-        bg-white dark:bg-gray-800
+        bg-white dark:bg-zinc-900
         border border-gray-200 dark:border-gray-700 
         rounded-xl p-6 max-w-md w-full
         shadow-lg hover:shadow-xl
