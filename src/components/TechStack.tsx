@@ -1,4 +1,3 @@
-
 const TechStack = () => {
   const techCategories = [
     {
@@ -27,11 +26,12 @@ const TechStack = () => {
             <div
               key={index}
               className={`
-                bg-white/80
-                dark:bg-white/5
+                bg-white dark:bg-white/5
                 backdrop-blur-lg rounded-lg p-6
-                border border-gray-300 dark:border-white/10
-                hover:border-sky-500/30 transition-all duration-300 hover:shadow-lg dark:hover:shadow-sky-500/10
+                border border-gray-200 dark:border-white/10
+                hover:border-sky-300 dark:hover:border-sky-500/30
+                transition-all duration-300
+                shadow-md hover:shadow-lg hover:shadow-sky-100/30 dark:hover:shadow-sky-500/10
               `}
               style={{ boxShadow: "0 4px 32px 0 rgba(175, 192, 255, 0.06)" }}
             >
@@ -41,13 +41,11 @@ const TechStack = () => {
                   <div
                     key={techIndex}
                     className={`
-                      bg-gradient-to-r 
-                      from-sky-100/60 to-blue-100/60 
-                      dark:from-sky-500/10 dark:to-blue-500/10
-                      text-gray-800 dark:text-white
+                      bg-sky-100 text-sky-800 
+                      dark:bg-sky-500/10 dark:text-white
                       px-4 py-2 rounded-lg text-center 
-                      border border-sky-200/50 dark:border-sky-500/20 
-                      hover:border-sky-400/40 transition-colors
+                      border border-sky-200 dark:border-sky-500/20 
+                      hover:border-sky-400 transition-colors
                     `}
                   >
                     {tech}
