@@ -24,8 +24,8 @@ const Index = () => {
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(40,40,40,.08)_50%,transparent_75%,transparent),linear-gradient(-45deg,transparent_25%,rgba(40,40,40,.06)_50%,transparent_75%,transparent)] bg-[length:20px_20px] pointer-events-none"></div>
 
         {/* Animated gradient orbs, now more subtle on black */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-teal-900/25 to-sky-900/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-900/25 to-teal-900/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-sky-900/25 to-blue-900/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-900/25 to-sky-900/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         <Header />
         <Hero />
@@ -37,5 +37,4 @@ const Index = () => {
     </div>
   );
 };
-
 export default Index;

@@ -26,14 +26,14 @@ const TechStack = () => {
           {techCategories.map((category, index) => (
             <div
               key={index}
-              className="bg-white/50 dark:bg-white/5 backdrop-blur-lg rounded-lg p-6 border border-gray-200 dark:border-white/10 hover:border-teal-500/30 transition-all duration-300 hover:shadow-lg dark:hover:shadow-teal-500/10"
+              className="bg-white/50 dark:bg-white/5 backdrop-blur-lg rounded-lg p-6 border border-gray-200 dark:border-white/10 hover:border-sky-500/30 transition-all duration-300 hover:shadow-lg dark:hover:shadow-sky-500/10"
             >
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 text-center">{category.category}</h3>
               <div className="space-y-3">
                 {category.technologies.map((tech, techIndex) => (
                   <div
                     key={techIndex}
-                    className="bg-gradient-to-r from-teal-500/10 to-sky-500/10 text-gray-800 dark:text-white px-4 py-2 rounded-lg text-center border border-teal-500/20 hover:border-teal-400/40 transition-colors"
+                    className="bg-gradient-to-r from-sky-500/10 to-blue-500/10 text-gray-800 dark:text-white px-4 py-2 rounded-lg text-center border border-sky-500/20 hover:border-sky-400/40 transition-colors"
                   >
                     {tech}
                   </div>

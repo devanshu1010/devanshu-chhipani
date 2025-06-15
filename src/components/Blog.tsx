@@ -35,17 +35,17 @@ const Blog = () => {
           {blogPosts.map((post, index) => (
             <article
               key={index}
-              className="bg-white/5 backdrop-blur-lg rounded-lg overflow-hidden border border-white/10 hover:border-teal-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10 group cursor-pointer"
+              className="bg-white/5 backdrop-blur-lg rounded-lg overflow-hidden border border-white/10 hover:border-sky-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/10 group cursor-pointer"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="bg-teal-500/20 text-teal-300 px-2 py-1 rounded text-sm border border-teal-500/30">
+                  <span className="bg-sky-500/20 text-sky-300 px-2 py-1 rounded text-sm border border-sky-500/30">
                     {post.category}
                   </span>
                   <span className="text-gray-400 text-sm">{post.readTime}</span>
                 </div>
                 
-                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-teal-300 transition-colors">
+                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-sky-300 transition-colors">
                   {post.title}
                 </h3>
                 
@@ -53,7 +53,7 @@ const Blog = () => {
                 
                 <div className="flex items-center justify-between">
                   <span className="text-gray-400 text-sm">{post.date}</span>
-                  <span className="text-teal-300 text-sm hover:text-teal-200 transition-colors">
+                  <span className="text-sky-300 text-sm hover:text-sky-200 transition-colors">
                     Read more →
                   </span>
                 </div>
