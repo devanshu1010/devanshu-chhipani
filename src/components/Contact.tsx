@@ -22,8 +22,8 @@ const Contact = () => {
             
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <div className="bg-purple-500/20 p-3 rounded-lg border border-purple-500/30">
-                  <Mail className="text-purple-300" size={20} />
+                <div className="bg-teal-500/20 p-3 rounded-lg border border-teal-500/30">
+                  <Mail className="text-teal-300" size={20} />
                 </div>
                 <div>
                   <p className="text-white font-medium">Email</p>
@@ -32,8 +32,8 @@ const Contact = () => {
               </div>
               
               <div className="flex items-center space-x-4">
-                <div className="bg-purple-500/20 p-3 rounded-lg border border-purple-500/30">
-                  <Phone className="text-purple-300" size={20} />
+                <div className="bg-teal-500/20 p-3 rounded-lg border border-teal-500/30">
+                  <Phone className="text-teal-300" size={20} />
                 </div>
                 <div>
                   <p className="text-white font-medium">Phone</p>
@@ -42,8 +42,8 @@ const Contact = () => {
               </div>
               
               <div className="flex items-center space-x-4">
-                <div className="bg-purple-500/20 p-3 rounded-lg border border-purple-500/30">
-                  <MapPin className="text-purple-300" size={20} />
+                <div className="bg-teal-500/20 p-3 rounded-lg border border-teal-500/30">
+                  <MapPin className="text-teal-300" size={20} />
                 </div>
                 <div>
                   <p className="text-white font-medium">Location</p>
@@ -63,7 +63,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:outline-none transition-colors"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-teal-400 focus:outline-none transition-colors"
                   placeholder="Your Name"
                 />
               </div>
@@ -75,7 +75,7 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:outline-none transition-colors"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-teal-400 focus:outline-none transition-colors"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -87,14 +87,14 @@ const Contact = () => {
                 <textarea
                   id="message"
                   rows={5}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-purple-400 focus:outline-none transition-colors resize-none"
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-teal-400 focus:outline-none transition-colors resize-none"
                   placeholder="Your message..."
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg hover:shadow-purple-500/25"
+                className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg hover:shadow-teal-500/25"
               >
                 Send Message
               </button>

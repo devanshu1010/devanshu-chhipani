@@ -35,12 +35,12 @@ const Experience = () => {
           {experiences.map((exp, index) => (
             <div
               key={index}
-              className="bg-white/5 backdrop-blur-lg rounded-lg p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+              className="bg-white/5 backdrop-blur-lg rounded-lg p-6 border border-white/10 hover:border-teal-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10"
             >
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-1">{exp.position}</h3>
-                  <p className="text-purple-300 font-medium">{exp.company}</p>
+                  <p className="text-teal-300 font-medium">{exp.company}</p>
                 </div>
                 <span className="text-gray-400 text-sm lg:text-base mt-2 lg:mt-0">{exp.duration}</span>
               </div>
@@ -51,7 +51,7 @@ const Experience = () => {
                 {exp.technologies.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30"
+                    className="bg-teal-500/20 text-teal-300 px-3 py-1 rounded-full text-sm border border-teal-500/30"
                   >
                     {tech}
                   </span>
