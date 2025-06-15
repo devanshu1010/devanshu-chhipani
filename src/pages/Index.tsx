@@ -17,16 +17,38 @@ const Index = () => {
   }, []);
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-neutral-900 to-black transition-all duration-500">
+    <div className={`
+      min-h-screen 
+      transition-all duration-500
+      bg-gradient-to-br
+      from-white via-neutral-100 to-white
+      dark:from-black dark:via-neutral-900 dark:to-black
+    `}>
       <div className="relative">
         {/* Background Pattern */}
-        {/* Less visible on true black, kept for subtlety */}
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(40,40,40,.08)_50%,transparent_75%,transparent),linear-gradient(-45deg,transparent_25%,rgba(40,40,40,.06)_50%,transparent_75%,transparent)] bg-[length:20px_20px] pointer-events-none"></div>
+        <div className={`
+          absolute inset-0 
+          bg-[linear-gradient(45deg,transparent_25%,rgba(200,200,200,.08)_50%,transparent_75%,transparent),linear-gradient(-45deg,transparent_25%,rgba(180,180,180,.07)_50%,transparent_75%,transparent)]
+          dark:bg-[linear-gradient(45deg,transparent_25%,rgba(40,40,40,.08)_50%,transparent_75%,transparent),linear-gradient(-45deg,transparent_25%,rgba(40,40,40,.06)_50%,transparent_75%,transparent)]
+          bg-[length:20px_20px] pointer-events-none
+        `}></div>
 
-        {/* Animated gradient orbs, now more subtle on black */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-sky-900/25 to-blue-900/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-900/25 to-sky-900/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        
+        {/* Animated gradient orbs */}
+        <div className={`
+          absolute top-0 left-1/4 w-96 h-96
+          bg-gradient-to-r
+          from-sky-200/40 to-blue-200/30
+          dark:from-sky-900/25 dark:to-blue-900/20
+          rounded-full blur-3xl animate-pulse
+        `}></div>
+        <div className={`
+          absolute bottom-0 right-1/4 w-96 h-96
+          bg-gradient-to-r
+          from-blue-200/40 to-sky-200/30
+          dark:from-blue-900/25 dark:to-sky-900/20
+          rounded-full blur-3xl animate-pulse delay-1000
+        `}></div>
+
         <Header />
         <Hero />
         <Experience />
