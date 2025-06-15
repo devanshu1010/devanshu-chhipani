@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
@@ -47,19 +46,29 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/10 dark:bg-black/20 backdrop-blur-lg border-b border-white/20 dark:border-white/10 shadow-lg' 
-        : 'bg-transparent'
-    }`}>
-      {/* Glowing effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10 opacity-50"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
-      
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex items-center justify-between h-16">
+    <div className="fixed top-6 left-0 w-full z-50 flex justify-center pointer-events-none">
+      <header
+        className={`pointer-events-auto transition-all duration-300
+          ${isScrolled
+            ? "shadow-2xl"
+            : "shadow-lg"}
+        `}
+        style={{ width: '100%', maxWidth: '900px' }}
+      >
+        <nav
+          className={`
+            mx-auto relative flex items-center justify-between gap-4
+            px-6 py-3 sm:px-8
+            rounded-2xl
+            border border-white/20 dark:border-white/10
+            bg-white/70 dark:bg-black/60
+            backdrop-blur-lg
+            shadow-lg
+            ${isScrolled ? "border-opacity-60" : "border-opacity-40"}
+            `}
+        >
           {/* Logo with glow */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex items-center">
             <button 
               onClick={() => scrollToSection('home')}
               className="text-2xl font-bold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-300 transition-all duration-300 relative group cursor-pointer"
@@ -108,17 +117,16 @@ const Header = () => {
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-        </div>
-
+        </nav>
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden animate-fade-in">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white/10 dark:bg-black/30 backdrop-blur-lg rounded-lg mt-2 border border-white/20 dark:border-white/10">
+          <div className="md:hidden animate-fade-in px-3 pt-2">
+            <div className="pt-2 pb-3 space-y-1 bg-white/70 dark:bg-black/70 backdrop-blur-lg rounded-xl border border-white/15 mt-2">
               {navItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 w-full text-left hover:bg-white/10 dark:hover:bg-white/5"
+                  className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 w-full text-left hover:bg-white/10 dark:hover:bg-white/10"
                 >
                   {item.name}
                 </button>
@@ -126,9 +134,10 @@ const Header = () => {
             </div>
           </div>
         )}
-      </nav>
-    </header>
+      </header>
+    </div>
   );
 };
 
 export default Header;
+
