@@ -8,8 +8,8 @@ const experienceData = [
     position: "Mid-level Frontend Engineer",
     logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=128&q=80",
     start: "Nov 25, 2024",
-    end: "Jan 8, 2025",
-    present: false,
+    end: "",
+    present: true,
     description:
       "Developed & maintained dynamic, user-centric web apps for top organizations and government agencies.",
   },
@@ -18,8 +18,8 @@ const experienceData = [
     position: "Frontend Developer",
     logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=128&q=80",
     start: "Sep 11, 2024",
-    end: "",
-    present: true,
+    end: "Jan 8, 2025",
+    present: false,
     description:
       "Built fintech dashboards, integrated APIs, and optimized for user experience and compliance.",
   },
@@ -59,7 +59,6 @@ function formatDate(str: string) {
     .replace(/,/g, "");
 }
 
-// The card component for each experience item
 const ExperienceCard: React.FC<{
   exp: typeof experienceData[number];
   align: "left" | "right";
@@ -77,7 +76,7 @@ const ExperienceCard: React.FC<{
       <div className="w-4 h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
       {/* Timeline line */}
       {!isLast && (
-        <div className="w-0.5 bg-gray-300 dark:bg-gray-600 flex-1" style={{ minHeight: "120px" }}></div>
+        <div className="w-0.5 bg-gray-300 dark:bg-gray-600 flex-1" style={{ minHeight: "80px" }}></div>
       )}
     </div>
 
@@ -131,7 +130,7 @@ const Experience: React.FC = () => {
         <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600 transform -translate-x-px"></div>
 
         {/* Desktop layout */}
-        <div className="hidden md:block space-y-12">
+        <div className="hidden md:block space-y-8">
           {experienceData.map((exp, idx) => (
             <ExperienceCard
               key={idx}
@@ -143,7 +142,7 @@ const Experience: React.FC = () => {
         </div>
 
         {/* Mobile layout */}
-        <div className="md:hidden space-y-8 relative">
+        <div className="md:hidden space-y-6 relative">
           {/* Mobile timeline line */}
           <div className="absolute left-6 top-6 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
           
