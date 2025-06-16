@@ -101,6 +101,11 @@ export default {
 					'50%': { 'background-position': '100% 50%' },
 					'100%': { 'background-position': '0% 50%' },
 				},
+				'width-grow': {
+					'0%': { 'width': '0%' },
+					'50%': { 'width': '100%' },
+					'100%': { 'width': '0%' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',

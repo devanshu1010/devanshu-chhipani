@@ -5,6 +5,8 @@ import Experience from '../components/Experience';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TechStack from '../components/TechStack';
+import FloatingSocial from '../components/FloatingSocial';
+import FloatingEmail from '../components/FloatingEmail';
 
 const Index = () => {
   useEffect(() => {
@@ -50,6 +52,10 @@ const Index = () => {
           dark:from-blue-900/25 dark:to-sky-900/20
           rounded-full blur-3xl animate-pulse delay-1000
         `}></div>
+
+        {/* Floating components */}
+        <FloatingSocial />
+        <FloatingEmail />
 
         <Header />
         <Hero />
