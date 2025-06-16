@@ -1,4 +1,3 @@
-
 import React from "react";
 
 // Dummy logo images (replace or update as needed)
@@ -64,41 +63,39 @@ const ExperienceCard: React.FC<{
   align: "left" | "right";
   isLast: boolean;
 }> = ({ exp, align, isLast }) => (
-  <div className={`relative w-full flex ${align === "left" ? "justify-end pr-8" : "justify-start pl-8"} group`}>
+  <div className={`relative w-full flex ${align === "left" ? "justify-end sm:pr-4 md:pr-8" : "justify-start sm:pl-4 md:pl-8"} group`}>
     {/* Timeline connector for desktop */}
     <div
       className={`
         absolute top-6 z-10 hidden md:flex flex-col items-center
-        ${align === "left" ? "right-0" : "left-0"}
+        ${align === "left" ? "ml-8 md:ml-16 left-1/2" : "left-0"}
       `}
     >
       {/* Timeline dot */}
-      <div className="w-4 h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
+      <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-2 sm:border-4 border-white dark:border-gray-900 shadow-lg"></div>
       {/* Timeline line */}
-      {!isLast && (
-        <div className="w-0.5 bg-gray-300 dark:bg-gray-600 flex-1" style={{ minHeight: "80px" }}></div>
-      )}
+      <div className="w-0.5 bg-gray-300 dark:bg-gray-600 flex-1" style={{ minHeight: "80px" }}></div>
     </div>
 
     <div
       className={`
         bg-white dark:bg-zinc-900
         border border-gray-200 dark:border-gray-700 
-        rounded-xl p-6 max-w-md w-full
+        rounded-xl p-4 sm:p-6 max-w-[90%] sm:max-w-md w-full
         shadow-lg hover:shadow-xl
         transition-all duration-300
         relative z-20
       `}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3 sm:gap-4">
         <img
           src={exp.logo}
           alt={exp.company}
-          className="w-12 h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm shrink-0"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm shrink-0"
         />
         <div className="flex flex-col flex-1">
-          <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{exp.company}</h3>
-          <p className="text-sky-600 dark:text-sky-400 text-base font-medium">{exp.position}</p>
+          <h3 className="font-semibold text-gray-900 dark:text-white text-base sm:text-lg">{exp.company}</h3>
+          <p className="text-sky-600 dark:text-sky-400 text-sm sm:text-base font-medium">{exp.position}</p>
           <p className="mt-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
             {formatDate(exp.start)}
             {" – "}
@@ -108,7 +105,7 @@ const ExperienceCard: React.FC<{
               formatDate(exp.end)
             )}
           </p>
-          <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{exp.description}</p>
+          <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{exp.description}</p>
         </div>
       </div>
     </div>
@@ -118,8 +115,8 @@ const ExperienceCard: React.FC<{
 // Main Experience component
 const Experience: React.FC = () => {
   return (
-    <section id="experience" className="relative z-10 w-full px-4 py-24 bg-transparent">
-      <h2 className="text-center font-bold text-3xl sm:text-4xl tracking-tight mb-16 text-gray-900 dark:text-white">
+    <section id="experience" className="relative z-10 w-full px-2 sm:px-4 py-12 sm:py-24 bg-transparent">
+      <h2 className="text-center font-bold text-2xl sm:text-3xl md:text-4xl tracking-tight mb-8 sm:mb-16 text-gray-900 dark:text-white">
         <span className="inline-block bg-gradient-to-r from-sky-600 via-sky-500 to-blue-600 bg-clip-text text-transparent dark:from-sky-400 dark:via-sky-300 dark:to-blue-400">
           Work Experience
         </span>
@@ -130,38 +127,38 @@ const Experience: React.FC = () => {
         <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600 transform -translate-x-px"></div>
 
         {/* Desktop layout */}
-        <div className="hidden md:block space-y-8">
+        <div className="hidden md:block space-y-6 sm:space-y-8">
           {experienceData.map((exp, idx) => (
             <ExperienceCard
               key={idx}
               exp={exp}
-              align={idx % 2 === 0 ? "left" : "right"}
+              align={idx % 2 === 0 ? "right" : "left"}
               isLast={idx === experienceData.length - 1}
             />
           ))}
         </div>
 
         {/* Mobile layout */}
-        <div className="md:hidden space-y-6 relative">
+        <div className="md:hidden space-y-4 sm:space-y-6 relative">
           {/* Mobile timeline line */}
-          <div className="absolute left-6 top-6 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
+          <div className="absolute left-4 sm:left-6 top-6 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
           
           {experienceData.map((exp, idx) => (
             <div key={idx} className="relative flex items-start">
               {/* Mobile timeline dot */}
-              <div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-4 border-white dark:border-gray-900 shadow-lg transform -translate-x-1/2 z-10"></div>
+              <div className="absolute left-4 sm:left-6 top-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-sky-500 dark:bg-sky-400 border-2 sm:border-4 border-white dark:border-gray-900 shadow-lg transform -translate-x-1/2 z-10"></div>
               
-              <div className="ml-12 w-full">
-                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-lg">
-                  <div className="flex items-start gap-4">
+              <div className="ml-8 sm:ml-12 w-full">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg">
+                  <div className="flex items-start gap-3 sm:gap-4">
                     <img
                       src={exp.logo}
                       alt={exp.company}
-                      className="w-12 h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm shrink-0"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm shrink-0"
                     />
                     <div className="flex flex-col flex-1">
-                      <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{exp.company}</h3>
-                      <p className="text-sky-600 dark:text-sky-400 text-base font-medium">{exp.position}</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-white text-base sm:text-lg">{exp.company}</h3>
+                      <p className="text-sky-600 dark:text-sky-400 text-sm sm:text-base font-medium">{exp.position}</p>
                       <p className="mt-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                         {formatDate(exp.start)}
                         {" – "}
@@ -171,7 +168,7 @@ const Experience: React.FC = () => {
                           formatDate(exp.end)
                         )}
                       </p>
-                      <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{exp.description}</p>
+                      <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{exp.description}</p>
                     </div>
                   </div>
                 </div>
