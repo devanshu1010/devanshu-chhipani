@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { ChevronDown, ChevronUp, ExternalLink, Calendar } from 'lucide-react';
+import { ChevronDown, ChevronUp, Calendar } from 'lucide-react';
 
 // Enhanced experience data with more details
 const experienceData = [
@@ -95,14 +95,14 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
   return (
     <div className="relative group">
       {/* Timeline connector */}
-      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
+      <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
       
       {/* Timeline dot */}
-      <div className="absolute left-0 top-8 w-3 h-3 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-gray-900 shadow-lg"></div>
+      <div className="absolute left-6 top-8 w-3 h-3 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-black shadow-lg"></div>
       
       {/* Card */}
-      <div className="ml-8 pb-12">
-        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+      <div className="ml-16 pb-12">
+        <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
           {/* Header */}
           <div className="flex items-start gap-4 mb-4">
             <div className="relative flex-shrink-0">
@@ -186,7 +186,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-gray-950/50">
+    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50 dark:bg-black/50">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">

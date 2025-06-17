@@ -41,7 +41,7 @@ const Index = () => {
       transition-all duration-500
       bg-gradient-to-br
       from-white via-slate-50 to-white
-      dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
+      dark:from-black dark:via-slate-900 dark:to-black
       scroll-smooth
     `}>
       <div className="relative">

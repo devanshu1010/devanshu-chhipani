@@ -1,5 +1,5 @@
 
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const Hero = () => {
@@ -27,7 +27,7 @@ const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30">
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50/30 dark:from-black dark:via-gray-900 dark:to-blue-950/30">
         {/* Floating geometric shapes */}
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 dark:from-blue-500/10 dark:to-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 dark:from-cyan-500/10 dark:to-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -48,30 +48,34 @@ const Hero = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 shadow-lg">
             <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Available for new opportunities</span>
           </div>
 
           {/* Main heading */}
           <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <Sparkles className="w-6 h-6 text-blue-500 animate-pulse" />
+              <span className="text-lg font-medium text-gray-600 dark:text-gray-400">Hello, I'm</span>
+            </div>
+            
             <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight">
-              <span className="block text-gray-900 dark:text-white mb-2">
-                Hi, I'm
-              </span>
               <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-blue-400 dark:via-purple-400 dark:to-cyan-400 bg-clip-text text-transparent animate-gradient-x">
-                Devanshu
-              </span>
-              <span className="block text-gray-900 dark:text-white">
-                Chhipani
+                Devanshu Chhipani
               </span>
             </h1>
             
-            <p className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed font-light">
-              A passionate{' '}
-              <span className="font-semibold text-gray-900 dark:text-white">full-stack developer</span>
-              {' '}creating beautiful, functional, and user-centered digital experiences.
-            </p>
+            <div className="space-y-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-white">
+                Full-Stack Developer
+              </h2>
+              
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                I craft beautiful, functional, and user-centered digital experiences. 
+                Passionate about creating solutions that make a difference.
+              </p>
+            </div>
           </div>
 
           {/* CTA Buttons */}
@@ -86,7 +90,7 @@ const Hero = () => {
               </span>
             </button>
             
-            <button className="px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white rounded-2xl font-semibold text-lg hover:bg-white dark:hover:bg-gray-900 transition-all duration-300 hover:scale-105 active:scale-95">
+            <button className="px-8 py-4 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 text-gray-900 dark:text-white rounded-2xl font-semibold text-lg hover:bg-white dark:hover:bg-gray-900 transition-all duration-300 hover:scale-105 active:scale-95">
               Download CV
             </button>
           </div>
@@ -101,7 +105,7 @@ const Hero = () => {
               <a
                 key={label}
                 href={href}
-                className="p-3 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="p-3 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
                 aria-label={label}
               >
                 <Icon className="w-5 h-5" />
@@ -115,7 +119,7 @@ const Hero = () => {
           onClick={() => scrollToSection('experience')}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer group"
         >
-          <div className="p-2 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 group-hover:scale-110 transition-transform">
+          <div className="p-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 group-hover:scale-110 transition-transform">
             <ArrowDown className="text-gray-600 dark:text-gray-400 w-6 h-6" />
           </div>
         </button>
