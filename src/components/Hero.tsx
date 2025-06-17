@@ -19,7 +19,7 @@ const Hero = () => {
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
             Hi, I'm{' '}
             <span className="bg-gradient-to-r from-sky-500 to-blue-500 dark:from-sky-400 dark:to-blue-400 bg-clip-text text-transparent bg-[size:200%_auto] animate-gradient-anim">
-              Er. Devanshu Chhipani
+              Devanshu Chhipani
             </span>
           </h1>
           
