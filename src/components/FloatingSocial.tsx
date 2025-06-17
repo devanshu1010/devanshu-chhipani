@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
@@ -30,9 +31,9 @@ const socialLinks = [
 
 const FloatingSocial: React.FC = () => {
   return (
-    <div className="fixed left-8 bottom-0 z-40 hidden lg:flex flex-col items-center">
+    <div className="fixed left-4 lg:left-8 bottom-0 z-40 hidden lg:flex flex-col items-center">
       {/* Social icons */}
-      <div className="flex flex-col space-y-6 mb-8">
+      <div className="flex flex-col space-y-4 lg:space-y-6 mb-6 lg:mb-8">
         {socialLinks.map((social) => {
           const IconComponent = social.icon;
           return (
@@ -44,14 +45,14 @@ const FloatingSocial: React.FC = () => {
               className={`text-gray-500 dark:text-gray-400 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${social.color}`}
               aria-label={social.name}
             >
-              <IconComponent size={20} />
+              <IconComponent size={18} className="lg:w-5 lg:h-5" />
             </a>
           );
         })}
       </div>
       
       {/* Vertical line */}
-      <div className="w-px h-24 bg-gray-300 dark:bg-gray-600"></div>
+      <div className="w-px h-20 lg:h-24 bg-gray-300 dark:bg-gray-600"></div>
     </div>
   );
 };

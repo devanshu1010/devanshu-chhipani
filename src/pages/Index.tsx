@@ -36,40 +36,14 @@ const Index = () => {
   }
   
   return (
-    <div className={`
-      min-h-screen 
-      transition-all duration-500
-      bg-gradient-to-br
-      from-white via-slate-50 to-white
-      dark:from-black dark:via-slate-900 dark:to-black
-      scroll-smooth
-    `}>
-      <div className="relative">
+    <div className="min-h-screen transition-all duration-500 bg-gradient-to-br from-white via-slate-50 to-white dark:from-black dark:via-slate-900 dark:to-black scroll-smooth overflow-x-hidden">
+      <div className="relative w-full">
         {/* Enhanced background pattern */}
-        <div className={`
-          absolute inset-0 
-          bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.05),transparent_70%),radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.05),transparent_70%)]
-          dark:bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.08),transparent_70%),radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.08),transparent_70%)]
-          pointer-events-none
-        `}></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.05),transparent_70%),radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.05),transparent_70%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.08),transparent_70%),radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.08),transparent_70%)] pointer-events-none"></div>
 
         {/* Animated gradient orbs with enhanced styling */}
-        <div className={`
-          absolute top-0 left-1/4 w-96 h-96
-          bg-gradient-to-r
-          from-sky-200/20 via-blue-200/15 to-transparent
-          dark:from-sky-500/10 dark:via-blue-500/8 dark:to-transparent
-          rounded-full blur-3xl animate-pulse
-          shadow-2xl shadow-sky-500/10
-        `}></div>
-        <div className={`
-          absolute bottom-0 right-1/4 w-96 h-96
-          bg-gradient-to-r
-          from-blue-200/20 via-sky-200/15 to-transparent
-          dark:from-blue-500/10 dark:via-sky-500/8 dark:to-transparent
-          rounded-full blur-3xl animate-pulse delay-1000
-          shadow-2xl shadow-blue-500/10
-        `}></div>
+        <div className="absolute top-0 left-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-gradient-to-r from-sky-200/20 via-blue-200/15 to-transparent dark:from-sky-500/10 dark:via-blue-500/8 dark:to-transparent rounded-full blur-3xl animate-pulse shadow-2xl shadow-sky-500/10"></div>
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-gradient-to-r from-blue-200/20 via-sky-200/15 to-transparent dark:from-blue-500/10 dark:via-sky-500/8 dark:to-transparent rounded-full blur-3xl animate-pulse delay-1000 shadow-2xl shadow-blue-500/10"></div>
 
         {/* Floating components */}
         <FloatingSocial />

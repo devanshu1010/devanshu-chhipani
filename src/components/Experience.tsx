@@ -1,3 +1,4 @@
+
 import React from "react";
 
 // Enhanced experience data with more details
@@ -92,18 +93,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
-    <div className="relative mb-12 sm:mb-16 md:mb-20">
-      {/* Timeline dot and vertical line */}
-      <div className="absolute left-0 top-6 z-10">
-        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-black shadow-lg"></div>
-        <div className="absolute left-1/2 top-3 transform -translate-x-px w-0.5 h-24 sm:h-32 md:h-36 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
-      </div>
-      
-      {/* Card */}
-      <div className="ml-8 sm:ml-10 md:ml-12">
-        <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col">
-          {/* Header Section - Fixed Height */}
-          <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+    <div className="relative mb-8 sm:mb-12 md:mb-16">
+      {/* Card positioned on left or right */}
+      <div className={`w-full ${isRightColumn ? 'md:pl-8 lg:pl-12' : 'md:pr-8 lg:pr-12'} ${isRightColumn ? 'md:text-left' : 'md:text-right'}`}>
+        <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 max-w-md mx-auto md:mx-0">
+          {/* Header Section */}
+          <div className={`flex items-start gap-3 mb-3 ${isRightColumn ? '' : 'md:flex-row-reverse'}`}>
             <div className="relative flex-shrink-0">
               <img
                 src={exp.logo}
@@ -112,9 +107,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
               />
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-0.5 sm:mb-1 truncate">{exp.company}</h3>
-              <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-0.5 sm:mb-1">{exp.position}</p>
+            <div className={`flex-1 min-w-0 ${isRightColumn ? '' : 'md:text-right'}`}>
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1">{exp.company}</h3>
+              <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-1">{exp.position}</p>
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
                 {formatDate(exp.start)} – {exp.present ? (
                   <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
@@ -129,22 +124,35 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
               className={`
                 text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed
                 transition-all duration-300 ease-in-out
-                ${isExpanded ? 'max-h-[500px]' : 'max-h-[80px] sm:max-h-[100px] md:max-h-[120px]'}
+                ${isExpanded ? 'max-h-[500px]' : 'max-h-[80px] sm:max-h-[100px]'}
                 overflow-hidden
+                ${isRightColumn ? '' : 'md:text-right'}
               `}
             >
-              <p className="mb-2">{exp.description}</p>
+              <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
+              {isExpanded && (
+                <div className="mt-3">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Key Achievements:</h4>
+                  <ul className={`space-y-1 text-xs ${isRightColumn ? '' : 'md:text-right'}`}>
+                    {exp.achievements.map((achievement, achIndex) => (
+                      <li key={achIndex} className="text-gray-600 dark:text-gray-400">
+                        • {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             
             {/* Gradient fade effect */}
             {!isExpanded && (
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent pointer-events-none"></div>
             )}
             
             {/* Read more/less button */}
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-1 flex items-center gap-1 transition-colors duration-200"
+              className={`text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-2 flex items-center gap-1 transition-colors duration-200 ${isRightColumn ? '' : 'md:ml-auto'}`}
             >
               {isExpanded ? (
                 <>
@@ -164,13 +172,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             </button>
           </div>
           
-          {/* Technologies Section - Fixed Height */}
-          <div className="mt-3 sm:mt-4">
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
+          {/* Technologies Section */}
+          <div className={`mt-4 ${isRightColumn ? '' : 'md:text-right'}`}>
+            <div className={`flex flex-wrap gap-1.5 ${isRightColumn ? '' : 'md:justify-end'}`}>
               {exp.technologies.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
+                  className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
                 >
                   {tech}
                 </span>
@@ -185,115 +193,132 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
 
 const Experience = () => {
   return (
-    <section id="experience" className="relative py-12 sm:py-16 md:py-24 px-3 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="experience" className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/30 dark:from-gray-900/50 dark:via-black/30 dark:to-gray-900/50"></div>
       
       <div className="relative max-w-6xl mx-auto">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Work{' '}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               Experience
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             My journey through different roles and companies, building experiences that matter.
           </p>
         </div>
 
-        {/* Desktop/Tablet: Ladder Layout */}
-        <div className="hidden md:block">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 relative">
-            {/* Left Column */}
-            <div className="space-y-0">
-              {experienceData.map((exp, index) => {
-                if (index % 2 === 0) {
-                  return (
-                    <ExperienceCard 
-                      key={exp.company} 
-                      exp={exp} 
-                      index={index} 
-                      isRightColumn={false}
-                    />
-                  );
-                }
-                return null;
-              })}
-            </div>
-            
-            {/* Right Column - offset to create ladder effect */}
-            <div className="space-y-0 lg:mt-[148px]">
-              {experienceData.map((exp, index) => {
-                if (index % 2 === 1) {
-                  return (
-                    <ExperienceCard 
-                      key={exp.company} 
-                      exp={exp} 
-                      index={index} 
-                      isRightColumn={true}
-                    />
-                  );
-                }
-                return null;
-              })}
-            </div>
-          </div>
-        </div>
+        {/* Timeline Container */}
+        <div className="relative">
+          {/* Center Timeline Line - Hidden on mobile */}
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
+          
+          {/* Timeline Dots - Hidden on mobile */}
+          {experienceData.map((_, index) => (
+            <div 
+              key={index}
+              className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-black shadow-lg z-10"
+              style={{ top: `${120 + (index * 300)}px` }}
+            ></div>
+          ))}
 
-        {/* Mobile: Single Column */}
-        <div className="md:hidden space-y-6">
-          {experienceData.map((exp, index) => (
-            <div key={exp.company} className="relative">
-              {/* Timeline dot and vertical line */}
-              <div className="absolute left-0 top-6 z-10">
-                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-black shadow-lg"></div>
-                {index < experienceData.length - 1 && (
-                  <div className="absolute left-1/2 top-3 transform -translate-x-px w-0.5 h-32 sm:h-40 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
-                )}
+          {/* Desktop: Two Column Layout */}
+          <div className="hidden md:block">
+            <div className="grid grid-cols-2 gap-8 relative">
+              {/* Left Column */}
+              <div className="space-y-12">
+                {experienceData.map((exp, index) => {
+                  if (index % 2 === 0) {
+                    return (
+                      <div key={exp.company} style={{ marginTop: `${index * 150}px` }}>
+                        <ExperienceCard 
+                          exp={exp} 
+                          index={index} 
+                          isRightColumn={false}
+                        />
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
               </div>
               
-              {/* Card */}
-              <div className="ml-8 sm:ml-10">
-                <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full h-auto min-h-[200px] sm:min-h-[224px] flex flex-col">
-                  <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <div className="relative flex-shrink-0">
-                      <img
-                        src={exp.logo}
-                        alt={exp.company}
-                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover border border-gray-200 dark:border-gray-700"
-                      />
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
+              {/* Right Column */}
+              <div className="space-y-12">
+                {experienceData.map((exp, index) => {
+                  if (index % 2 === 1) {
+                    return (
+                      <div key={exp.company} style={{ marginTop: `${(index - 1) * 150 + 150}px` }}>
+                        <ExperienceCard 
+                          exp={exp} 
+                          index={index} 
+                          isRightColumn={true}
+                        />
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: Single Column */}
+          <div className="md:hidden space-y-8">
+            {experienceData.map((exp, index) => (
+              <div key={exp.company} className="relative">
+                {/* Mobile Timeline */}
+                <div className="absolute left-4 top-6 z-10">
+                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-black shadow-lg"></div>
+                  {index < experienceData.length - 1 && (
+                    <div className="absolute left-1/2 top-3 transform -translate-x-px w-0.5 h-32 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
+                  )}
+                </div>
+                
+                {/* Mobile Card */}
+                <div className="ml-12">
+                  <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="relative flex-shrink-0">
+                        <img
+                          src={exp.logo}
+                          alt={exp.company}
+                          className="w-10 h-10 rounded-xl object-cover border border-gray-200 dark:border-gray-700"
+                        />
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1 truncate">{exp.company}</h3>
+                        <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-1">{exp.position}</p>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
+                          {formatDate(exp.start)} – {exp.present ? (
+                            <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                          ) : formatDate(exp.end)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-0.5 sm:mb-1 truncate">{exp.company}</h3>
-                      <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-0.5 sm:mb-1">{exp.position}</p>
-                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
-                        {formatDate(exp.start)} – {exp.present ? (
-                          <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
-                        ) : formatDate(exp.end)}
-                      </p>
+                    
+                    <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                      {exp.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-1.5">
+                      {exp.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
-                  </div>
-                  
-                  <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-2 sm:mb-3 flex-1 overflow-hidden">
-                    {exp.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-auto">
-                    {exp.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
-                      >
-                        {tech}
-                      </span>
-                    ))}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
