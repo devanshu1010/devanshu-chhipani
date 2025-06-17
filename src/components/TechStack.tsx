@@ -1,99 +1,128 @@
 
-import React from "react";
+import React, { useState } from "react";
+import { Code, Database, Wrench, Sparkles } from 'lucide-react';
 
 const TechStack = () => {
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
   const techCategories = [
     {
       category: "Frontend",
-      icon: "🎨",
+      icon: Code,
+      color: "from-blue-500 to-cyan-500",
       technologies: [
-        { name: "React", level: 95, color: "from-blue-500 to-cyan-500" },
-        { name: "TypeScript", level: 90, color: "from-blue-600 to-blue-800" },
-        { name: "Next.js", level: 85, color: "from-gray-800 to-black" },
-        { name: "Tailwind CSS", level: 92, color: "from-cyan-500 to-teal-500" },
-        { name: "Vue.js", level: 75, color: "from-green-500 to-emerald-500" }
+        { name: "React", level: 95, icon: "⚛️" },
+        { name: "TypeScript", level: 90, icon: "📘" },
+        { name: "Next.js", level: 85, icon: "▲" },
+        { name: "Tailwind CSS", level: 92, icon: "🎨" },
+        { name: "Vue.js", level: 75, icon: "💚" }
       ]
     },
     {
       category: "Backend",
-      icon: "⚙️",
+      icon: Database,
+      color: "from-green-500 to-emerald-500",
       technologies: [
-        { name: "Node.js", level: 88, color: "from-green-600 to-green-800" },
-        { name: "Express", level: 85, color: "from-gray-600 to-gray-800" },
-        { name: "Python", level: 80, color: "from-yellow-500 to-orange-500" },
-        { name: "PostgreSQL", level: 82, color: "from-blue-700 to-indigo-700" },
-        { name: "MongoDB", level: 78, color: "from-green-700 to-green-900" }
+        { name: "Node.js", level: 88, icon: "🟢" },
+        { name: "Express", level: 85, icon: "🚀" },
+        { name: "Python", level: 80, icon: "🐍" },
+        { name: "PostgreSQL", level: 82, icon: "🐘" },
+        { name: "MongoDB", level: 78, icon: "🍃" }
       ]
     },
     {
-      category: "Tools & Platforms",
-      icon: "🛠️",
+      category: "Tools & Cloud",
+      icon: Wrench,
+      color: "from-purple-500 to-pink-500",
       technologies: [
-        { name: "Git", level: 95, color: "from-orange-500 to-red-500" },
-        { name: "Docker", level: 75, color: "from-blue-500 to-blue-700" },
-        { name: "AWS", level: 70, color: "from-yellow-600 to-orange-600" },
-        { name: "Vercel", level: 90, color: "from-gray-800 to-black" },
-        { name: "Figma", level: 85, color: "from-purple-500 to-pink-500" }
+        { name: "Git", level: 95, icon: "📦" },
+        { name: "Docker", level: 75, icon: "🐳" },
+        { name: "AWS", level: 70, icon: "☁️" },
+        { name: "Vercel", level: 90, icon: "◢" },
+        { name: "Figma", level: 85, icon: "🎯" }
       ]
     }
   ];
 
   return (
-    <section id="tech" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id="tech" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-sky-50/30 dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-purple-400/20 to-pink-400/20 dark:from-purple-500/10 dark:to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+      </div>
       
-      <div className="relative max-w-7xl mx-auto">
-        <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            Tech{' '}
-            <span className="bg-gradient-to-r from-sky-600 via-sky-500 to-blue-600 dark:from-sky-400 dark:via-sky-300 dark:to-blue-400 bg-clip-text text-transparent">
-              Stack
+      <div className="relative max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 mb-6">
+            <Sparkles className="w-4 h-4 text-blue-500" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Tech Stack</span>
+          </div>
+          
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Technologies I{' '}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+              Love Working With
             </span>
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Technologies and tools I use to bring ideas to life
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Modern tools and technologies that help me build amazing digital experiences
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
-          {techCategories.map((category, index) => (
-            <div
-              key={index}
-              className="group bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-3xl p-8 shadow-lg shadow-slate-900/5 dark:shadow-slate-900/20 hover:shadow-xl hover:shadow-slate-900/10 dark:hover:shadow-slate-900/30 transition-all duration-500 hover:-translate-y-2"
-            >
-              <div className="text-center mb-8">
-                <div className="text-4xl mb-4">{category.icon}</div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+        {/* Category Tabs */}
+        <div className="flex justify-center mb-12">
+          <div className="inline-flex p-1 rounded-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
+            {techCategories.map((category, index) => {
+              const IconComponent = category.icon;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setSelectedCategory(index)}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    selectedCategory === index
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  <IconComponent className="w-4 h-4" />
                   {category.category}
-                </h3>
-              </div>
-              
-              <div className="space-y-6">
-                {category.technologies.map((tech, techIndex) => (
-                  <div key={techIndex} className="group/tech">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-semibold text-slate-900 dark:text-white">
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Selected Category Content */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-3xl p-8 shadow-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {techCategories[selectedCategory].technologies.map((tech, techIndex) => (
+                <div
+                  key={techIndex}
+                  className="group p-6 rounded-2xl bg-gray-50/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{tech.icon}</span>
+                      <span className="font-bold text-gray-900 dark:text-white text-lg">
                         {tech.name}
                       </span>
-                      <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                        {tech.level}%
-                      </span>
                     </div>
-                    <div className="relative h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                      <div
-                        className={`absolute inset-y-0 left-0 bg-gradient-to-r ${tech.color} rounded-full transition-all duration-1000 group-hover/tech:shadow-lg`}
-                        style={{
-                          width: `${tech.level}%`,
-                          boxShadow: `0 0 20px rgba(59, 130, 246, 0.5)`
-                        }}
-                      ></div>
-                    </div>
+                    <span className="text-sm font-semibold text-gray-500 dark:text-gray-400 bg-white/80 dark:bg-gray-900/80 px-3 py-1 rounded-full">
+                      {tech.level}%
+                    </span>
                   </div>
-                ))}
-              </div>
+                  
+                  <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className={`absolute inset-y-0 left-0 bg-gradient-to-r ${techCategories[selectedCategory].color} rounded-full transition-all duration-1000 ease-out`}
+                      style={{ width: `${tech.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
