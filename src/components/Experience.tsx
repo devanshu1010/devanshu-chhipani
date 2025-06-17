@@ -92,99 +92,104 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
-    <div className="relative mb-12 sm:mb-16 md:mb-20">
+    <div className="relative group">
+      {/* Timeline dot for desktop - positioned relative to this card */}
+      <div className="hidden md:block absolute top-8 z-20" style={{
+        left: isRightColumn ? '-2.5rem' : 'calc(100% + 1.5rem)'
+      }}>
+        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-black shadow-lg transition-transform duration-300 group-hover:scale-110"></div>
+      </div>
+
       {/* Card */}
-      <div className="ml-8 sm:ml-10 md:ml-12">
-        <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col">
-          {/* Header Section - Fixed Height */}
-          <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
-            <div className="relative flex-shrink-0">
-              <img
-                src={exp.logo}
-                alt={exp.company}
-                className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700"
-              />
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-0.5 sm:mb-1 truncate">{exp.company}</h3>
-              <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-0.5 sm:mb-1">{exp.position}</p>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
-                {formatDate(exp.start)} – {exp.present ? (
-                  <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
-                ) : formatDate(exp.end)}
-              </p>
-            </div>
+      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col">
+        {/* Header Section - Fixed Height */}
+        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="relative flex-shrink-0">
+            <img
+              src={exp.logo}
+              alt={exp.company}
+              className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700"
+            />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
           </div>
-          
-          {/* Description Section - Collapsible */}
-          <div className="relative">
-            <div 
-              className={`
-                text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed
-                transition-all duration-300 ease-in-out
-                ${isExpanded ? 'max-h-[500px]' : 'max-h-[80px] sm:max-h-[100px] md:max-h-[120px]'}
-                overflow-hidden
-              `}
-            >
-              <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
-              
-              {/* Achievements Section - Only visible when expanded */}
-              {isExpanded && (
-                <div className="mt-3">
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-2">Key Achievements:</h4>
-                  <ul className="space-y-1.5">
-                    {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
-                        <span className="text-blue-500 dark:text-blue-400 mt-1">•</span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-0.5 sm:mb-1 truncate">{exp.company}</h3>
+            <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-0.5 sm:mb-1">{exp.position}</p>
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
+              {formatDate(exp.start)} – {exp.present ? (
+                <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+              ) : formatDate(exp.end)}
+            </p>
+          </div>
+        </div>
+        
+        {/* Description Section - Collapsible */}
+        <div className="relative">
+          <div 
+            className={`
+              text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed
+              transition-all duration-300 ease-in-out
+              ${isExpanded ? 'max-h-[500px]' : 'max-h-[80px] sm:max-h-[100px] md:max-h-[120px]'}
+              overflow-hidden
+            `}
+          >
+            <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
             
-            {/* Gradient fade effect */}
-            {!isExpanded && (
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent pointer-events-none"></div>
+            {/* Achievements Section - Only visible when expanded */}
+            {isExpanded && (
+              <div className="mt-3">
+                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-2">Key Achievements:</h4>
+                <ul className="space-y-1.5">
+                  {exp.achievements.map((achievement, achIndex) => (
+                    <li key={achIndex} className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+                      <span className="text-blue-500 dark:text-blue-400 mt-1">•</span>
+                      <span>{achievement}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
-            
-            {/* Read more/less button */}
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-1 flex items-center gap-1 transition-colors duration-200"
-            >
-              {isExpanded ? (
-                <>
-                  Show less
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                  </svg>
-                </>
-              ) : (
-                <>
-                  Read more
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </>
-              )}
-            </button>
           </div>
           
-          {/* Technologies Section */}
-          <div className="mt-3 sm:mt-4">
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
-              {exp.technologies.map((tech, techIndex) => (
-                <span
-                  key={techIndex}
-                  className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+          {/* Gradient fade effect */}
+          {!isExpanded && (
+            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent pointer-events-none"></div>
+          )}
+          
+          {/* Read more/less button */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-1 flex items-center gap-1 transition-colors duration-200"
+          >
+            {isExpanded ? (
+              <>
+                Show less
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                </svg>
+              </>
+            ) : (
+              <>
+                Read more
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
+        
+        {/* Technologies Section */}
+        <div className="mt-3 sm:mt-4">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5">
+            {exp.technologies.map((tech, techIndex) => (
+              <span
+                key={techIndex}
+                className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
+              >
+                {tech}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -213,34 +218,23 @@ const Experience = () => {
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Center Timeline Line - Always in center */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
-          
-          {/* Timeline Dots - Always in center */}
-          {experienceData.map((_, index) => (
-            <div 
-              key={index}
-              className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-black shadow-lg z-10"
-              style={{ top: `${120 + (index * 300)}px` }}
-            ></div>
-          ))}
-
-          {/* Desktop: Two Column Layout */}
+          {/* Desktop: Two Column Layout with Center Line */}
           <div className="hidden md:block">
-            <div className="grid grid-cols-2 gap-8 relative">
+            {/* Center Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10"></div>
+            
+            <div className="grid grid-cols-2 gap-16 relative">
               {/* Left Column */}
-              <div className="space-y-12">
+              <div className="space-y-16">
                 {experienceData.map((exp, index) => {
                   if (index % 2 === 0) {
                     return (
-                      //<div style={{ marginTop: `${index * 150}px` }}>
-                        <ExperienceCard 
-                          key={exp.company}
-                          exp={exp} 
-                          index={index} 
-                          isRightColumn={false}
-                        />
-                      //</div>
+                      <ExperienceCard 
+                        key={exp.company}
+                        exp={exp} 
+                        index={index} 
+                        isRightColumn={false}
+                      />
                     );
                   }
                   return null;
@@ -248,18 +242,16 @@ const Experience = () => {
               </div>
               
               {/* Right Column */}
-              <div className="space-y-12 lg:mt-[148px]">
+              <div className="space-y-16 lg:mt-[148px]">
                 {experienceData.map((exp, index) => {
                   if (index % 2 === 1) {
                     return (
-                      // <div style={{ marginTop: `${(index - 1) * 150 + 150}px` }}>
-                        <ExperienceCard 
-                          key={exp.company}
-                          exp={exp} 
-                          index={index} 
-                          isRightColumn={true}
-                        />
-                      // </div> 
+                      <ExperienceCard 
+                        key={exp.company}
+                        exp={exp} 
+                        index={index} 
+                        isRightColumn={true}
+                      />
                     );
                   }
                   return null;
