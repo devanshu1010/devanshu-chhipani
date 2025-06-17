@@ -100,10 +100,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
         <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-black shadow-lg transition-transform duration-300 group-hover:scale-110"></div>
       </div>
 
-      {/* Card */}
-      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col">
+      {/* Card - Fixed height structure */}
+      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col h-[240px]">
         {/* Header Section - Fixed Height */}
-        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3 flex-shrink-0">
           <div className="relative flex-shrink-0">
             <img
               src={exp.logo}
@@ -123,14 +123,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
           </div>
         </div>
         
-        {/* Description Section - Collapsible */}
-        <div className="relative">
+        {/* Description Section - Flexible height with fixed container */}
+        <div className="relative flex-1 flex flex-col">
           <div 
             className={`
               text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed
-              transition-all duration-300 ease-in-out
-              ${isExpanded ? 'max-h-[500px]' : 'max-h-[80px] sm:max-h-[100px] md:max-h-[120px]'}
-              overflow-hidden
+              transition-all duration-300 ease-in-out flex-1
+              ${isExpanded ? 'overflow-y-auto' : 'h-[140px] sm:h-[150px] md:h-[160px] overflow-hidden'}
             `}
           >
             <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
@@ -151,36 +150,38 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             )}
           </div>
           
-          {/* Gradient fade effect */}
+          {/* Gradient fade effect - only when not expanded */}
           {!isExpanded && (
             <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent pointer-events-none"></div>
           )}
           
-          {/* Read more/less button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-1 flex items-center gap-1 transition-colors duration-200"
-          >
-            {isExpanded ? (
-              <>
-                Show less
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                </svg>
-              </>
-            ) : (
-              <>
-                Read more
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </>
-            )}
-          </button>
+          {/* Read more/less button - Fixed position */}
+          <div className="flex-shrink-0 pt-1">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-colors duration-200"
+            >
+              {isExpanded ? (
+                <>
+                  Show less
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                  </svg>
+                </>
+              ) : (
+                <>
+                  Read more
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </>
+              )}
+            </button>
+          </div>
         </div>
         
-        {/* Technologies Section */}
-        <div className="mt-3 sm:mt-4">
+        {/* Technologies Section - Fixed at bottom */}
+        <div className="mt-3 sm:mt-4 flex-shrink-0">
           <div className="flex flex-wrap gap-1 sm:gap-1.5">
             {exp.technologies.map((tech, techIndex) => (
               <span
@@ -272,10 +273,10 @@ const Experience = () => {
                   )}
                 </div>
                 
-                {/* Mobile Card */}
+                {/* Mobile Card - Also with fixed height */}
                 <div className="ml-12">
-                  <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div className="flex items-start gap-3 mb-3">
+                  <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-[300px] flex flex-col">
+                    <div className="flex items-start gap-3 mb-3 flex-shrink-0">
                       <div className="relative flex-shrink-0">
                         <img
                           src={exp.logo}
@@ -295,19 +296,21 @@ const Experience = () => {
                       </div>
                     </div>
                     
-                    <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
-                      {exp.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-1.5">
-                      {exp.technologies.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="flex-1 flex flex-col">
+                      <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed mb-3 h-[60px] overflow-hidden">
+                        {exp.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {exp.technologies.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
