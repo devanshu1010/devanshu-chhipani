@@ -87,22 +87,27 @@ function formatDate(str: string) {
 interface ExperienceCardProps {
   exp: typeof experienceData[0];
   index: number;
+  isLast: boolean;
 }
 
-const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
+const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isLast }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="relative group">
-      {/* Timeline connector */}
-      <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
-      
-      {/* Timeline dot */}
-      <div className="absolute left-6 top-8 w-3 h-3 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-black shadow-lg"></div>
-      
-      {/* Card */}
-      <div className="ml-16 pb-12">
-        <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div className="relative flex gap-8 pb-12">
+      {/* Timeline */}
+      <div className="flex flex-col items-center">
+        {/* Timeline dot */}
+        <div className="w-3 h-3 rounded-full bg-blue-500 dark:bg-blue-400 border-2 border-white dark:border-gray-900 shadow-lg z-10"></div>
+        {/* Timeline line */}
+        {!isLast && (
+          <div className="w-px h-full bg-gradient-to-b from-blue-500/50 to-gray-300/50 dark:from-blue-400/50 dark:to-gray-600/50 mt-2"></div>
+        )}
+      </div>
+
+      {/* Content Card */}
+      <div className="flex-1 -mt-1">
+        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
           {/* Header */}
           <div className="flex items-start gap-4 mb-4">
             <div className="relative flex-shrink-0">
@@ -113,14 +118,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                 {exp.company}
               </h3>
               <p className="text-blue-600 dark:text-blue-400 font-semibold mb-2">
                 {exp.position}
               </p>
               <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                <Calendar className="w-4 h-4" />
                 <span>
                   {formatDate(exp.start)} – {exp.present ? (
                     <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
@@ -157,7 +161,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
             >
               {isExpanded ? (
                 <>
-                  Show less <ChevronUp className="w-4 h-4" />
+                  Read less <ChevronUp className="w-4 h-4" />
                 </>
               ) : (
                 <>
@@ -202,7 +206,12 @@ const Experience = () => {
 
         <div className="relative">
           {experienceData.map((exp, index) => (
-            <ExperienceCard key={exp.company} exp={exp} index={index} />
+            <ExperienceCard 
+              key={exp.company} 
+              exp={exp} 
+              index={index} 
+              isLast={index === experienceData.length - 1}
+            />
           ))}
         </div>
       </div>
