@@ -101,10 +101,10 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
         <div className="text-center">
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Post Not Found</h1>
-          <Link to="/" className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
+          <Link to="/" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
             ← Back to Home
           </Link>
         </div>
@@ -113,13 +113,18 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      {/* Background elements - consistent with main page */}
+      <div className="fixed inset-0 bg-gray-50 dark:bg-gray-900">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10"></div>
+      </div>
+
       {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/50 dark:border-slate-700/50">
-        <div className="max-w-4xl mx-auto px-6 py-4">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-black/80 border-b border-gray-200/50 dark:border-gray-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link 
             to="/" 
-            className="inline-flex items-center text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
           >
             <ArrowLeft size={20} className="mr-2" />
             Back to Home
@@ -128,20 +133,20 @@ const BlogPost = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-6 py-12">
+      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Article Header */}
         <header className="mb-12">
           <div className="mb-6">
-            <span className="inline-block px-3 py-1 text-sm font-medium bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 rounded-full">
+            <span className="inline-block px-3 py-1 text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800">
               {post.category}
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
             {post.title}
           </h1>
           
-          <div className="flex flex-wrap items-center gap-6 text-slate-600 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-2">
               <Calendar size={16} />
               <span>{post.date}</span>
@@ -156,15 +161,15 @@ const BlogPost = () => {
 
         {/* Article Content */}
         <article 
-          className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-slate-900 dark:prose-headings:text-white prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-strong:text-slate-900 dark:prose-strong:text-white prose-li:text-slate-700 dark:prose-li:text-slate-300"
+          className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-white prose-li:text-gray-700 dark:prose-li:text-gray-300"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
         {/* Share Section */}
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-4">
-            <span className="text-slate-600 dark:text-slate-400">Share this article:</span>
-            <button className="p-2 text-slate-500 hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-400 transition-colors">
+            <span className="text-gray-600 dark:text-gray-400">Share this article:</span>
+            <button className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
               <Share2 size={20} />
             </button>
           </div>

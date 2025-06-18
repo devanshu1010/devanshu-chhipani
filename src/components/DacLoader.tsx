@@ -13,12 +13,12 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           setTimeout(() => {
             setIsVisible(false);
             onComplete?.();
-          }, 500);
+          }, 800);
           return 100;
         }
-        return prev + 2;
+        return prev + 1.5;
       });
-    }, 50);
+    }, 40);
 
     return () => clearInterval(timer);
   }, [onComplete]);
@@ -26,77 +26,80 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 dark:bg-black overflow-hidden">
-      {/* Animated background pattern */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-gray-900 overflow-hidden transition-all duration-500">
+      {/* Animated background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900/50 dark:via-black dark:to-gray-900/50"></div>
+        
         {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-sky-400/30 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-blue-400/20 dark:bg-blue-400/30 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 4}s`
             }}
           />
         ))}
       </div>
       
-      <div className="relative z-10 flex flex-col items-center">
-        {/* DAC text with enhanced animation */}
-        <div className="text-6xl md:text-8xl lg:text-9xl font-bold text-white font-mono tracking-wider mb-8 relative">
-          <div className="flex">
-            {['D', 'A', 'C'].map((letter, index) => (
-              <span
-                key={index}
-                className="inline-block animate-pulse opacity-0"
-                style={{
-                  animationDelay: `${index * 0.3}s`,
-                  animationDuration: '2s',
-                  animationFillMode: 'forwards'
-                }}
-              >
-                {letter}
-              </span>
-            ))}
+      <div className="relative z-10 flex flex-col items-center max-w-md mx-auto px-8">
+        {/* Modern DAC logo */}
+        <div className="relative mb-12">
+          <div className="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 dark:text-white font-mono tracking-wider">
+            <div className="flex items-center justify-center">
+              {['D', 'A', 'C'].map((letter, index) => (
+                <span
+                  key={index}
+                  className="inline-block opacity-0 animate-fade-in"
+                  style={{
+                    animationDelay: `${index * 0.2}s`,
+                    animationDuration: '1s',
+                    animationFillMode: 'forwards'
+                  }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </div>
           </div>
           
-          {/* Glow effect */}
-          <div className="absolute inset-0 text-6xl md:text-8xl lg:text-9xl font-bold font-mono tracking-wider text-sky-400/30 blur-lg animate-pulse">
+          {/* Subtle glow effect */}
+          <div className="absolute inset-0 text-6xl md:text-7xl lg:text-8xl font-bold font-mono tracking-wider text-blue-500/20 dark:text-blue-400/20 blur-lg">
             DAC
           </div>
         </div>
         
-        {/* Progress bar */}
-        <div className="w-64 md:w-80 h-1 bg-slate-700 rounded-full overflow-hidden mb-6">
-          <div
-            className="h-full bg-gradient-to-r from-sky-400 to-blue-500 rounded-full transition-all duration-300 ease-out shadow-lg shadow-sky-500/50"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        
-        {/* Loading text */}
-        <div className="text-slate-400 text-sm md:text-base font-medium tracking-wide">
-          {progress < 30 && "Initializing..."}
-          {progress >= 30 && progress < 60 && "Loading components..."}
-          {progress >= 60 && progress < 90 && "Almost ready..."}
-          {progress >= 90 && "Welcome!"}
-        </div>
-        
-        {/* Percentage */}
-        <div className="text-white/60 text-xs md:text-sm font-mono mt-2">
-          {progress}%
+        {/* Progress section */}
+        <div className="w-full space-y-4">
+          {/* Progress bar */}
+          <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 rounded-full transition-all duration-300 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          
+          {/* Status text */}
+          <div className="text-center space-y-2">
+            <div className="text-gray-600 dark:text-gray-400 text-sm font-medium">
+              {progress < 25 && "Initializing components..."}
+              {progress >= 25 && progress < 50 && "Loading resources..."}
+              {progress >= 50 && progress < 75 && "Setting up interface..."}
+              {progress >= 75 && progress < 95 && "Almost ready..."}
+              {progress >= 95 && "Welcome aboard!"}
+            </div>
+            
+            {/* Percentage */}
+            <div className="text-gray-500 dark:text-gray-500 text-xs font-mono">
+              {Math.round(progress)}%
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Corner decorations */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-sky-500/30 animate-pulse"></div>
-      <div className="absolute top-8 right-8 w-16 h-16 border-r-2 border-t-2 border-sky-500/30 animate-pulse"></div>
-      <div className="absolute bottom-8 left-8 w-16 h-16 border-l-2 border-b-2 border-sky-500/30 animate-pulse"></div>
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-sky-500/30 animate-pulse"></div>
     </div>
   );
 };

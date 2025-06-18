@@ -1,5 +1,6 @@
 
 import { Link } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 
 const Blog = () => {
   const blogPosts = [
@@ -33,31 +34,34 @@ const Blog = () => {
   ];
 
   return (
-    <section id="blog" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50/50 via-white to-sky-50/30 dark:from-slate-900/50 dark:via-slate-800/30 dark:to-slate-900/50"></div>
-      
-      <div className="relative max-w-7xl mx-auto">
-        <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+    <section id="blog" className="py-20 relative overflow-hidden">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 mb-6">
+            <Sparkles className="w-4 h-4 text-blue-500" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Latest Posts</span>
+          </div>
+          
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Latest{' '}
-            <span className="bg-gradient-to-r from-sky-600 via-sky-500 to-blue-600 dark:from-sky-400 dark:via-sky-300 dark:to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               Blog Posts
             </span>
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Insights, tutorials, and thoughts on modern web development
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post, index) => (
             <Link
               key={index}
               to={`/blog/${post.slug}`}
-              className="group block"
+              className="group block animate-fade-in"
+              style={{ animationDelay: `${index * 200}ms` }}
             >
-              <article className="h-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-3xl overflow-hidden shadow-lg shadow-slate-900/5 dark:shadow-slate-900/20 hover:shadow-xl hover:shadow-slate-900/10 dark:hover:shadow-slate-900/30 transition-all duration-500 hover:-translate-y-2">
+              <article className="h-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group">
                 {/* Card Header with Gradient */}
                 <div className={`h-32 bg-gradient-to-br ${post.gradient} relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/10"></div>
@@ -70,21 +74,21 @@ const Blog = () => {
                 
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300 px-3 py-1 rounded-full text-sm font-medium border border-sky-200 dark:border-sky-800">
+                    <span className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-3 py-1 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-800">
                       {post.category}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400 text-sm">{post.date}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{post.date}</span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-sky-700 dark:group-hover:text-sky-300 transition-colors leading-tight">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors leading-tight">
                     {post.title}
                   </h3>
                   
-                  <p className="text-slate-700 dark:text-slate-300 mb-6 leading-relaxed line-clamp-3">
+                  <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed line-clamp-3">
                     {post.excerpt}
                   </p>
                   
-                  <div className="flex items-center text-sky-700 hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200 text-sm font-semibold transition-colors">
+                  <div className="flex items-center text-blue-700 hover:text-blue-500 dark:text-blue-300 dark:hover:text-blue-200 text-sm font-semibold transition-colors">
                     Read more 
                     <svg className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
