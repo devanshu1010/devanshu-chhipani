@@ -51,13 +51,13 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 17 24% 9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 17 24% 9%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 17 24% 9%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 210 40% 98%;
@@ -95,7 +95,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-gray-900 text-foreground font-sans;
     font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
@@ -106,7 +106,8 @@
   /* Apple-inspired smooth scrolling */
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 120px;
+    @apply bg-gray-900;
   }
 
   /* Enhanced typography hierarchy */
@@ -150,6 +151,15 @@
     background: rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
+
+  /* Seamless component transitions */
+  .seamless-section {
+    @apply transition-all duration-700 ease-in-out;
+  }
+
+  .seamless-section:hover {
+    @apply transform translate-y-0;
+  }
 }
 
 @layer utilities {
@@ -161,7 +171,7 @@
     overflow: hidden;
   }
 
-  /* Apple-inspired animations */
+  /* Enhanced animations with smooth transitions */
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
@@ -170,14 +180,29 @@
     animation: glow 2s ease-in-out infinite alternate;
   }
 
-  /* Enhanced fade-in animation */
   .animate-fade-in {
-    animation: fade-in 0.6s ease-out both;
+    animation: fade-in 0.8s ease-out both;
   }
 
-  /* Staggered animations */
   .animate-slide-up {
-    animation: slide-up 0.8s ease-out both;
+    animation: slide-up 1s ease-out both;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.6s ease-out both;
+  }
+
+  /* Staggered animations for seamless feel */
+  .animate-stagger-1 {
+    animation: fade-in 0.8s ease-out 0.1s both;
+  }
+
+  .animate-stagger-2 {
+    animation: fade-in 0.8s ease-out 0.2s both;
+  }
+
+  .animate-stagger-3 {
+    animation: fade-in 0.8s ease-out 0.3s both;
   }
 
   /* Custom scrollbar */
@@ -197,6 +222,11 @@
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.5);
+  }
+
+  /* Consistent container width */
+  .container-width {
+    @apply w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
 
@@ -240,6 +270,17 @@
   }
 }
 
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes gradient-anim {
   0% {
     background-position: 0% 50%;
@@ -262,10 +303,6 @@
   font-weight: 700;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: rgb(15 23 42);
-}
-
-.dark .prose h2 {
   color: rgb(248 250 252);
 }
 
@@ -273,6 +310,7 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
   line-height: 1.75;
+  color: rgb(203 213 225);
 }
 
 .prose ul {
@@ -284,8 +322,10 @@
 .prose li {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  color: rgb(203 213 225);
 }
 
 .prose strong {
   font-weight: 600;
+  color: rgb(248 250 252);
 }

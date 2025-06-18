@@ -19,7 +19,7 @@ const Index = () => {
 
     // Enhanced smooth scrolling
     document.documentElement.style.scrollBehavior = 'smooth';
-    document.documentElement.style.scrollPaddingTop = '80px';
+    document.documentElement.style.scrollPaddingTop = '120px';
     
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
@@ -36,28 +36,49 @@ const Index = () => {
   }
   
   return (
-    <div className="min-h-screen transition-all duration-500 bg-gradient-to-br from-white via-slate-50 to-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 scroll-smooth overflow-x-hidden">
-      <div className="relative w-full">
-        {/* Consistent background pattern for all sections */}
-        <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.03),transparent_70%),radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.03),transparent_70%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.06),transparent_70%),radial-gradient(circle_at_80%_80%,rgba(255,119,198,0.06),transparent_70%)] pointer-events-none z-0"></div>
+    <div className="min-h-screen bg-gray-900 overflow-x-hidden">
+      {/* Infinite dark background with grid pattern */}
+      <div className="fixed inset-0 bg-gray-900">
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10"></div>
+        
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-sky-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 via-sky-500/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-purple-500/8 via-blue-500/4 to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
+      </div>
 
-        {/* Animated gradient orbs with enhanced styling */}
-        <div className="fixed top-0 left-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-gradient-to-r from-sky-200/15 via-blue-200/10 to-transparent dark:from-sky-500/8 dark:via-blue-500/6 dark:to-transparent rounded-full blur-3xl animate-pulse shadow-2xl shadow-sky-500/5 z-0"></div>
-        <div className="fixed bottom-0 right-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-gradient-to-r from-blue-200/15 via-sky-200/10 to-transparent dark:from-blue-500/8 dark:via-sky-500/6 dark:to-transparent rounded-full blur-3xl animate-pulse delay-1000 shadow-2xl shadow-blue-500/5 z-0"></div>
+      {/* Floating components */}
+      <FloatingSocial />
+      <FloatingEmail />
 
-        {/* Floating components */}
-        <FloatingSocial />
-        <FloatingEmail />
+      {/* Header */}
+      <Header />
 
-        {/* Main content with consistent max-width */}
-        <div className="relative z-10">
-          <Header />
-          <div className="max-w-7xl mx-auto">
-            <Hero />
-            <Experience />
-            <TechStack />
-            <Blog />
-            <Contact />
+      {/* Main content with consistent max-width and seamless sections */}
+      <div className="relative z-10">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Seamless sections without gaps */}
+          <div className="space-y-0">
+            <section id="home" className="min-h-screen flex items-center">
+              <Hero />
+            </section>
+            
+            <section id="experience" className="py-16">
+              <Experience />
+            </section>
+            
+            <section id="tech" className="py-16">
+              <TechStack />
+            </section>
+            
+            <section id="blog" className="py-16">
+              <Blog />
+            </section>
+            
+            <section id="contact" className="py-16">
+              <Contact />
+            </section>
           </div>
         </div>
       </div>
