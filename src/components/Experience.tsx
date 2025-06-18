@@ -93,15 +93,15 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
 
   return (
     <div className="relative group animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
-      {/* Timeline dot for desktop - positioned relative to this card */}
+      {/* Timeline dot for desktop - positioned relative to this card - NO ANIMATIONS */}
       <div className="hidden md:block absolute top-8 z-20" style={{
         left: isRightColumn ? '-2.5rem' : 'calc(100% + 1.5rem)'
       }}>
-        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-gray-900 shadow-lg transition-all duration-300 group-hover:scale-110 animate-pulse"></div>
+        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
       </div>
 
-      {/* Card - Dynamic height structure */}
-      <div className={`bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col ${isExpanded ? 'min-h-[400px]' : 'min-h-[280px]'} group hover:bg-white/90 dark:hover:bg-gray-900/90`}>
+      {/* Card */}
+      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col group hover:bg-white/90 dark:hover:bg-black/90">
         {/* Header Section */}
         <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
           <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
@@ -117,7 +117,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-colors duration-300">{exp.position}</p>
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
               {formatDate(exp.start)} – {exp.present ? (
-                <span className="text-green-500 dark:text-green-400 font-bold animate-pulse">PRESENT</span>
+                <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
               ) : formatDate(exp.end)}
             </p>
           </div>
@@ -190,12 +190,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
 
 const Experience = () => {
   return (
-    <section id="experience" className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Consistent background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/30 dark:from-gray-900/50 dark:via-gray-900/30 dark:to-gray-800/50"></div>
-      
+    <section id="experience" className="relative py-12 sm:py-16 md:py-24 overflow-hidden">
       {/* Fixed max-width container */}
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-fade-in">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
             Work{' '}
@@ -212,8 +209,8 @@ const Experience = () => {
         <div className="relative">
           {/* Desktop: Two Column Layout with Center Line */}
           <div className="hidden md:block">
-            {/* Center Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10 animate-pulse"></div>
+            {/* Center Timeline Line - NO ANIMATIONS */}
+            <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10"></div>
             
             <div className="grid grid-cols-2 gap-16 relative">
               {/* Left Column */}
@@ -256,9 +253,9 @@ const Experience = () => {
           <div className="md:hidden space-y-8">
             {experienceData.map((exp, index) => (
               <div key={exp.company} className="relative animate-fade-in" style={{ animationDelay: `${index * 150}ms` }}>
-                {/* Mobile Timeline */}
+                {/* Mobile Timeline - NO ANIMATIONS */}
                 <div className="absolute left-4 top-6 z-10">
-                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-gray-900 shadow-lg animate-pulse"></div>
+                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-gray-900 shadow-lg"></div>
                   {index < experienceData.length - 1 && (
                     <div className="absolute left-1/2 top-3 transform -translate-x-px w-0.5 h-32 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
                   )}
@@ -266,7 +263,7 @@ const Experience = () => {
                 
                 {/* Mobile Card */}
                 <div className="ml-12">
-                  <div className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[320px] flex flex-col hover:bg-white/90 dark:hover:bg-gray-900/90">
+                  <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[320px] flex flex-col hover:bg-white/90 dark:hover:bg-black/90">
                     {/* ... keep existing code (mobile card content) */}
                     <div className="flex items-start gap-3 mb-3 flex-shrink-0">
                       <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
@@ -282,7 +279,7 @@ const Experience = () => {
                         <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-colors duration-300">{exp.position}</p>
                         <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
                           {formatDate(exp.start)} – {exp.present ? (
-                            <span className="text-green-500 dark:text-green-400 font-bold animate-pulse">PRESENT</span>
+                            <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
                           ) : formatDate(exp.end)}
                         </p>
                       </div>

@@ -48,6 +48,7 @@ const Header = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none py-6">
+      {/* Fixed max-width container to match content width */}
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <header
           className={`pointer-events-auto transition-all duration-300

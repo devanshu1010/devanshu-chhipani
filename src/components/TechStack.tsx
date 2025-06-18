@@ -55,13 +55,8 @@ const TechStack = () => {
   };
 
   return (
-    <section id="tech" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50/30 dark:from-black dark:via-gray-950 dark:to-blue-950/30">
-        <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-purple-400/20 to-pink-400/20 dark:from-purple-500/10 dark:to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
-      </div>
-      
-      <div className="relative max-w-6xl mx-auto">
+    <section id="tech" className="py-20 relative overflow-hidden">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 mb-6">
             <Sparkles className="w-4 h-4 text-blue-500" />
