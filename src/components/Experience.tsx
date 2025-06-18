@@ -101,7 +101,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
       </div>
 
       {/* Card */}
-      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col group hover:bg-white/90 dark:hover:bg-black/90">
+      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col group hover:bg-white/90 dark:hover:bg-black/90 h-full">
         {/* Header Section */}
         <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
           <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
@@ -212,7 +212,7 @@ const Experience = () => {
             {/* Center Timeline Line - NO ANIMATIONS */}
             <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10"></div>
             
-            <div className="grid grid-cols-2 gap-16 relative">
+            <div className="grid grid-cols-2 gap-16 items-stretch relative">
               {/* Left Column */}
               <div className="space-y-16 text-left">
                 {experienceData.map((exp, index) => {
@@ -231,7 +231,7 @@ const Experience = () => {
               </div>
               
               {/* Right Column */}
-              <div className="space-y-16 lg:mt-[120px] text-left">
+              <div className="space-y-16 lg:mt-[175px] text-left">
                 {experienceData.map((exp, index) => {
                   if (index % 2 === 1) {
                     return (

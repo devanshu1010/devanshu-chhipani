@@ -1,14 +1,13 @@
-
 import { useEffect, useState } from 'react';
 import Blog from '../components/Blog';
 import Contact from '../components/Contact';
+import DacLoader from '../components/DacLoader';
 import Experience from '../components/Experience';
+import FloatingEmail from '../components/FloatingEmail';
+import FloatingSocial from '../components/FloatingSocial';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TechStack from '../components/TechStack';
-import FloatingSocial from '../components/FloatingSocial';
-import FloatingEmail from '../components/FloatingEmail';
-import DacLoader from '../components/DacLoader';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,7 +55,7 @@ const Index = () => {
       <div className="relative z-10">
         {/* Seamless sections */}
         <div className="space-y-0">
-          <section id="home" className="min-h-screen flex items-center">
+          <section id="home" className="min-h-screen flex items-center justify-center">
             <Hero />
           </section>
           
