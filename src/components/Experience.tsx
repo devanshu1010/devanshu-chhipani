@@ -92,56 +92,50 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
-    <div className="relative group">
+    <div className="relative group animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
       {/* Timeline dot for desktop - positioned relative to this card */}
       <div className="hidden md:block absolute top-8 z-20" style={{
         left: isRightColumn ? '-2.5rem' : 'calc(100% + 1.5rem)'
       }}>
-        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-black shadow-lg transition-transform duration-300 group-hover:scale-110"></div>
+        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-gray-900 shadow-lg transition-all duration-300 group-hover:scale-110 animate-pulse"></div>
       </div>
 
-      {/* Card - Fixed height structure */}
-      <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col h-[240px]">
-        {/* Header Section - Fixed Height */}
-        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3 flex-shrink-0">
-          <div className="relative flex-shrink-0">
+      {/* Card - Dynamic height structure */}
+      <div className={`bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col ${isExpanded ? 'min-h-[400px]' : 'min-h-[280px]'} group hover:bg-white/90 dark:hover:bg-gray-900/90`}>
+        {/* Header Section */}
+        <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
+          <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
             <img
               src={exp.logo}
               alt={exp.company}
-              className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700"
+              className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
             />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-0.5 sm:mb-1 truncate">{exp.company}</h3>
-            <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-0.5 sm:mb-1">{exp.position}</p>
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 truncate transition-colors duration-300">{exp.company}</h3>
+            <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-colors duration-300">{exp.position}</p>
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
               {formatDate(exp.start)} – {exp.present ? (
-                <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                <span className="text-green-500 dark:text-green-400 font-bold animate-pulse">PRESENT</span>
               ) : formatDate(exp.end)}
             </p>
           </div>
         </div>
         
-        {/* Description Section - Flexible height with fixed container */}
-        <div className="relative flex-1 flex flex-col">
-          <div 
-            className={`
-              text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed
-              transition-all duration-300 ease-in-out flex-1
-              ${isExpanded ? 'overflow-y-auto' : 'h-[140px] sm:h-[150px] md:h-[160px] overflow-hidden'}
-            `}
-          >
+        {/* Description Section - Flexible height */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className={`text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-500 ease-in-out ${isExpanded ? 'mb-4' : 'mb-2'}`}>
             <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
             
             {/* Achievements Section - Only visible when expanded */}
             {isExpanded && (
-              <div className="mt-3">
+              <div className="mt-3 animate-fade-in">
                 <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-2">Key Achievements:</h4>
                 <ul className="space-y-1.5">
                   {exp.achievements.map((achievement, achIndex) => (
-                    <li key={achIndex} className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
-                      <span className="text-blue-500 dark:text-blue-400 mt-1">•</span>
+                    <li key={achIndex} className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2 animate-fade-in" style={{ animationDelay: `${achIndex * 100}ms` }}>
+                      <span className="text-blue-500 dark:text-blue-400 mt-1 transition-colors duration-300">•</span>
                       <span>{achievement}</span>
                     </li>
                   ))}
@@ -150,28 +144,23 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             )}
           </div>
           
-          {/* Gradient fade effect - only when not expanded */}
-          {!isExpanded && (
-            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent pointer-events-none"></div>
-          )}
-          
-          {/* Read more/less button - Fixed position */}
-          <div className="flex-shrink-0 pt-1">
+          {/* Read more/less button */}
+          <div className="flex-shrink-0 mb-3">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-colors duration-200"
+              className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
             >
               {isExpanded ? (
                 <>
                   Show less
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                   </svg>
                 </>
               ) : (
                 <>
                   Read more
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </>
@@ -181,12 +170,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
         </div>
         
         {/* Technologies Section - Fixed at bottom */}
-        <div className="mt-3 sm:mt-4 flex-shrink-0">
+        <div className="flex-shrink-0">
           <div className="flex flex-wrap gap-1 sm:gap-1.5">
             {exp.technologies.map((tech, techIndex) => (
               <span
                 key={techIndex}
-                className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
+                className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                style={{ animationDelay: `${techIndex * 50}ms` }}
               >
                 {tech}
               </span>
@@ -201,18 +191,19 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
 const Experience = () => {
   return (
     <section id="experience" className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/30 dark:from-gray-900/50 dark:via-black/30 dark:to-gray-900/50"></div>
+      {/* Consistent background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/30 dark:from-gray-900/50 dark:via-gray-900/30 dark:to-gray-800/50"></div>
       
-      <div className="relative max-w-6xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+      {/* Fixed max-width container */}
+      <div className="relative max-w-7xl mx-auto">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-fade-in">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
             Work{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent animate-gradient-anim">
               Experience
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto transition-colors duration-300">
             My journey through different roles and companies, building experiences that matter.
           </p>
         </div>
@@ -222,11 +213,11 @@ const Experience = () => {
           {/* Desktop: Two Column Layout with Center Line */}
           <div className="hidden md:block">
             {/* Center Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10"></div>
+            <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10 animate-pulse"></div>
             
             <div className="grid grid-cols-2 gap-16 relative">
               {/* Left Column */}
-              <div className="space-y-16">
+              <div className="space-y-16 text-left">
                 {experienceData.map((exp, index) => {
                   if (index % 2 === 0) {
                     return (
@@ -243,7 +234,7 @@ const Experience = () => {
               </div>
               
               {/* Right Column */}
-              <div className="space-y-16 lg:mt-[148px]">
+              <div className="space-y-16 lg:mt-[120px] text-left">
                 {experienceData.map((exp, index) => {
                   if (index % 2 === 1) {
                     return (
@@ -264,40 +255,41 @@ const Experience = () => {
           {/* Mobile: Single Column */}
           <div className="md:hidden space-y-8">
             {experienceData.map((exp, index) => (
-              <div key={exp.company} className="relative">
+              <div key={exp.company} className="relative animate-fade-in" style={{ animationDelay: `${index * 150}ms` }}>
                 {/* Mobile Timeline */}
                 <div className="absolute left-4 top-6 z-10">
-                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-black shadow-lg"></div>
+                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-gray-900 shadow-lg animate-pulse"></div>
                   {index < experienceData.length - 1 && (
                     <div className="absolute left-1/2 top-3 transform -translate-x-px w-0.5 h-32 bg-gradient-to-b from-blue-500/50 to-purple-500/50 dark:from-blue-400/50 dark:to-purple-400/50"></div>
                   )}
                 </div>
                 
-                {/* Mobile Card - Also with fixed height */}
+                {/* Mobile Card */}
                 <div className="ml-12">
-                  <div className="group bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-[300px] flex flex-col">
+                  <div className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[320px] flex flex-col hover:bg-white/90 dark:hover:bg-gray-900/90">
+                    {/* ... keep existing code (mobile card content) */}
                     <div className="flex items-start gap-3 mb-3 flex-shrink-0">
-                      <div className="relative flex-shrink-0">
+                      <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
                         <img
                           src={exp.logo}
                           alt={exp.company}
-                          className="w-10 h-10 rounded-xl object-cover border border-gray-200 dark:border-gray-700"
+                          className="w-10 h-10 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
                         />
                         <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1 truncate">{exp.company}</h3>
-                        <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-1">{exp.position}</p>
+                        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1 truncate transition-colors duration-300">{exp.company}</h3>
+                        <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-colors duration-300">{exp.position}</p>
                         <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
                           {formatDate(exp.start)} – {exp.present ? (
-                            <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                            <span className="text-green-500 dark:text-green-400 font-bold animate-pulse">PRESENT</span>
                           ) : formatDate(exp.end)}
                         </p>
                       </div>
                     </div>
                     
                     <div className="flex-1 flex flex-col">
-                      <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed mb-3 h-[60px] overflow-hidden">
+                      <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed mb-3 flex-1 transition-colors duration-300">
                         {exp.description}
                       </p>
                       
@@ -305,7 +297,7 @@ const Experience = () => {
                         {exp.technologies.map((tech, techIndex) => (
                           <span
                             key={techIndex}
-                            className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-800"
+                            className="px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105"
                           >
                             {tech}
                           </span>
