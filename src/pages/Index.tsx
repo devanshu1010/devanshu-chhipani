@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Blog from '../components/Blog';
 import Contact from '../components/Contact';
@@ -9,11 +8,9 @@ import FloatingSocial from '../components/FloatingSocial';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TechStack from '../components/TechStack';
-import ScrollAnimatedSection from '../components/ScrollAnimatedSection';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [animationStep, setAnimationStep] = useState(0);
 
   useEffect(() => {
     // Enhanced smooth scrolling
@@ -28,14 +25,9 @@ const Index = () => {
 
   const handleLoaderComplete = () => {
     setIsLoading(false);
-    
-    // Sequential animation steps like Brittany Chiang's site
-    setTimeout(() => setAnimationStep(1), 100); // Header
-    setTimeout(() => setAnimationStep(2), 200); // Floating elements
-    setTimeout(() => setAnimationStep(3), 400); // Hero
   };
 
-  // Prevent flickering by not rendering content until ready
+  // Show loader while loading
   if (isLoading) {
     return <DacLoader onComplete={handleLoaderComplete} />;
   }
@@ -53,55 +45,37 @@ const Index = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-blue-500/8 via-purple-500/4 to-transparent dark:from-blue-500/8 dark:via-purple-500/4 dark:to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Header with sequential animation */}
-      <div className={`transition-all duration-700 ease-out ${
-        animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-      }`}>
-        <Header />
-      </div>
+      {/* Header */}
+      <Header />
 
-      {/* Floating components with sequential animation */}
-      <div className={`transition-all duration-700 ease-out ${
-        animationStep >= 2 ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <FloatingSocial />
-        <FloatingEmail />
-      </div>
+      {/* Floating components */}
+      <FloatingSocial />
+      <FloatingEmail />
 
-      {/* Main content with consistent max-width and sequential animations */}
+      {/* Main content with consistent max-width */}
       <div className="relative z-10">
         <div className="space-y-0">
           {/* Hero section */}
-          <section id="home" className={`min-h-screen flex items-center justify-center transition-all duration-800 ease-out ${
-            animationStep >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
+          <section id="home" className="min-h-screen flex items-center justify-center">
             <Hero />
           </section>
           
-          {/* Scroll-animated sections */}
-          <ScrollAnimatedSection>
-            <section id="experience" className="py-20">
-              <Experience />
-            </section>
-          </ScrollAnimatedSection>
+          {/* Other sections */}
+          <section id="experience" className="py-20">
+            <Experience />
+          </section>
           
-          <ScrollAnimatedSection delay={200}>
-            <section id="tech" className="py-20">
-              <TechStack />
-            </section>
-          </ScrollAnimatedSection>
+          <section id="tech" className="py-20">
+            <TechStack />
+          </section>
           
-          <ScrollAnimatedSection delay={400}>
-            <section id="blog" className="py-20">
-              <Blog />
-            </section>
-          </ScrollAnimatedSection>
+          <section id="blog" className="py-20">
+            <Blog />
+          </section>
           
-          <ScrollAnimatedSection delay={600}>
-            <section id="contact" className="py-20">
-              <Contact />
-            </section>
-          </ScrollAnimatedSection>
+          <section id="contact" className="py-20">
+            <Contact />
+          </section>
         </div>
       </div>
     </div>
