@@ -27,10 +27,10 @@ const Index = () => {
 
   const handleLoaderComplete = () => {
     setIsLoading(false);
-    // Trigger content reveal animation
+    // Stagger content reveal for smooth effect
     setTimeout(() => {
       setShowContent(true);
-    }, 100);
+    }, 200);
   };
 
   if (isLoading) {
@@ -38,9 +38,9 @@ const Index = () => {
   }
   
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 overflow-x-hidden transition-colors duration-300">
       {/* Consistent background with grid pattern */}
-      <div className="fixed inset-0 bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+      <div className="fixed inset-0 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10"></div>
         
@@ -50,38 +50,56 @@ const Index = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-emerald-500/8 via-blue-500/4 to-transparent dark:from-emerald-500/8 dark:via-blue-500/4 dark:to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Content with reveal animation */}
+      {/* Content with staggered reveal animation */}
       <div className={`transition-all duration-1000 ease-out ${
-        showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}>
         {/* Floating components */}
-        <FloatingSocial />
-        <FloatingEmail />
+        <div className={`transition-all duration-700 delay-100 ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}>
+          <FloatingSocial />
+          <FloatingEmail />
+        </div>
 
         {/* Header */}
-        <Header />
+        <div className={`transition-all duration-700 delay-200 ${
+          showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <Header />
+        </div>
 
         {/* Main content with consistent max-width */}
         <div className="relative z-10">
-          {/* Seamless sections */}
+          {/* Seamless sections with staggered animations */}
           <div className="space-y-0">
-            <section id="home" className="min-h-screen flex items-center justify-center">
+            <section id="home" className={`min-h-screen flex items-center justify-center transition-all duration-700 delay-300 ${
+              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
               <Hero />
             </section>
             
-            <section id="experience" className="py-20">
+            <section id="experience" className={`py-20 transition-all duration-700 delay-400 ${
+              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
               <Experience />
             </section>
             
-            <section id="tech" className="py-20">
+            <section id="tech" className={`py-20 transition-all duration-700 delay-500 ${
+              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
               <TechStack />
             </section>
             
-            <section id="blog" className="py-20">
+            <section id="blog" className={`py-20 transition-all duration-700 delay-600 ${
+              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
               <Blog />
             </section>
             
-            <section id="contact" className="py-20">
+            <section id="contact" className={`py-20 transition-all duration-700 delay-700 ${
+              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
               <Contact />
             </section>
           </div>
