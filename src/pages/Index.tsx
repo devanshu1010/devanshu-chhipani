@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Blog from '../components/Blog';
 import Contact from '../components/Contact';
@@ -11,6 +12,7 @@ import TechStack from '../components/TechStack';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [contentReady, setContentReady] = useState(false);
 
   useEffect(() => {
     // Enhanced smooth scrolling
@@ -25,6 +27,10 @@ const Index = () => {
 
   const handleLoaderComplete = () => {
     setIsLoading(false);
+    // Small delay to ensure smooth transition
+    setTimeout(() => {
+      setContentReady(true);
+    }, 100);
   };
 
   // Show loader while loading
@@ -33,7 +39,9 @@ const Index = () => {
   }
   
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 overflow-x-hidden transition-colors duration-300">
+    <div className={`min-h-screen bg-slate-50 dark:bg-gray-900 overflow-x-hidden transition-all duration-500 ${
+      contentReady ? 'opacity-100' : 'opacity-0'
+    }`}>
       {/* Consistent background with grid pattern */}
       <div className="fixed inset-0 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
         {/* Grid pattern overlay */}

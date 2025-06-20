@@ -9,13 +9,13 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
     // Trigger mount animation immediately
     setIsMounted(true);
     
-    // Faster finish timer - reduced from 2500ms to 1800ms
+    // Timer for completion
     const finishTimer = setTimeout(() => {
       setIsFinished(true);
       setTimeout(() => {
         onComplete?.();
-      }, 500); // Reduced exit animation time
-    }, 1800);
+      }, 300);
+    }, 2000);
 
     return () => {
       clearTimeout(finishTimer);
@@ -24,81 +24,89 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
 
   return (
     <div 
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-slate-50 dark:bg-gray-900 transition-all duration-500 ease-in-out ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-slate-50 dark:bg-gray-900 transition-all duration-300 ease-in-out ${
         isFinished ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
+      style={{ 
+        backdropFilter: 'blur(0px)',
+        WebkitBackdropFilter: 'blur(0px)'
+      }}
     >
       {/* Main logo container */}
       <div className="relative flex items-center justify-center">
-        {/* Background hexagon with smoother animation */}
+        {/* Perfect hexagon with bold lines */}
         <svg
-          className="absolute w-24 h-24 md:w-32 md:h-32"
-          viewBox="0 0 100 100"
+          className="absolute w-32 h-32 md:w-40 md:h-40"
+          viewBox="0 0 120 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <polygon
-            points="50,5 85,25 85,75 50,95 15,75 15,25"
+            points="60,10 95,32.5 95,87.5 60,110 25,87.5 25,32.5"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="4"
             fill="none"
-            className={`text-blue-600 dark:text-blue-400 transition-all duration-700 ease-out ${
+            className={`text-blue-600 dark:text-blue-400 transition-all duration-1000 ease-out ${
               isMounted ? 'opacity-100' : 'opacity-0'
             }`}
+            strokeLinecap="round"
+            strokeLinejoin="round"
             style={{
-              strokeDasharray: '200',
-              strokeDashoffset: isMounted ? '0' : '200',
-              transition: 'stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s'
+              strokeDasharray: '300',
+              strokeDashoffset: isMounted ? '0' : '300',
+              transition: 'stroke-dashoffset 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s, opacity 0.3s ease-out'
             }}
           />
         </svg>
         
         {/* DAC text with improved animation */}
         <div 
-          className={`relative z-10 text-3xl md:text-4xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-800 ease-out ${
-            isMounted ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
+          className={`relative z-10 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-1000 ease-out ${
+            isMounted ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95'
           }`}
           style={{
-            transitionDelay: '0.6s'
+            transitionDelay: '0.8s'
           }}
         >
           DAC
         </div>
         
-        {/* Inner glow effect */}
+        {/* Inner glow effect with theme colors */}
         <div 
-          className={`absolute inset-0 w-16 h-16 md:w-20 md:h-20 rounded-full bg-blue-600/20 dark:bg-blue-400/20 blur-xl transition-all duration-1000 ease-out ${
+          className={`absolute inset-0 w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-1200 ease-out ${
             isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}
           style={{
-            transitionDelay: '0.8s'
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
+            filter: 'blur(20px)',
+            transitionDelay: '1s'
           }}
         />
       </div>
       
-      {/* Loading dots with staggered animation */}
-      <div className={`absolute bottom-16 flex space-x-2 transition-all duration-500 ease-out ${
-        isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      {/* Loading dots with theme colors */}
+      <div className={`absolute bottom-20 flex space-x-3 transition-all duration-700 ease-out ${
+        isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
       }`}
       style={{
-        transitionDelay: '1s'
+        transitionDelay: '1.2s'
       }}>
         <div 
-          className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+          className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
           style={{
             animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
             animationDelay: '0ms'
           }}
         />
         <div 
-          className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+          className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
           style={{
             animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
             animationDelay: '0.2s'
           }}
         />
         <div 
-          className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+          className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
           style={{
             animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
             animationDelay: '0.4s'
