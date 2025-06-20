@@ -9,10 +9,11 @@ import FloatingSocial from '../components/FloatingSocial';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TechStack from '../components/TechStack';
+import ScrollAnimatedSection from '../components/ScrollAnimatedSection';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const [animationStep, setAnimationStep] = useState(0);
 
   useEffect(() => {
     // Enhanced smooth scrolling
@@ -27,12 +28,14 @@ const Index = () => {
 
   const handleLoaderComplete = () => {
     setIsLoading(false);
-    // Stagger content reveal for smooth effect
-    setTimeout(() => {
-      setShowContent(true);
-    }, 200);
+    
+    // Sequential animation steps like Brittany Chiang's site
+    setTimeout(() => setAnimationStep(1), 100); // Header
+    setTimeout(() => setAnimationStep(2), 200); // Floating elements
+    setTimeout(() => setAnimationStep(3), 400); // Hero
   };
 
+  // Prevent flickering by not rendering content until ready
   if (isLoading) {
     return <DacLoader onComplete={handleLoaderComplete} />;
   }
@@ -45,64 +48,60 @@ const Index = () => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10"></div>
         
         {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-emerald-500/10 via-blue-500/5 to-transparent dark:from-emerald-500/10 dark:via-blue-500/5 dark:to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 via-emerald-500/5 to-transparent dark:from-blue-500/10 dark:via-emerald-500/5 dark:to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-emerald-500/8 via-blue-500/4 to-transparent dark:from-emerald-500/8 dark:via-blue-500/4 dark:to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 via-purple-500/5 to-transparent dark:from-blue-500/10 dark:via-purple-500/5 dark:to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/10 via-blue-500/5 to-transparent dark:from-purple-500/10 dark:via-blue-500/5 dark:to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-blue-500/8 via-purple-500/4 to-transparent dark:from-blue-500/8 dark:via-purple-500/4 dark:to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Content with staggered reveal animation */}
-      <div className={`transition-all duration-1000 ease-out ${
-        showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+      {/* Header with sequential animation */}
+      <div className={`transition-all duration-700 ease-out ${
+        animationStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
       }`}>
-        {/* Floating components */}
-        <div className={`transition-all duration-700 delay-100 ${
-          showContent ? 'opacity-100' : 'opacity-0'
-        }`}>
-          <FloatingSocial />
-          <FloatingEmail />
-        </div>
+        <Header />
+      </div>
 
-        {/* Header */}
-        <div className={`transition-all duration-700 delay-200 ${
-          showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <Header />
-        </div>
+      {/* Floating components with sequential animation */}
+      <div className={`transition-all duration-700 ease-out ${
+        animationStep >= 2 ? 'opacity-100' : 'opacity-0'
+      }`}>
+        <FloatingSocial />
+        <FloatingEmail />
+      </div>
 
-        {/* Main content with consistent max-width */}
-        <div className="relative z-10">
-          {/* Seamless sections with staggered animations */}
-          <div className="space-y-0">
-            <section id="home" className={`min-h-screen flex items-center justify-center transition-all duration-700 delay-300 ${
-              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              <Hero />
-            </section>
-            
-            <section id="experience" className={`py-20 transition-all duration-700 delay-400 ${
-              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+      {/* Main content with consistent max-width and sequential animations */}
+      <div className="relative z-10">
+        <div className="space-y-0">
+          {/* Hero section */}
+          <section id="home" className={`min-h-screen flex items-center justify-center transition-all duration-800 ease-out ${
+            animationStep >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <Hero />
+          </section>
+          
+          {/* Scroll-animated sections */}
+          <ScrollAnimatedSection>
+            <section id="experience" className="py-20">
               <Experience />
             </section>
-            
-            <section id="tech" className={`py-20 transition-all duration-700 delay-500 ${
-              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+          </ScrollAnimatedSection>
+          
+          <ScrollAnimatedSection delay={200}>
+            <section id="tech" className="py-20">
               <TechStack />
             </section>
-            
-            <section id="blog" className={`py-20 transition-all duration-700 delay-600 ${
-              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+          </ScrollAnimatedSection>
+          
+          <ScrollAnimatedSection delay={400}>
+            <section id="blog" className="py-20">
               <Blog />
             </section>
-            
-            <section id="contact" className={`py-20 transition-all duration-700 delay-700 ${
-              showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+          </ScrollAnimatedSection>
+          
+          <ScrollAnimatedSection delay={600}>
+            <section id="contact" className="py-20">
               <Contact />
             </section>
-          </div>
+          </ScrollAnimatedSection>
         </div>
       </div>
     </div>
