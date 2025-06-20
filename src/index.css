@@ -205,6 +205,11 @@
     animation: fade-in 0.8s ease-out 0.3s both;
   }
 
+  /* Loader hexagon animation */
+  .animate-draw-hexagon {
+    animation: draw-hexagon 1s ease-in-out forwards;
+  }
+
   /* Custom scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
@@ -290,6 +295,13 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* Hexagon drawing animation for loader */
+@keyframes draw-hexagon {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
