@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
@@ -22,6 +21,15 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
     };
   }, [onComplete]);
 
+  const hexPoints = Array.from({ length: 6 })
+    .map((_, i) => {
+      const angle = (Math.PI / 3) * i - Math.PI / 2;
+      const x = 60 + 50 * Math.cos(angle);
+      const y = 60 + 50 * Math.sin(angle);
+      return `${x},${y}`;
+    })
+    .join(' ');
+
   return (
     <div 
       className={`fixed inset-0 z-[9999] flex items-center justify-center bg-slate-50 dark:bg-gray-900 transition-all duration-300 ease-in-out ${
@@ -42,9 +50,9 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <polygon
-            points="60,10 95,32.5 95,87.5 60,110 25,87.5 25,32.5"
+            points={hexPoints}
             stroke="currentColor"
-            strokeWidth="4"
+            strokeWidth="6"
             fill="none"
             className={`text-blue-600 dark:text-blue-400 transition-all duration-1000 ease-out ${
               isMounted ? 'opacity-100' : 'opacity-0'
