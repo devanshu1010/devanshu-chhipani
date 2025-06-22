@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
@@ -73,7 +72,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           <polygon
             points={hexPoints}
             stroke="currentColor"
-            strokeWidth="4"
+            strokeWidth="6"
             fill="none"
             className={`transition-all duration-1000 ease-out ${
               isMounted ? 'opacity-100' : 'opacity-0'
@@ -91,20 +90,20 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
         {/* DAC text centered perfectly in hexagon */}
         <div className="relative z-10 flex items-center justify-center">
           <div className="flex items-center justify-center space-x-1">
-            {/* D */}
+            {/* D - starts from center, moves left to final position */}
             <span
               className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
                 ${!isMounted 
-                  ? 'opacity-0 -translate-x-8' 
+                  ? 'opacity-0 transform translate-x-4' 
                   : isFinished 
-                    ? 'opacity-0 -translate-x-16' 
-                    : 'opacity-100 translate-x-0'
+                    ? 'opacity-0 transform translate-x-0 scale-75' 
+                    : 'opacity-100 transform translate-x-0'
                 } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-              style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
+              style={{ transitionDelay: isMounted ? '0.3s' : '0s' }}
             >
               D
             </span>
-            {/* A */}
+            {/* A - starts from center, stays in center */}
             <span
               className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
                 ${!isMounted 
@@ -113,20 +112,20 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
                     ? 'opacity-0 scale-75' 
                     : 'opacity-100 scale-100'
                 } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-              style={{ transitionDelay: isMounted ? '0.9s' : '0s' }}
+              style={{ transitionDelay: isMounted ? '0.4s' : '0s' }}
             >
               A
             </span>
-            {/* C */}
+            {/* C - starts from center, moves right to final position */}
             <span
               className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
                 ${!isMounted 
-                  ? 'opacity-0 translate-x-8' 
+                  ? 'opacity-0 transform -translate-x-4' 
                   : isFinished 
-                    ? 'opacity-0 translate-x-16' 
-                    : 'opacity-100 translate-x-0'
+                    ? 'opacity-0 transform translate-x-0 scale-75' 
+                    : 'opacity-100 transform translate-x-0'
                 } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-              style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
+              style={{ transitionDelay: isMounted ? '0.3s' : '0s' }}
             >
               C
             </span>
@@ -147,43 +146,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           }}
         />
       </div>
-      
-      {/* Loading dots with theme colors */}
-      <div className={`absolute bottom-20 flex space-x-3 transition-all duration-700 ease-out ${
-        isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-      }`}
-      style={{
-        transitionDelay: '1.2s'
-      }}>
-        <div 
-          className={`w-2 h-2 rounded-full ${
-            currentTheme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
-          }`}
-          style={{
-            animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
-            animationDelay: '0ms'
-          }}
-        />
-        <div 
-          className={`w-2 h-2 rounded-full ${
-            currentTheme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
-          }`}
-          style={{
-            animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
-            animationDelay: '0.2s'
-          }}
-        />
-        <div 
-          className={`w-2 h-2 rounded-full ${
-            currentTheme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
-          }`}
-          style={{
-            animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
-            animationDelay: '0.4s'
-          }}
-        />
       </div>
-    </div>
   );
 };
 
