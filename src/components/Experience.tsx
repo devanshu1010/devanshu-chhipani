@@ -1,3 +1,4 @@
+import { Sparkles } from "lucide-react";
 import React from "react";
 
 // Enhanced experience data with more details
@@ -193,14 +194,18 @@ const Experience = () => {
     <section id="experience" className="relative py-12 sm:py-16 md:py-24 overflow-hidden">
       {/* Fixed max-width container */}
       <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-fade-in">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 mb-6">
+            <Sparkles className="w-4 h-4 text-blue-500" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Work Experience</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Work{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent animate-gradient-anim">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               Experience
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto transition-colors duration-300">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             My journey through different roles and companies, building experiences that matter.
           </p>
         </div>

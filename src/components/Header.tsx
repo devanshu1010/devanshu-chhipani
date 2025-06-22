@@ -1,6 +1,6 @@
 
-import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,8 +58,11 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerHeight = 120;
+      const headerHeight = element.offsetTop == 0 ? 120 : (-70);
+      console.log(element.offsetTop);
       const elementPosition = element.offsetTop - headerHeight;
+
+      console.log(elementPosition);
       
       window.scrollTo({
         top: elementPosition,
