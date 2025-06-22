@@ -101,7 +101,7 @@ const Header = () => {
       {/* Fixed max-width container to match content width */}
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <header
-          className={`pointer-events-auto transition-all duration-300
+          className={`pointer-events-auto transition-all duration-300 rounded-2xl
             ${isScrolled
               ? "shadow-2xl"
               : "shadow-lg"}
