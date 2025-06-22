@@ -1,11 +1,34 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Monitor } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>('system');
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Function to get system theme preference
+  const getSystemTheme = () => {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  // Function to apply theme to document
+  const applyTheme = (mode: 'light' | 'dark' | 'system') => {
+    const root = document.documentElement;
+    
+    if (mode === 'system') {
+      const systemTheme = getSystemTheme();
+      if (systemTheme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    } else if (mode === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,15 +39,42 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+    // Load saved theme preference or default to system
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'system' || 'system';
+    setThemeMode(savedTheme);
+    applyTheme(savedTheme);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemThemeChange = () => {
+      if (themeMode === 'system') {
+        applyTheme('system');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+  }, [themeMode]);
+
+  const cycleTheme = () => {
+    const themes: ('light' | 'dark' | 'system')[] = ['light', 'dark', 'system'];
+    const currentIndex = themes.indexOf(themeMode);
+    const nextTheme = themes[(currentIndex + 1) % themes.length];
+    
+    setThemeMode(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+    applyTheme(nextTheme);
+  };
+
+  const getThemeIcon = () => {
+    switch (themeMode) {
+      case 'light':
+        return <Sun size={20} />;
+      case 'dark':
+        return <Moon size={20} />;
+      case 'system':
+        return <Monitor size={20} />;
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -95,22 +145,24 @@ const Header = () => {
                 ))}
               </div>
               
-              {/* Dark/Light Mode Toggle */}
+              {/* Theme Toggle */}
               <button
-                onClick={toggleDarkMode}
+                onClick={cycleTheme}
                 className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-300"
+                title={`Current: ${themeMode} theme`}
               >
-                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                {getThemeIcon()}
               </button>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center space-x-2">
               <button
-                onClick={toggleDarkMode}
+                onClick={cycleTheme}
                 className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300"
+                title={`Current: ${themeMode} theme`}
               >
-                {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+                {getThemeIcon()}
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}

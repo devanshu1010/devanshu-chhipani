@@ -1,10 +1,30 @@
+
 import React, { useEffect, useState } from "react";
 
 const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
+    // Get the current theme from the document
+    const getTheme = () => {
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    };
+
+    // Set initial theme
+    setCurrentTheme(getTheme());
+
+    // Watch for theme changes
+    const observer = new MutationObserver(() => {
+      setCurrentTheme(getTheme());
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
     // Trigger mount animation immediately
     setIsMounted(true);
     
@@ -18,6 +38,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
 
     return () => {
       clearTimeout(finishTimer);
+      observer.disconnect();
     };
   }, [onComplete]);
 
@@ -32,9 +53,9 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-slate-50 dark:bg-gray-900 transition-all duration-300 ease-in-out ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center transition-all duration-300 ease-in-out ${
         isFinished ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      }`}
+      } ${currentTheme === 'dark' ? 'bg-gray-900' : 'bg-slate-50'}`}
       style={{ 
         backdropFilter: 'blur(0px)',
         WebkitBackdropFilter: 'blur(0px)'
@@ -52,44 +73,59 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           <polygon
             points={hexPoints}
             stroke="currentColor"
-            strokeWidth="6"
+            strokeWidth="4"
             fill="none"
-            className={`text-blue-600 dark:text-blue-400 transition-all duration-1000 ease-out ${
+            className={`transition-all duration-1000 ease-out ${
               isMounted ? 'opacity-100' : 'opacity-0'
-            }`}
+            } ${currentTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{
-              strokeDasharray: '300',
-              strokeDashoffset: isMounted ? '0' : '300',
+              strokeDasharray: '314',
+              strokeDashoffset: isMounted ? '0' : '314',
               transition: 'stroke-dashoffset 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s, opacity 0.3s ease-out'
             }}
           />
         </svg>
         
-        {/* DAC text with true split-from-center animation */}
-        <div className="relative z-10 flex items-center justify-center h-16 w-32 select-none">
-          <div className="relative w-28 h-16">
+        {/* DAC text centered perfectly in hexagon */}
+        <div className="relative z-10 flex items-center justify-center">
+          <div className="flex items-center justify-center space-x-1">
             {/* D */}
             <span
-              className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
-                ${!isMounted ? 'opacity-0 -translate-x-1/2 -translate-y-1/2' : isFinished ? '-translate-x-[4.5rem] -translate-y-1/2 opacity-0' : '-translate-x-10  -translate-y-1/2 opacity-100'}`}
+              className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
+                ${!isMounted 
+                  ? 'opacity-0 -translate-x-8' 
+                  : isFinished 
+                    ? 'opacity-0 -translate-x-16' 
+                    : 'opacity-100 translate-x-0'
+                } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
               style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
             >
               D
             </span>
             {/* A */}
             <span
-              className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
-                ${!isMounted ? 'opacity-0 scale-75 -translate-x-1/2 -translate-y-1/2' : isFinished ? 'opacity-0 scale-75 -translate-x-1/2 -translate-y-1/2' : 'opacity-100 scale-100 -translate-x-1/2 -translate-y-1/2'}`}
+              className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
+                ${!isMounted 
+                  ? 'opacity-0 scale-75' 
+                  : isFinished 
+                    ? 'opacity-0 scale-75' 
+                    : 'opacity-100 scale-100'
+                } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
               style={{ transitionDelay: isMounted ? '0.9s' : '0s' }}
             >
               A
             </span>
             {/* C */}
             <span
-              className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
-                ${!isMounted ? 'opacity-0 -translate-x-1/2 -translate-y-1/2' : isFinished ? 'translate-x-[4.5rem] -translate-y-1/2 opacity-0' : 'translate-x-3 -translate-y-1/2 opacity-100'}`}
+              className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
+                ${!isMounted 
+                  ? 'opacity-0 translate-x-8' 
+                  : isFinished 
+                    ? 'opacity-0 translate-x-16' 
+                    : 'opacity-100 translate-x-0'
+                } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
               style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
             >
               C
@@ -103,7 +139,9 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
             isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
           }`}
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
+            background: currentTheme === 'dark' 
+              ? 'radial-gradient(circle, rgba(96, 165, 250, 0.2) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
             filter: 'blur(20px)',
             transitionDelay: '1s'
           }}
@@ -118,21 +156,27 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
         transitionDelay: '1.2s'
       }}>
         <div 
-          className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
+          className={`w-2 h-2 rounded-full ${
+            currentTheme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
+          }`}
           style={{
             animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
             animationDelay: '0ms'
           }}
         />
         <div 
-          className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
+          className={`w-2 h-2 rounded-full ${
+            currentTheme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
+          }`}
           style={{
             animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
             animationDelay: '0.2s'
           }}
         />
         <div 
-          className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
+          className={`w-2 h-2 rounded-full ${
+            currentTheme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
+          }`}
           style={{
             animation: isMounted ? 'bounce 1.4s ease-in-out infinite' : 'none',
             animationDelay: '0.4s'

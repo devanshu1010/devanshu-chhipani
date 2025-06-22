@@ -13,8 +13,32 @@ import TechStack from '../components/TechStack';
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [contentReady, setContentReady] = useState(false);
+  const [themeInitialized, setThemeInitialized] = useState(false);
 
   useEffect(() => {
+    // Initialize theme immediately to prevent flickering
+    const initializeTheme = () => {
+      const savedTheme = localStorage.getItem('theme') || 'system';
+      const root = document.documentElement;
+      
+      if (savedTheme === 'system') {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        if (systemTheme === 'dark') {
+          root.classList.add('dark');
+        } else {
+          root.classList.remove('dark');
+        }
+      } else if (savedTheme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+      
+      setThemeInitialized(true);
+    };
+
+    initializeTheme();
+
     // Enhanced smooth scrolling
     document.documentElement.style.scrollBehavior = 'smooth';
     document.documentElement.style.scrollPaddingTop = '120px';
@@ -33,8 +57,8 @@ const Index = () => {
     }, 100);
   };
 
-  // Show loader while loading
-  if (isLoading) {
+  // Show loader while loading or theme is not initialized
+  if (isLoading || !themeInitialized) {
     return <DacLoader onComplete={handleLoaderComplete} />;
   }
   
