@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Monitor } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>('system');
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('dark');
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Function to get system theme preference
@@ -13,17 +13,10 @@ const Header = () => {
   };
 
   // Function to apply theme to document
-  const applyTheme = (mode: 'light' | 'dark' | 'system') => {
+  const applyTheme = (mode: 'light' | 'dark') => {
     const root = document.documentElement;
     
-    if (mode === 'system') {
-      const systemTheme = getSystemTheme();
-      if (systemTheme === 'dark') {
-        root.classList.add('dark');
-      } else {
-        root.classList.remove('dark');
-      }
-    } else if (mode === 'dark') {
+    if (mode === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
@@ -39,50 +32,38 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Load saved theme preference or default to system
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'system' || 'system';
-    setThemeMode(savedTheme);
-    applyTheme(savedTheme);
+    // Default to system theme on initial load
+    const systemTheme = getSystemTheme();
+    setThemeMode(systemTheme);
+    applyTheme(systemTheme);
 
     // Listen for system theme changes
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleSystemThemeChange = () => {
-      if (themeMode === 'system') {
-        applyTheme('system');
-      }
+      const newSystemTheme = getSystemTheme();
+      setThemeMode(newSystemTheme);
+      applyTheme(newSystemTheme);
     };
 
     mediaQuery.addEventListener('change', handleSystemThemeChange);
     return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
-  }, [themeMode]);
+  }, []);
 
-  const cycleTheme = () => {
-    const themes: ('light' | 'dark' | 'system')[] = ['light', 'dark', 'system'];
-    const currentIndex = themes.indexOf(themeMode);
-    const nextTheme = themes[(currentIndex + 1) % themes.length];
-    
-    setThemeMode(nextTheme);
-    localStorage.setItem('theme', nextTheme);
-    applyTheme(nextTheme);
-  };
-
-  const getThemeIcon = () => {
-    switch (themeMode) {
-      case 'light':
-        return <Sun size={20} />;
-      case 'dark':
-        return <Moon size={20} />;
-      case 'system':
-        return <Monitor size={20} />;
-    }
+  const toggleTheme = () => {
+    const newTheme = themeMode === 'light' ? 'dark' : 'light';
+    setThemeMode(newTheme);
+    applyTheme(newTheme);
   };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      const headerHeight = 120;
+      const elementPosition = element.offsetTop - headerHeight;
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
       });
     }
     setIsMenuOpen(false);
@@ -147,22 +128,22 @@ const Header = () => {
               
               {/* Theme Toggle */}
               <button
-                onClick={cycleTheme}
+                onClick={toggleTheme}
                 className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-300"
-                title={`Current: ${themeMode} theme`}
+                title={`Switch to ${themeMode === 'light' ? 'dark' : 'light'} theme`}
               >
-                {getThemeIcon()}
+                {themeMode === 'light' ? <Moon size={20} /> : <Sun size={20} />}
               </button>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center space-x-2">
               <button
-                onClick={cycleTheme}
+                onClick={toggleTheme}
                 className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300"
-                title={`Current: ${themeMode} theme`}
+                title={`Switch to ${themeMode === 'light' ? 'dark' : 'light'} theme`}
               >
-                {getThemeIcon()}
+                {themeMode === 'light' ? <Moon size={20} /> : <Sun size={20} />}
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}

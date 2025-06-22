@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 const DacLoader = ({ onComplete }) => {
@@ -23,14 +24,12 @@ const DacLoader = ({ onComplete }) => {
 
     setIsMounted(true);
     
-    // Reduced timing for smoother transition
     const finishTimer = setTimeout(() => {
       setIsFinished(true);
-      // Immediate callback without additional delay
       setTimeout(() => {
         onComplete?.();
-      }, 100); // Reduced from 300ms to 100ms
-    }, 1800); // Reduced from 2000ms to 1800ms
+      }, 100);
+    }, 1800);
 
     return () => {
       clearTimeout(finishTimer);
@@ -51,8 +50,9 @@ const DacLoader = ({ onComplete }) => {
     <div 
       className={`fixed inset-0 z-[9999] flex items-center justify-center transition-all duration-500 ease-in-out ${
         isFinished ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      } ${currentTheme === 'dark' ? 'bg-gray-900' : 'bg-slate-50'}`}
+      }`}
       style={{ 
+        backgroundColor: currentTheme === 'dark' ? '#111827' : '#f8fafc',
         backdropFilter: 'blur(0px)',
         WebkitBackdropFilter: 'blur(0px)'
       }}
@@ -66,12 +66,12 @@ const DacLoader = ({ onComplete }) => {
         >
           <polygon
             points={hexPoints}
-            stroke="currentColor"
-            strokeWidth="6"
+            stroke={currentTheme === 'dark' ? '#60a5fa' : '#2563eb'}
+            strokeWidth="8"
             fill="none"
             className={`transition-all duration-1000 ease-out ${
               isMounted ? 'opacity-100' : 'opacity-0'
-            } ${currentTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}
+            }`}
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{
@@ -91,8 +91,11 @@ const DacLoader = ({ onComplete }) => {
                   : isFinished 
                     ? 'opacity-0 transform translate-x-0 scale-75' 
                     : 'opacity-100 transform translate-x-0'
-                } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-              style={{ transitionDelay: isMounted ? '0.3s' : '0s' }}
+                }`}
+              style={{ 
+                color: currentTheme === 'dark' ? '#ffffff' : '#111827',
+                transitionDelay: isMounted ? '0.3s' : '0s' 
+              }}
             >
               D
             </span>
@@ -103,8 +106,11 @@ const DacLoader = ({ onComplete }) => {
                   : isFinished 
                     ? 'opacity-0 scale-75' 
                     : 'opacity-100 scale-100'
-                } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-              style={{ transitionDelay: isMounted ? '0.4s' : '0s' }}
+                }`}
+              style={{ 
+                color: currentTheme === 'dark' ? '#ffffff' : '#111827',
+                transitionDelay: isMounted ? '0.4s' : '0s' 
+              }}
             >
               A
             </span>
@@ -115,8 +121,11 @@ const DacLoader = ({ onComplete }) => {
                   : isFinished 
                     ? 'opacity-0 transform translate-x-0 scale-75' 
                     : 'opacity-100 transform translate-x-0'
-                } ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-              style={{ transitionDelay: isMounted ? '0.3s' : '0s' }}
+                }`}
+              style={{ 
+                color: currentTheme === 'dark' ? '#ffffff' : '#111827',
+                transitionDelay: isMounted ? '0.3s' : '0s' 
+              }}
             >
               C
             </span>
@@ -130,7 +139,7 @@ const DacLoader = ({ onComplete }) => {
           style={{
             background: currentTheme === 'dark' 
               ? 'radial-gradient(circle, rgba(96, 165, 250, 0.2) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
+              : 'radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%)',
             filter: 'blur(20px)',
             transitionDelay: '1s'
           }}

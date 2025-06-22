@@ -15,18 +15,11 @@ const Index = () => {
 
   useEffect(() => {
     const initializeTheme = () => {
-      // Mock theme initialization for demo
-      const savedTheme = 'system';
+      // Initialize with system theme
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       const root = document.documentElement;
       
-      if (savedTheme === 'system') {
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        if (systemTheme === 'dark') {
-          root.classList.add('dark');
-        } else {
-          root.classList.remove('dark');
-        }
-      } else if (savedTheme === 'dark') {
+      if (systemTheme === 'dark') {
         root.classList.add('dark');
       } else {
         root.classList.remove('dark');
@@ -37,17 +30,15 @@ const Index = () => {
 
     initializeTheme();
 
+    // Remove scroll padding as we're handling it manually in Header
     document.documentElement.style.scrollBehavior = 'smooth';
-    document.documentElement.style.scrollPaddingTop = '120px';
     
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
-      document.documentElement.style.scrollPaddingTop = '0';
     };
   }, []);
 
   const handleLoaderComplete = () => {
-    // Single clean transition - no intermediate states
     setIsLoading(false);
   };
 
