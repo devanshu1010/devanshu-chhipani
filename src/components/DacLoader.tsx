@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
+const DacLoader = ({ onComplete }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
+  const [currentTheme, setCurrentTheme] = useState('dark');
 
   useEffect(() => {
-    // Get the current theme from the document
     const getTheme = () => {
       return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     };
 
-    // Set initial theme
     setCurrentTheme(getTheme());
 
-    // Watch for theme changes
     const observer = new MutationObserver(() => {
       setCurrentTheme(getTheme());
     });
@@ -24,16 +21,16 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
       attributeFilter: ['class']
     });
 
-    // Trigger mount animation immediately
     setIsMounted(true);
     
-    // Timer for completion
+    // Reduced timing for smoother transition
     const finishTimer = setTimeout(() => {
       setIsFinished(true);
+      // Immediate callback without additional delay
       setTimeout(() => {
         onComplete?.();
-      }, 300);
-    }, 2000);
+      }, 100); // Reduced from 300ms to 100ms
+    }, 1800); // Reduced from 2000ms to 1800ms
 
     return () => {
       clearTimeout(finishTimer);
@@ -52,7 +49,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] flex items-center justify-center transition-all duration-300 ease-in-out ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center transition-all duration-500 ease-in-out ${
         isFinished ? 'opacity-0 pointer-events-none' : 'opacity-100'
       } ${currentTheme === 'dark' ? 'bg-gray-900' : 'bg-slate-50'}`}
       style={{ 
@@ -60,9 +57,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
         WebkitBackdropFilter: 'blur(0px)'
       }}
     >
-      {/* Main logo container */}
       <div className="relative flex items-center justify-center">
-        {/* Perfect hexagon with bold lines */}
         <svg
           className="absolute w-32 h-32 md:w-40 md:h-40"
           viewBox="0 0 120 120"
@@ -87,10 +82,8 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           />
         </svg>
         
-        {/* DAC text centered perfectly in hexagon */}
         <div className="relative z-10 flex items-center justify-center">
           <div className="flex items-center justify-center space-x-1">
-            {/* D - starts from center, moves left to final position */}
             <span
               className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
                 ${!isMounted 
@@ -103,7 +96,6 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
             >
               D
             </span>
-            {/* A - starts from center, stays in center */}
             <span
               className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
                 ${!isMounted 
@@ -116,7 +108,6 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
             >
               A
             </span>
-            {/* C - starts from center, moves right to final position */}
             <span
               className={`text-4xl md:text-5xl font-bold font-mono transition-all duration-700 ease-in-out
                 ${!isMounted 
@@ -132,7 +123,6 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           </div>
         </div>
         
-        {/* Inner glow effect with theme colors */}
         <div 
           className={`absolute inset-0 w-20 h-20 md:w-24 md:h-24 rounded-full transition-all duration-1200 ease-out ${
             isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
@@ -146,7 +136,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           }}
         />
       </div>
-      </div>
+    </div>
   );
 };
 
