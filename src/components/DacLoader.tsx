@@ -89,7 +89,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
             {/* C */}
             <span
               className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
-                ${!isMounted ? 'opacity-0 -translate-x-1/2 -translate-y-1/2' : isFinished ? 'translate-x-[4.5rem] -translate-y-1/2 opacity-0' : 'translate-x-3 -translate-y-1/2 opacity-100'}`}
+                ${!isMounted ? 'opacity-0 translate-x-1/2 -translate-y-1/2' : isFinished ? 'translate-x-[4.5rem] -translate-y-1/2 opacity-0' : 'translate-x-3 -translate-y-1/2 opacity-100'}`}
               style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
             >
               C
