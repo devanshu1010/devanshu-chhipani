@@ -1,4 +1,3 @@
-
 import { Sparkles } from "lucide-react";
 import React from "react";
 
@@ -93,6 +92,8 @@ interface ExperienceCardProps {
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColumn = false }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
+  console.log('Card render:', exp.company, 'isExpanded:', isExpanded);
+
   return (
     <div className="relative group animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
       {/* Timeline dot for desktop */}
@@ -102,61 +103,27 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
         <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
       </div>
 
-      {/* Expandable Card */}
+      {/* Card Container */}
       <div className={`bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1 w-full flex flex-col group hover:bg-white/90 dark:hover:bg-black/90 overflow-hidden ${
-        isExpanded ? 'fixed inset-4 z-50 transform translate-x-0 translate-y-0 hover:translate-y-0' : ''
+        isExpanded ? 'transform scale-105' : ''
       }`}>
         
-        {/* Backdrop when expanded */}
-        {isExpanded && (
-          <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
-            onClick={() => setIsExpanded(false)}
-          />
-        )}
-
-        <div className={`relative z-50 p-4 sm:p-5 md:p-6 transition-all duration-500 ${
-          isExpanded ? 'h-full overflow-y-auto' : ''
-        }`}>
+        <div className="p-4 sm:p-5 md:p-6 transition-all duration-500">
           
-          {/* Close button when expanded */}
-          {isExpanded && (
-            <button
-              onClick={() => setIsExpanded(false)}
-              className="absolute right-4 top-4 z-60 p-2 rounded-full bg-white/10 dark:bg-white/10 hover:bg-white/20 dark:hover:bg-white/20 transition-all duration-200"
-            >
-              <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          )}
-
           {/* Header Section */}
-          <div className={`flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0 transition-all duration-500 ${
-            isExpanded ? 'mb-6' : ''
-          }`}>
-            <div className={`relative flex-shrink-0 transition-all duration-500 group-hover:scale-105 ${
-              isExpanded ? 'scale-110' : ''
-            }`}>
+          <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
+            <div className="relative flex-shrink-0 transition-all duration-500 group-hover:scale-105">
               <img
                 src={exp.logo}
                 alt={exp.company}
-                className={`rounded-xl object-cover border border-gray-200 dark:border-gray-600 transition-all duration-500 ${
-                  isExpanded ? 'w-16 h-16' : 'w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12'
-                }`}
+                className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
               />
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className={`font-bold text-gray-900 dark:text-white mb-1 truncate transition-all duration-500 ${
-                isExpanded ? 'text-2xl mb-2' : 'text-base sm:text-lg'
-              }`}>{exp.company}</h3>
-              <p className={`text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-all duration-500 ${
-                isExpanded ? 'text-lg mb-2' : 'text-sm sm:text-base'
-              }`}>{exp.position}</p>
-              <p className={`font-medium text-gray-500 dark:text-gray-400 tracking-wide transition-all duration-500 ${
-                isExpanded ? 'text-sm' : 'text-xs'
-              }`}>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-1 truncate text-base sm:text-lg">{exp.company}</h3>
+              <p className="text-blue-600 dark:text-blue-400 font-semibold mb-1 text-sm sm:text-base">{exp.position}</p>
+              <p className="font-medium text-gray-500 dark:text-gray-400 tracking-wide text-xs">
                 {formatDate(exp.start)} – {exp.present ? (
                   <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
                 ) : formatDate(exp.end)}
@@ -165,23 +132,19 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
           </div>
           
           {/* Description Section */}
-          <div className={`flex-1 flex flex-col overflow-hidden transition-all duration-500 ${
-            isExpanded ? 'mb-6' : 'mb-2'
-          }`}>
-            <div className={`text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-500 ${
-              isExpanded ? 'text-base mb-4' : 'text-xs sm:text-sm mb-2'
-            }`}>
-              <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
+          <div className="mb-4">
+            <div className="text-gray-700 dark:text-gray-300 leading-relaxed text-xs sm:text-sm">
+              <p className="mb-3">{isExpanded ? exp.fullDescription : exp.description}</p>
               
               {/* Achievements Section - Only visible when expanded */}
               {isExpanded && (
                 <div className="mt-6 animate-fade-in">
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Key Achievements:</h4>
-                  <ul className="space-y-3">
+                  <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Key Achievements:</h4>
+                  <ul className="space-y-2">
                     {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${achIndex * 100}ms` }}>
-                        <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 mt-2 flex-shrink-0"></span>
-                        <span className="text-sm leading-relaxed">{achievement}</span>
+                      <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-2 text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 mt-1.5 flex-shrink-0"></span>
+                        <span>{achievement}</span>
                       </li>
                     ))}
                   </ul>
@@ -190,54 +153,38 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             </div>
             
             {/* Read more/less button */}
-            {!isExpanded && (
-              <div className="flex-shrink-0 mb-3 flex gap-2">
-                <button
-                  onClick={() => setIsExpanded(true)}
-                  className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
-                >
-                  Read more
-                  <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </div>
-            )}
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={() => {
+                  console.log('Button clicked, current state:', isExpanded);
+                  setIsExpanded(!isExpanded);
+                }}
+                className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
+              >
+                {isExpanded ? 'Read less' : 'Read more'}
+                <svg className={`w-3 h-3 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
           </div>
           
           {/* Technologies Section */}
-          <div className={`flex-shrink-0 transition-all duration-500 ${
-            isExpanded ? 'mt-6' : ''
-          }`}>
+          <div className="flex-shrink-0">
             {isExpanded && (
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Technologies Used:</h3>
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Technologies Used:</h3>
             )}
             <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {exp.technologies.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className={`font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 ${
-                    isExpanded ? 'px-3 py-1.5 text-sm rounded-lg' : 'px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs'
-                  }`}
-                  style={{ animationDelay: `${techIndex * 50}ms` }}
+                  className="font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs"
                 >
                   {tech}
                 </span>
               ))}
             </div>
           </div>
-
-          {/* Close button at bottom when expanded */}
-          {isExpanded && (
-            <div className="flex justify-center mt-8">
-              <button
-                onClick={() => setIsExpanded(false)}
-                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200"
-              >
-                Close
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>
