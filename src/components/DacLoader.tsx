@@ -67,7 +67,7 @@ const DacLoader = ({ onComplete }) => {
           <polygon
             points={hexPoints}
             stroke={currentTheme === 'dark' ? '#60a5fa' : '#2563eb'}
-            strokeWidth="8"
+            strokeWidth="5"
             fill="none"
             className={`transition-all duration-1000 ease-out ${
               isMounted ? 'opacity-100' : 'opacity-0'
@@ -77,7 +77,7 @@ const DacLoader = ({ onComplete }) => {
             style={{
               strokeDasharray: '314',
               strokeDashoffset: isMounted ? '0' : '314',
-              transition: 'stroke-dashoffset 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s, opacity 0.3s ease-out'
+              transition: 'stroke-dashoffset 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s, opacity 0.3s ease-out'
             }}
           />
         </svg>
@@ -94,7 +94,7 @@ const DacLoader = ({ onComplete }) => {
                 }`}
               style={{ 
                 color: currentTheme === 'dark' ? '#ffffff' : '#111827',
-                transitionDelay: isMounted ? '0.3s' : '0s' 
+                transitionDelay: isMounted ? '1.1s' : '0s' 
               }}
             >
               D
@@ -109,7 +109,7 @@ const DacLoader = ({ onComplete }) => {
                 }`}
               style={{ 
                 color: currentTheme === 'dark' ? '#ffffff' : '#111827',
-                transitionDelay: isMounted ? '0.4s' : '0s' 
+                transitionDelay: isMounted ? '1.2s' : '0s' 
               }}
             >
               A
@@ -124,7 +124,7 @@ const DacLoader = ({ onComplete }) => {
                 }`}
               style={{ 
                 color: currentTheme === 'dark' ? '#ffffff' : '#111827',
-                transitionDelay: isMounted ? '0.3s' : '0s' 
+                transitionDelay: isMounted ? '1.1s' : '0s' 
               }}
             >
               C

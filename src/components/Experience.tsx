@@ -92,8 +92,6 @@ interface ExperienceCardProps {
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColumn = false }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
-  console.log('Card render:', exp.company, 'isExpanded:', isExpanded);
-
   return (
     <div className="relative group animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
       {/* Timeline dot for desktop */}
@@ -110,81 +108,215 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
         
         <div className="p-4 sm:p-5 md:p-6 transition-all duration-500">
           
-          {/* Header Section */}
-          <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
-            <div className="relative flex-shrink-0 transition-all duration-500 group-hover:scale-105">
-              <img
-                src={exp.logo}
-                alt={exp.company}
-                className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
-              />
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-gray-900 dark:text-white mb-1 truncate text-base sm:text-lg">{exp.company}</h3>
-              <p className="text-blue-600 dark:text-blue-400 font-semibold mb-1 text-sm sm:text-base">{exp.position}</p>
-              <p className="font-medium text-gray-500 dark:text-gray-400 tracking-wide text-xs">
-                {formatDate(exp.start)} – {exp.present ? (
-                  <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
-                ) : formatDate(exp.end)}
-              </p>
-            </div>
-          </div>
-          
-          {/* Description Section */}
-          <div className="mb-4">
-            <div className="text-gray-700 dark:text-gray-300 leading-relaxed text-xs sm:text-sm">
-              <p className="mb-3">{isExpanded ? exp.fullDescription : exp.description}</p>
-              
-              {/* Achievements Section - Only visible when expanded */}
-              {isExpanded && (
-                <div className="mt-6 animate-fade-in">
-                  <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Key Achievements:</h4>
-                  <ul className="space-y-2">
-                    {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-2 text-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 mt-1.5 flex-shrink-0"></span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
+          {/* Collapsed View - Default state */}
+          {!isExpanded && (
+            <>
+              {/* Header Section */}
+              <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
+                <div className="relative flex-shrink-0 transition-all duration-500 group-hover:scale-105">
+                  <img
+                    src={exp.logo}
+                    alt={exp.company}
+                    className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
                 </div>
-              )}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1 truncate text-base sm:text-lg">{exp.company}</h3>
+                  <p className="text-blue-600 dark:text-blue-400 font-semibold mb-1 text-sm sm:text-base">{exp.position}</p>
+                  <p className="font-medium text-gray-500 dark:text-gray-400 tracking-wide text-xs">
+                    {formatDate(exp.start)} – {exp.present ? (
+                      <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                    ) : formatDate(exp.end)}
+                  </p>
+                </div>
+              </div>
+              
+              {/* Description Section */}
+              <div className="mb-4">
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed text-xs sm:text-sm">
+                  <p className="mb-3">{exp.description}</p>
+                </div>
+                
+                {/* Read more button */}
+                <div className="mt-3 flex gap-2">
+                  <button
+                    onClick={() => setIsExpanded(true)}
+                    className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
+                  >
+                    Read more
+                    <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              
+              {/* Technologies Section */}
+              <div className="flex-shrink-0">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                  {exp.technologies.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Expanded View - Different structure for desktop/tablet only */}
+          {isExpanded && (
+            <div className="animate-fade-in">
+              {/* Only show expanded structure on desktop/tablet, not mobile */}
+              <div className="hidden md:block">
+                {/* Expanded Desktop/Tablet Layout */}
+                <div className="space-y-6">
+                  {/* Company Header */}
+                  <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <div className="flex items-center gap-4 mb-3">
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        className="w-16 h-16 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
+                      />
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{exp.company}</h3>
+                        <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold">{exp.position}</p>
+                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide">
+                          {formatDate(exp.start)} – {exp.present ? (
+                            <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                          ) : formatDate(exp.end)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Full Description */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">About the Role</h4>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">{exp.fullDescription}</p>
+                  </div>
+
+                  {/* Key Achievements */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Key Achievements</h4>
+                    <ul className="space-y-2">
+                      {exp.achievements.map((achievement, achIndex) => (
+                        <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-3 text-sm">
+                          <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 mt-2 flex-shrink-0"></span>
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Technologies Used */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Technologies Used</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-3 py-1.5 text-sm"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Read Less Button */}
+                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button
+                      onClick={() => setIsExpanded(false)}
+                      className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-2 transition-all duration-200 hover:scale-105"
+                    >
+                      <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                      Show less
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Expanded View - Same as collapsed but with full description */}
+              <div className="md:hidden">
+                {/* Header Section */}
+                <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
+                  <div className="relative flex-shrink-0 transition-all duration-500 group-hover:scale-105">
+                    <img
+                      src={exp.logo}
+                      alt={exp.company}
+                      className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
+                    />
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1 truncate text-base sm:text-lg">{exp.company}</h3>
+                    <p className="text-blue-600 dark:text-blue-400 font-semibold mb-1 text-sm sm:text-base">{exp.position}</p>
+                    <p className="font-medium text-gray-500 dark:text-gray-400 tracking-wide text-xs">
+                      {formatDate(exp.start)} – {exp.present ? (
+                        <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
+                      ) : formatDate(exp.end)}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Description Section */}
+                <div className="mb-4">
+                  <div className="text-gray-700 dark:text-gray-300 leading-relaxed text-xs sm:text-sm">
+                    <p className="mb-3">{exp.fullDescription}</p>
+                    
+                    {/* Achievements Section for mobile */}
+                    <div className="mt-4">
+                      <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Key Achievements:</h4>
+                      <ul className="space-y-1">
+                        {exp.achievements.map((achievement, achIndex) => (
+                          <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-2 text-xs">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 mt-1.5 flex-shrink-0"></span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  {/* Read less button */}
+                  <div className="mt-3 flex gap-2">
+                    <button
+                      onClick={() => setIsExpanded(false)}
+                      className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
+                    >
+                      Read less
+                      <svg className="w-3 h-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Technologies Section for mobile */}
+                <div className="flex-shrink-0">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Technologies Used:</h3>
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                    {exp.technologies.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            {/* Read more/less button */}
-            <div className="mt-3 flex gap-2">
-              <button
-                onClick={() => {
-                  console.log('Button clicked, current state:', isExpanded);
-                  setIsExpanded(!isExpanded);
-                }}
-                className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
-              >
-                {isExpanded ? 'Read less' : 'Read more'}
-                <svg className={`w-3 h-3 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          
-          {/* Technologies Section */}
-          <div className="flex-shrink-0">
-            {isExpanded && (
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Technologies Used:</h3>
-            )}
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
-              {exp.technologies.map((tech, techIndex) => (
-                <span
-                  key={techIndex}
-                  className="font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
