@@ -1,6 +1,6 @@
-import { Sparkles, X } from "lucide-react";
+
+import { Sparkles } from "lucide-react";
 import React from "react";
-import { Dialog, DialogContent, DialogOverlay, DialogPortal } from "./ui/dialog";
 
 // Enhanced experience data with more details
 const experienceData = [
@@ -92,34 +92,71 @@ interface ExperienceCardProps {
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColumn = false }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   return (
-    <>
-      <div className="relative group animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
-        {/* Timeline dot for desktop - positioned relative to this card - NO ANIMATIONS */}
-        <div className="hidden md:block absolute top-8 z-20" style={{
-          left: isRightColumn ? '-2.5rem' : 'calc(100% + 1.5rem)'
-        }}>
-          <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
-        </div>
+    <div className="relative group animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
+      {/* Timeline dot for desktop */}
+      <div className="hidden md:block absolute top-8 z-20" style={{
+        left: isRightColumn ? '-2.5rem' : 'calc(100% + 1.5rem)'
+      }}>
+        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-4 border-white dark:border-gray-900 shadow-lg"></div>
+      </div>
 
-        {/* Card */}
-        <div className="bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full flex flex-col group hover:bg-white/90 dark:hover:bg-black/90 h-full">
+      {/* Expandable Card */}
+      <div className={`bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1 w-full flex flex-col group hover:bg-white/90 dark:hover:bg-black/90 overflow-hidden ${
+        isExpanded ? 'fixed inset-4 z-50 transform translate-x-0 translate-y-0 hover:translate-y-0' : ''
+      }`}>
+        
+        {/* Backdrop when expanded */}
+        {isExpanded && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
+            onClick={() => setIsExpanded(false)}
+          />
+        )}
+
+        <div className={`relative z-50 p-4 sm:p-5 md:p-6 transition-all duration-500 ${
+          isExpanded ? 'h-full overflow-y-auto' : ''
+        }`}>
+          
+          {/* Close button when expanded */}
+          {isExpanded && (
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="absolute right-4 top-4 z-60 p-2 rounded-full bg-white/10 dark:bg-white/10 hover:bg-white/20 dark:hover:bg-white/20 transition-all duration-200"
+            >
+              <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+
           {/* Header Section */}
-          <div className="flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0">
-            <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+          <div className={`flex items-start gap-2 sm:gap-3 mb-3 flex-shrink-0 transition-all duration-500 ${
+            isExpanded ? 'mb-6' : ''
+          }`}>
+            <div className={`relative flex-shrink-0 transition-all duration-500 group-hover:scale-105 ${
+              isExpanded ? 'scale-110' : ''
+            }`}>
               <img
                 src={exp.logo}
                 alt={exp.company}
-                className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
+                className={`rounded-xl object-cover border border-gray-200 dark:border-gray-600 transition-all duration-500 ${
+                  isExpanded ? 'w-16 h-16' : 'w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12'
+                }`}
               />
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 truncate transition-colors duration-300">{exp.company}</h3>
-              <p className="text-sm sm:text-base text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-colors duration-300">{exp.position}</p>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wide">
+              <h3 className={`font-bold text-gray-900 dark:text-white mb-1 truncate transition-all duration-500 ${
+                isExpanded ? 'text-2xl mb-2' : 'text-base sm:text-lg'
+              }`}>{exp.company}</h3>
+              <p className={`text-blue-600 dark:text-blue-400 font-semibold mb-1 transition-all duration-500 ${
+                isExpanded ? 'text-lg mb-2' : 'text-sm sm:text-base'
+              }`}>{exp.position}</p>
+              <p className={`font-medium text-gray-500 dark:text-gray-400 tracking-wide transition-all duration-500 ${
+                isExpanded ? 'text-sm' : 'text-xs'
+              }`}>
                 {formatDate(exp.start)} – {exp.present ? (
                   <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
                 ) : formatDate(exp.end)}
@@ -127,20 +164,24 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             </div>
           </div>
           
-          {/* Description Section - Flexible height */}
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <div className={`text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-500 ease-in-out ${isExpanded ? 'mb-4' : 'mb-2'}`}>
+          {/* Description Section */}
+          <div className={`flex-1 flex flex-col overflow-hidden transition-all duration-500 ${
+            isExpanded ? 'mb-6' : 'mb-2'
+          }`}>
+            <div className={`text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-500 ${
+              isExpanded ? 'text-base mb-4' : 'text-xs sm:text-sm mb-2'
+            }`}>
               <p className="mb-2">{isExpanded ? exp.fullDescription : exp.description}</p>
               
               {/* Achievements Section - Only visible when expanded */}
               {isExpanded && (
-                <div className="mt-3 animate-fade-in">
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-2">Key Achievements:</h4>
-                  <ul className="space-y-1.5">
+                <div className="mt-6 animate-fade-in">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Key Achievements:</h4>
+                  <ul className="space-y-3">
                     {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2 animate-fade-in" style={{ animationDelay: `${achIndex * 100}ms` }}>
-                        <span className="text-blue-500 dark:text-blue-400 mt-1 transition-colors duration-300">•</span>
-                        <span>{achievement}</span>
+                      <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${achIndex * 100}ms` }}>
+                        <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 mt-2 flex-shrink-0"></span>
+                        <span className="text-sm leading-relaxed">{achievement}</span>
                       </li>
                     ))}
                   </ul>
@@ -149,44 +190,35 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
             </div>
             
             {/* Read more/less button */}
-            <div className="flex-shrink-0 mb-3 flex gap-2">
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
-              >
-                {isExpanded ? (
-                  <>
-                    Show less
-                    <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    Read more
-                    <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </>
-                )}
-              </button>
-              
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="text-xs font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-all duration-200 hover:scale-105"
-              >
-                View Details
-              </button>
-            </div>
+            {!isExpanded && (
+              <div className="flex-shrink-0 mb-3 flex gap-2">
+                <button
+                  onClick={() => setIsExpanded(true)}
+                  className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-all duration-200 hover:scale-105"
+                >
+                  Read more
+                  <svg className="w-3 h-3 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
           
-          {/* Technologies Section - Fixed at bottom */}
-          <div className="flex-shrink-0">
+          {/* Technologies Section */}
+          <div className={`flex-shrink-0 transition-all duration-500 ${
+            isExpanded ? 'mt-6' : ''
+          }`}>
+            {isExpanded && (
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Technologies Used:</h3>
+            )}
             <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {exp.technologies.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                  className={`font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/50 ${
+                    isExpanded ? 'px-3 py-1.5 text-sm rounded-lg' : 'px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs'
+                  }`}
                   style={{ animationDelay: `${techIndex * 50}ms` }}
                 >
                   {tech}
@@ -194,121 +226,21 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index, isRightColu
               ))}
             </div>
           </div>
+
+          {/* Close button at bottom when expanded */}
+          {isExpanded && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200"
+              >
+                Close
+              </button>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Modal Dialog */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogPortal>
-          <DialogOverlay className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <DialogContent className="fixed left-[50%] top-[50%] z-50 w-[95vw] max-w-4xl max-h-[90vh] translate-x-[-50%] translate-y-[-50%] bg-white/95 dark:bg-black/95 backdrop-blur-lg border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-0 shadow-2xl overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
-            
-            {/* Close Button */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute right-4 top-4 z-10 p-2 rounded-full bg-white/10 dark:bg-white/10 hover:bg-white/20 dark:hover:bg-white/20 transition-all duration-200"
-            >
-              <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-            </button>
-
-            <div className="flex h-full max-h-[90vh]">
-              {/* Left Panel - Main Content */}
-              <div className="flex-1 p-8 overflow-y-auto">
-                {/* Header */}
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="relative flex-shrink-0">
-                    <img
-                      src={exp.logo}
-                      alt={exp.company}
-                      className="w-16 h-16 rounded-xl object-cover border border-gray-200 dark:border-gray-600"
-                    />
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent"></div>
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{exp.company}</h2>
-                    <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-2">{exp.position}</p>
-                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide">
-                      {formatDate(exp.start)} – {exp.present ? (
-                        <span className="text-green-500 dark:text-green-400 font-bold">PRESENT</span>
-                      ) : formatDate(exp.end)}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <div className="mb-6">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base">
-                    {exp.fullDescription}
-                  </p>
-                </div>
-
-                {/* Key Achievements */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Key Achievements:</h3>
-                  <ul className="space-y-3">
-                    {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-gray-600 dark:text-gray-400 flex items-start gap-3">
-                        <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 mt-2 flex-shrink-0"></span>
-                        <span className="text-sm leading-relaxed">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Technologies */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Technologies Used:</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1.5 text-sm font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg border border-blue-200 dark:border-blue-700"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Panel - Timeline */}
-              <div className="w-80 bg-gray-50/50 dark:bg-gray-900/50 border-l border-gray-200/50 dark:border-gray-800/50 p-6 overflow-y-auto">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Career Timeline</h3>
-                <div className="relative">
-                  <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 to-purple-500/50"></div>
-                  
-                  {experienceData.map((timelineExp, timelineIndex) => (
-                    <div key={timelineExp.company} className="relative pb-8 last:pb-0">
-                      <div className="absolute left-2.5 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 border-2 border-white dark:border-gray-900"></div>
-                      <div className="ml-10">
-                        <div className="bg-white/70 dark:bg-black/70 rounded-lg p-3 border border-gray-200/50 dark:border-gray-800/50">
-                          <img
-                            src={timelineExp.logo}
-                            alt={timelineExp.company}
-                            className="w-8 h-8 rounded-lg object-cover mb-2"
-                          />
-                          <h4 className="font-semibold text-sm text-gray-900 dark:text-white">{timelineExp.company}</h4>
-                          <p className="text-xs text-blue-600 dark:text-blue-400 mb-1">{timelineExp.position}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            {formatDate(timelineExp.start)} – {timelineExp.present ? 'PRESENT' : formatDate(timelineExp.end)}
-                          </p>
-                          <button
-                            onClick={() => setIsModalOpen(false)}
-                            className="text-xs text-purple-600 dark:text-purple-400 mt-2 hover:underline"
-                          >
-                            Read more
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </DialogContent>
-        </DialogPortal>
-      </Dialog>
-    </>
+    </div>
   );
 };
 
@@ -337,7 +269,7 @@ const Experience = () => {
         <div className="relative">
           {/* Desktop: Two Column Layout with Center Line */}
           <div className="hidden md:block">
-            {/* Center Timeline Line - NO ANIMATIONS */}
+            {/* Center Timeline Line */}
             <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-blue-500/30 to-purple-500/50 dark:from-blue-400/50 dark:via-blue-400/30 dark:to-purple-400/50 z-10"></div>
             
             <div className="grid grid-cols-2 gap-16 items-stretch relative">
@@ -381,7 +313,7 @@ const Experience = () => {
           <div className="md:hidden space-y-8">
             {experienceData.map((exp, index) => (
               <div key={exp.company} className="relative animate-fade-in" style={{ animationDelay: `${index * 150}ms` }}>
-                {/* Mobile Timeline - NO ANIMATIONS */}
+                {/* Mobile Timeline */}
                 <div className="absolute left-4 top-6 z-10">
                   <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 border-2 border-white dark:border-gray-900 shadow-lg"></div>
                   {index < experienceData.length - 1 && (
