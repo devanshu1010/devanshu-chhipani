@@ -67,16 +67,34 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           />
         </svg>
         
-        {/* DAC text with improved animation */}
-        <div 
-          className={`relative z-10 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-1000 ease-out ${
-            isMounted ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95'
-          }`}
-          style={{
-            transitionDelay: '0.8s'
-          }}
-        >
-          DAC
+        {/* DAC text with true split-from-center animation */}
+        <div className="relative z-10 flex items-center justify-center h-16 w-32 select-none">
+          <div className="relative w-28 h-16">
+            {/* D */}
+            <span
+              className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
+                ${!isMounted ? 'opacity-0 -translate-x-1/2 -translate-y-1/2' : isFinished ? '-translate-x-[4.5rem] -translate-y-1/2 opacity-0' : '-translate-x-10  -translate-y-1/2 opacity-100'}`}
+              style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
+            >
+              D
+            </span>
+            {/* A */}
+            <span
+              className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
+                ${!isMounted ? 'opacity-0 scale-75 -translate-x-1/2 -translate-y-1/2' : isFinished ? 'opacity-0 scale-75 -translate-x-1/2 -translate-y-1/2' : 'opacity-100 scale-100 -translate-x-1/2 -translate-y-1/2'}`}
+              style={{ transitionDelay: isMounted ? '0.9s' : '0s' }}
+            >
+              A
+            </span>
+            {/* C */}
+            <span
+              className={`absolute top-1/2 left-1/2 text-4xl md:text-5xl font-bold font-mono text-gray-900 dark:text-white transition-all duration-700 ease-in-out
+                ${!isMounted ? 'opacity-0 -translate-x-1/2 -translate-y-1/2' : isFinished ? 'translate-x-[4.5rem] -translate-y-1/2 opacity-0' : 'translate-x-3 -translate-y-1/2 opacity-100'}`}
+              style={{ transitionDelay: isMounted ? '0.7s' : '0s' }}
+            >
+              C
+            </span>
+          </div>
         </div>
         
         {/* Inner glow effect with theme colors */}
