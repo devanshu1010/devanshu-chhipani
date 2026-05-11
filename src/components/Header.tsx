@@ -1,77 +1,42 @@
-
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { getLenis } from '../lib/lenis';
+import LogoMark from './LogoMark';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('dark');
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Function to get system theme preference
-  const getSystemTheme = () => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  };
-
-  // Function to apply theme to document
-  const applyTheme = (mode: 'light' | 'dark') => {
-    const root = document.documentElement;
-    
-    if (mode === 'dark') {
-      root.classList.add('dark');
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
     } else {
-      root.classList.remove('dark');
+      document.documentElement.classList.remove('dark');
     }
-  };
+  }, [isDarkMode]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    // Default to system theme on initial load
-    const systemTheme = getSystemTheme();
-    setThemeMode(systemTheme);
-    applyTheme(systemTheme);
-
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleSystemThemeChange = () => {
-      const newSystemTheme = getSystemTheme();
-      setThemeMode(newSystemTheme);
-      applyTheme(newSystemTheme);
-    };
-
-    mediaQuery.addEventListener('change', handleSystemThemeChange);
-    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = themeMode === 'light' ? 'dark' : 'light';
-    setThemeMode(newTheme);
-    applyTheme(newTheme);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      const headerHeight = element.offsetTop == 0 ? 120 : (-70);
-      console.log(element.offsetTop);
-      const elementPosition = element.offsetTop - headerHeight;
+    if (!element) return;
 
-      console.log(elementPosition);
-      
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
+    // Calculate exact target Y, offset 88px for the fixed header
+    const targetY = element.getBoundingClientRect().top + window.scrollY - 88;
+    const lenis = getLenis();
+
+    if (lenis) {
+      lenis.scrollTo(targetY, {
+        duration: 1.4,
+        easing: (t: number) => 1 - Math.pow(1 - t, 4),
       });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
     setIsMenuOpen(false);
   };
-  
   const navItems = [
     { name: 'Home', href: 'home' },
     { name: 'Experience', href: 'experience' },
@@ -81,99 +46,81 @@ const Header = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none py-6">
-      {/* Fixed max-width container to match content width */}
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header
-          className={`pointer-events-auto transition-all duration-300 rounded-2xl
-            ${isScrolled
-              ? "shadow-2xl"
-              : "shadow-lg"}
-          `}
+    <div className="fixed left-0 top-4 z-50 flex w-full justify-center px-3 pointer-events-none sm:top-5">
+      <header className="pointer-events-auto w-full max-w-5xl">
+        <nav
+          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-emerald-950/15 bg-[#f6f7ef] px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:border-white/15 dark:bg-[#0c0f0d] dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
         >
-          <nav
-            className={`
-              relative flex items-center justify-between gap-4
-              px-6 py-3 sm:px-8
-              rounded-2xl
-              border border-white/20 dark:border-white/10
-              bg-white/70 dark:bg-black/60
-              backdrop-blur-lg
-              shadow-lg
-              ${isScrolled ? "border-opacity-60" : "border-opacity-40"}
-              `}
-          >
-            {/* Logo with glow */}
-            <div className="flex-shrink-0 flex items-center">
-              <button 
-                onClick={() => scrollToSection('home')}
-                className="text-2xl font-bold text-gray-900 dark:text-white hover:text-sky-500 dark:hover:text-sky-300 transition-all duration-300 relative group cursor-pointer"
-              >
-                <span className="relative z-10">Devanshu</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-sky-500 to-blue-500 rounded-lg blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              </button>
-            </div>
+          <div className="flex-shrink-0 flex items-center">
+            <button 
+              onClick={() => scrollToSection('home')}
+              className="group flex items-center gap-2 text-left text-zinc-950 transition-colors duration-300 hover:text-amber-700 dark:text-zinc-50 dark:hover:text-amber-300"
+            >
+              <LogoMark compact />
+              <span>
+                <span className="block text-sm font-bold leading-none">Devanshu</span>
+                <span className="block font-mono text-[10px] uppercase text-zinc-500 group-hover:text-amber-700 dark:text-zinc-400 dark:group-hover:text-amber-300">Computer Engineer</span>
+              </span>
+            </button>
+          </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              <div className="flex items-baseline space-x-6">
-                {navItems.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className="text-gray-700 dark:text-gray-300 hover:text-sky-500 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 relative group cursor-pointer"
-                  >
-                    <span className="relative z-10">{item.name}</span>
-                    <div className="absolute inset-0 bg-white/10 dark:bg-white/5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-                  </button>
-                ))}
-              </div>
-              
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-300"
-                title={`Switch to ${themeMode === 'light' ? 'dark' : 'light'} theme`}
-              >
-                {themeMode === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-              </button>
+          <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center gap-1 rounded-full border border-zinc-950/10 bg-white/35 p-1 dark:border-white/10 dark:bg-white/[0.04]">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className="rounded-full px-3 py-2 text-sm font-medium text-zinc-600 transition-colors duration-200 hover:bg-amber-300/20 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-amber-300/10 dark:hover:text-white"
+                >
+                  {item.name}
+                </button>
+              ))}
             </div>
+            
+            <button
+              onClick={toggleDarkMode}
+              className="grid h-9 w-9 place-items-center rounded-full border border-zinc-950/10 text-zinc-700 transition-colors duration-200 hover:border-amber-500/50 hover:bg-zinc-950 hover:text-amber-300 dark:border-white/10 dark:text-zinc-300 dark:hover:border-amber-300/50 dark:hover:bg-white dark:hover:text-amber-700"
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center space-x-2">
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 text-gray-700 dark:text-gray-300"
-                title={`Switch to ${themeMode === 'light' ? 'dark' : 'light'} theme`}
-              >
-                {themeMode === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-              </button>
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-400 hover:text-sky-500 dark:hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-200"
-              >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={toggleDarkMode}
+              className="grid h-9 w-9 place-items-center rounded-full border border-zinc-950/10 text-zinc-700 dark:border-white/10 dark:text-zinc-300"
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-950/10 text-zinc-700 transition-colors duration-200 hover:border-amber-500/50 hover:bg-zinc-950 hover:text-amber-300 dark:border-white/10 dark:text-zinc-300 dark:hover:border-amber-300/50 dark:hover:bg-white dark:hover:text-amber-700"
+              aria-label="Open menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </nav>
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden animate-fade-in px-3 pt-2">
+            <div className="mt-2 space-y-1 rounded-2xl border border-emerald-950/15 bg-[#f6f7ef] p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/15 dark:bg-[#0c0f0d]">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className="block w-full rounded-xl px-3 py-2 text-left text-base font-medium text-zinc-700 transition-colors duration-200 hover:bg-amber-300/20 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-amber-300/10 dark:hover:text-white"
+                >
+                  {item.name}
+                </button>
+              ))}
             </div>
-          </nav>
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden animate-fade-in px-3 pt-2">
-              <div className="pt-2 pb-3 space-y-1 bg-white/70 dark:bg-black/70 backdrop-blur-lg rounded-xl border border-white/15 mt-2">
-                {navItems.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className="text-gray-700 dark:text-gray-300 hover:text-sky-500 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 w-full text-left hover:bg-white/10 dark:hover:bg-white/10"
-                  >
-                    {item.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </header>
-      </div>
+          </div>
+        )}
+      </header>
     </div>
   );
 };

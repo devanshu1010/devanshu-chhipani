@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Blog from '../components/Blog';
 import Contact from '../components/Contact';
@@ -8,75 +9,43 @@ import FloatingSocial from '../components/FloatingSocial';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import TechStack from '../components/TechStack';
+import { destroyLenis, initLenis } from '../lib/lenis';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [themeInitialized, setThemeInitialized] = useState(false);
 
   useEffect(() => {
-    const initializeTheme = () => {
-      // Initialize with system theme
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      const root = document.documentElement;
-      
-      if (systemTheme === 'dark') {
-        root.classList.add('dark');
-      } else {
-        root.classList.remove('dark');
-      }
-      
-      setThemeInitialized(true);
-    };
-
-    initializeTheme();
-
-    // Remove scroll padding as we're handling it manually in Header
-    document.documentElement.style.scrollBehavior = 'smooth';
-    
-    return () => {
-      document.documentElement.style.scrollBehavior = 'auto';
-    };
+    document.documentElement.classList.add('dark');
   }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+    initLenis();
+    return destroyLenis;
+  }, [isLoading]);
 
   const handleLoaderComplete = () => {
     setIsLoading(false);
   };
 
-  // Show loader while loading or theme is not initialized
-  if (isLoading || !themeInitialized) {
+  if (isLoading) {
     return <DacLoader onComplete={handleLoaderComplete} />;
   }
-  
+
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 overflow-x-hidden">
-      <div className="fixed inset-0 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 via-purple-500/5 to-transparent dark:from-blue-500/10 dark:via-purple-500/5 dark:to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/10 via-blue-500/5 to-transparent dark:from-purple-500/10 dark:via-blue-500/5 dark:to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-blue-500/8 via-purple-500/4 to-transparent dark:from-blue-500/8 dark:via-purple-500/4 dark:to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
-
-      <Header />
-      <FloatingSocial />
-      <FloatingEmail />
-
-      <div className="relative z-10">
-        <div className="space-y-0">
-          <section id="home" className="min-h-screen flex items-center justify-center">
-            <Hero />
-          </section>
-          <section id="experience" className="py-20">
-            <Experience />
-          </section>
-          <section id="tech" className="py-20">
-            <TechStack />
-          </section>
-          <section id="blog" className="py-20">
-            <Blog />
-          </section>
-          <section id="contact" className="py-20">
-            <Contact />
-          </section>
+    <div className="min-h-screen bg-[#f6f7ef] text-zinc-950 transition-colors duration-500 dark:bg-[#0c0f0d] dark:text-zinc-50">
+      <div className="relative">
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(22,24,29,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(22,24,29,0.07)_1px,transparent_1px)] bg-[size:44px_44px] opacity-60 dark:bg-[linear-gradient(to_right,rgba(246,247,239,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(246,247,239,0.08)_1px,transparent_1px)]"></div>
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(115deg,rgba(16,185,129,0.12),transparent_30%,rgba(56,189,248,0.1)_58%,rgba(251,191,36,0.1)_82%,transparent_94%)] dark:bg-[linear-gradient(115deg,rgba(16,185,129,0.1),transparent_30%,rgba(56,189,248,0.09)_58%,rgba(251,191,36,0.08)_82%,transparent_94%)]"></div>
+        <FloatingSocial />
+        <FloatingEmail />
+        <div className="animate-page-in">
+          <Header />
+          <Hero />
+          <Experience />
+          <TechStack />
+          <Blog />
+          <Contact />
         </div>
       </div>
     </div>
