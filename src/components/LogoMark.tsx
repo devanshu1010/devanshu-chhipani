@@ -1,16 +1,19 @@
 interface LogoMarkProps {
   compact?: boolean;
+  large?: boolean;
+  animated?: boolean;
 }
 
-const LogoMark = ({ compact = false }: LogoMarkProps) => {
-  const s = compact ? "h-8 w-8" : "h-12 w-12";
-  const stroke = compact ? 9 : 8;
-  const trace = compact ? 2.4 : 2;
-  const node = compact ? 3 : 2.6;
+const LogoMark = ({ compact = false, large = false, animated = false }: LogoMarkProps) => {
+  const s = large ? "h-32 w-40 md:h-36 md:w-44" : compact ? "h-8 w-8" : "h-12 w-12";
+  const stroke = large ? 7 : compact ? 9 : 8;
+  const trace = large ? 1.8 : compact ? 2.4 : 2;
+  const node = large ? 2.4 : compact ? 3 : 2.6;
+  const rounded = large ? "rounded-2xl" : "rounded-[7px]";
 
   return (
     <span
-      className={`relative grid place-items-center overflow-hidden rounded-[7px] ${s}
+      className={`relative grid place-items-center overflow-hidden ${rounded} ${s} ${animated ? "logo-animated" : ""}
         border border-zinc-800
         bg-zinc-950 text-[#f6f7ef]
         shadow-[3px_3px_0_rgba(16,185,129,0.24),inset_0_0_0_1px_rgba(255,255,255,0.05)]
@@ -41,12 +44,14 @@ const LogoMark = ({ compact = false }: LogoMarkProps) => {
 
         {/* Emerald circuit traces — sparse, deliberate */}
         <g className="text-emerald-400 dark:text-emerald-700" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={trace}>
+          <g>
           <path d="M24 30H36L42 36" />
           <path d="M24 50H40" />
           <path d="M24 70H36L42 64" />
           <path d="M76 32L84 40H94" />
           <path d="M74 50H86" />
           <path d="M76 68L84 60H94" />
+          </g>
         </g>
 
         {/* Amber connection nodes — fewer, larger */}
