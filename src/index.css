@@ -239,30 +239,60 @@
   50%       { opacity: 0.4; transform: scale(0.85); }
 }
 
-/* Electricity flow along circuit traces */
-@keyframes dacFlow {
-  0%   { stroke-dashoffset: 60; }
-  100% { stroke-dashoffset: 0; }
+/* Lightning bolt traveling along circuit traces */
+@keyframes dacBolt {
+  0%   { stroke-dashoffset: 90; opacity: 0; filter: drop-shadow(0 0 0 transparent); }
+  6%   { opacity: 1; filter: drop-shadow(0 0 4px #fef08a) drop-shadow(0 0 8px #fbbf24); }
+  20%  { opacity: 1; filter: drop-shadow(0 0 6px #fef9c3) drop-shadow(0 0 12px #34d399); }
+  55%  { opacity: 0.9; }
+  100% { stroke-dashoffset: -90; opacity: 0; filter: drop-shadow(0 0 0 transparent); }
 }
 
-@keyframes dacNodePulse {
-  0%, 100% { opacity: 0.55; transform: scale(0.85); }
-  50%       { opacity: 1;    transform: scale(1.15); }
+/* Sharp jittery flicker — like static discharge */
+@keyframes dacFlicker {
+  0%, 100% { opacity: 1; }
+  3%       { opacity: 0.25; }
+  6%       { opacity: 1; }
+  47%      { opacity: 1; }
+  50%      { opacity: 0.4; }
+  53%      { opacity: 1; }
+}
+
+/* Node arc strike */
+@keyframes dacArc {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); filter: drop-shadow(0 0 0 transparent); }
+  20%      { opacity: 1;   transform: scale(1.5); filter: drop-shadow(0 0 4px #fde68a) drop-shadow(0 0 10px #fbbf24); }
+  40%      { opacity: 0.7; transform: scale(0.95); }
+  60%      { opacity: 1;   transform: scale(1.3); filter: drop-shadow(0 0 6px #fef08a); }
 }
 
 .logo-animated .logo-trace {
-  stroke-dasharray: 8 6;
-  animation: dacFlow 1.4s linear infinite;
+  stroke-dasharray: 14 80;
+  stroke-linecap: round;
+  animation: dacBolt 1.6s cubic-bezier(0.55, 0, 0.45, 1) infinite;
 }
+
+.logo-animated .logo-trace:nth-child(1) { animation-delay: 0.0s; }
+.logo-animated .logo-trace:nth-child(2) { animation-delay: 0.7s; }
+.logo-animated .logo-trace:nth-child(3) { animation-delay: 0.25s; }
+.logo-animated .logo-trace:nth-child(4) { animation-delay: 0.5s; }
+.logo-animated .logo-trace:nth-child(5) { animation-delay: 1.05s; }
+.logo-animated .logo-trace:nth-child(6) { animation-delay: 0.85s; }
 
 .logo-animated .logo-node {
   transform-box: fill-box;
   transform-origin: center;
-  animation: dacNodePulse 1.8s ease-in-out infinite;
+  animation: dacArc 1.6s ease-in-out infinite;
 }
 
-.logo-animated .logo-node:nth-child(2n) { animation-delay: 0.3s; }
-.logo-animated .logo-node:nth-child(3n) { animation-delay: 0.6s; }
+.logo-animated .logo-node:nth-child(2n) { animation-delay: 0.4s; }
+.logo-animated .logo-node:nth-child(3n) { animation-delay: 0.8s; }
+.logo-animated .logo-node:nth-child(5n) { animation-delay: 1.1s; }
+
+/* Whole-logo storm flicker */
+.logo-animated > span:first-child {
+  animation: dacFlicker 3.2s ease-in-out infinite;
+}
 
 /* Enhanced prose styles for blog posts */
 .prose {
