@@ -44,26 +44,24 @@ const LogoMark = ({ compact = false, large = false, animated = false }: LogoMark
 
         {/* Emerald circuit traces — sparse, deliberate */}
         <g className="text-emerald-400 dark:text-emerald-700" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={trace}>
-          <g>
-          <path d="M24 30H36L42 36" />
-          <path d="M24 50H40" />
-          <path d="M24 70H36L42 64" />
-          <path d="M76 32L84 40H94" />
-          <path d="M74 50H86" />
-          <path d="M76 68L84 60H94" />
-          </g>
+          <path className="logo-trace" d="M24 30H36L42 36" />
+          <path className="logo-trace" d="M24 50H40" />
+          <path className="logo-trace" d="M24 70H36L42 64" />
+          <path className="logo-trace" d="M76 32L84 40H94" />
+          <path className="logo-trace" d="M74 50H86" />
+          <path className="logo-trace" d="M76 68L84 60H94" />
         </g>
 
         {/* Amber connection nodes — fewer, larger */}
         <g className="text-amber-300 dark:text-amber-600" fill="currentColor">
-          <circle cx="24" cy="30" r={node} />
-          <circle cx="42" cy="36" r={node} />
-          <circle cx="40" cy="50" r={node} />
-          <circle cx="24" cy="70" r={node} />
-          <circle cx="42" cy="64" r={node} />
-          <circle cx="84" cy="40" r={node} />
-          <circle cx="86" cy="50" r={node} />
-          <circle cx="84" cy="60" r={node} />
+          <circle className="logo-node" cx="24" cy="30" r={node} />
+          <circle className="logo-node" cx="42" cy="36" r={node} />
+          <circle className="logo-node" cx="40" cy="50" r={node} />
+          <circle className="logo-node" cx="24" cy="70" r={node} />
+          <circle className="logo-node" cx="42" cy="64" r={node} />
+          <circle className="logo-node" cx="84" cy="40" r={node} />
+          <circle className="logo-node" cx="86" cy="50" r={node} />
+          <circle className="logo-node" cx="84" cy="60" r={node} />
         </g>
       </svg>
     </span>
