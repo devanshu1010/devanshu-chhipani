@@ -1,99 +1,72 @@
+import { ArrowUpRight, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
 
-import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+const blogPosts = [
+  {
+    title: "Building Scalable React Applications",
+    excerpt: "Architecture notes for React applications that stay readable as teams, routes, and product states grow.",
+    date: "March 15, 2024",
+    readTime: "5 min",
+    category: "React",
+    slug: "building-scalable-react-applications",
+  },
+  {
+    title: "Modern CSS Techniques for Better UX",
+    excerpt: "Practical CSS patterns for responsive polish, interaction feedback, and interfaces that do not fight the user.",
+    date: "March 10, 2024",
+    readTime: "4 min",
+    category: "CSS",
+    slug: "modern-css-techniques",
+  },
+  {
+    title: "TypeScript Best Practices",
+    excerpt: "How to use TypeScript as a design tool for safer data flow and clearer engineering contracts.",
+    date: "March 5, 2024",
+    readTime: "6 min",
+    category: "TypeScript",
+    slug: "typescript-best-practices",
+  },
+];
 
 const Blog = () => {
-  const blogPosts = [
-    {
-      title: "Building Scalable React Applications",
-      excerpt: "Learn the best practices for building large-scale React applications that are maintainable and performant.",
-      date: "March 15, 2024",
-      readTime: "5 min read",
-      category: "React",
-      slug: "building-scalable-react-applications",
-      gradient: "from-blue-500 to-cyan-500"
-    },
-    {
-      title: "Modern CSS Techniques for Better UX",
-      excerpt: "Explore advanced CSS features and techniques that can significantly improve user experience on your websites.",
-      date: "March 10, 2024",
-      readTime: "4 min read",
-      category: "CSS",
-      slug: "modern-css-techniques",
-      gradient: "from-purple-500 to-pink-500"
-    },
-    {
-      title: "TypeScript Best Practices",
-      excerpt: "Discover how to leverage TypeScript effectively in your projects for better code quality and developer experience.",
-      date: "March 5, 2024",
-      readTime: "6 min read",
-      category: "TypeScript",
-      slug: "typescript-best-practices",
-      gradient: "from-green-500 to-emerald-500"
-    }
-  ];
-
   return (
-    <section id="blog" className="py-20 relative overflow-hidden">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 mb-6">
-            <Sparkles className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Latest Posts</span>
-          </div>
-          
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Latest{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Blog Posts
-            </span>
+    <section id="blog" className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-12 grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+          <p className="font-mono text-xs uppercase text-amber-700 dark:text-amber-300">Field notes</p>
+          <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
+            Writing that documents the <span className="text-amber-600 dark:text-amber-300">thinking</span> behind the code.
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Insights, tutorials, and thoughts on modern web development
+          <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
+            Technical posts on product architecture, CSS, TypeScript, and the small decisions that make software easier to maintain.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {blogPosts.map((post, index) => (
-            <Link
-              key={index}
-              to={`/blog/${post.slug}`}
-              className="group block animate-fade-in"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              <article className="h-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group">
-                {/* Card Header with Gradient */}
-                <div className={`h-32 bg-gradient-to-br ${post.gradient} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/10"></div>
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium border border-white/30">
-                      {post.readTime}
-                    </span>
+            <Link key={post.slug} to={`/blog/${post.slug}`} className="group block">
+              <article className="flex h-full min-h-[320px] flex-col rounded-lg border border-emerald-950/15 bg-[#fbfbf2]/85 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/55 hover:shadow-[10px_10px_0_rgba(251,191,36,0.12)] dark:border-white/15 dark:bg-white/[0.04] dark:hover:border-amber-300/45 dark:hover:shadow-[10px_10px_0_rgba(251,191,36,0.07)]">
+                <div className="mb-10 flex items-start justify-between gap-4">
+                  <div className="grid h-12 w-12 place-items-center rounded-md bg-zinc-950 text-[#f6f7ef] shadow-[inset_0_-2px_0_rgba(251,191,36,0.72)] dark:bg-white dark:text-zinc-950">
+                    <FileText className="h-5 w-5" />
                   </div>
+                  <span className="font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">0{index + 1}</span>
                 </div>
-                
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-3 py-1 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-800">
-                      {post.category}
-                    </span>
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{post.date}</span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors leading-tight">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center text-blue-700 hover:text-blue-500 dark:text-blue-300 dark:hover:text-blue-200 text-sm font-semibold transition-colors">
-                    Read more 
-                    <svg className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+
+                <div className="mb-5 flex items-center justify-between gap-4 font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">
+                  <span>{post.category}</span>
+                  <span>{post.readTime}</span>
+                </div>
+
+                <h3 className="mb-4 text-2xl font-black leading-tight tracking-normal text-zinc-950 transition-colors group-hover:text-amber-700 dark:text-white dark:group-hover:text-amber-300">
+                  {post.title}
+                </h3>
+
+                <p className="mb-8 line-clamp-3 flex-1 leading-7 text-zinc-700 dark:text-zinc-300">{post.excerpt}</p>
+
+                <div className="flex items-center justify-between border-t border-zinc-950/10 pt-4 text-sm font-semibold text-zinc-950 dark:border-white/10 dark:text-white">
+                  <span>{post.date}</span>
+                  <ArrowUpRight className="h-5 w-5 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-amber-600 dark:group-hover:text-amber-300" />
                 </div>
               </article>
             </Link>

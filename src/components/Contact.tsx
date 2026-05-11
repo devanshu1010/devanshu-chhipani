@@ -1,104 +1,94 @@
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, Send } from "lucide-react";
+
+const contactItems = [
+  { icon: Mail, label: "Email", value: "your.email@example.com" },
+  { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
+  { icon: MapPin, label: "Location", value: "Your City, Country" },
+];
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white text-center mb-16">
-          Get In Touch
-        </h2>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Let's work together</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                I'm always interested in new opportunities and exciting projects. 
-                Whether you have a question or just want to say hi, I'll try my best to get back to you!
-              </p>
-            </div>
-            
+    <section id="contact" className="relative px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <p className="font-mono text-xs uppercase text-amber-700 dark:text-amber-300">Contact protocol</p>
+          <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
+            Bring a product problem. I will bring the <span className="text-amber-600 dark:text-amber-300">interface thinking.</span>
+          </h2>
+          <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
+            Open to computer engineering roles, product engineering work, technical content, and teams exploring useful AI workflows.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.42fr_0.58fr]">
+          <div className="rounded-lg border border-emerald-950/15 bg-zinc-950 p-6 text-[#f6f7ef] shadow-[14px_14px_0_rgba(251,191,36,0.12)] dark:border-white/15 dark:bg-[#101211] dark:shadow-[14px_14px_0_rgba(251,191,36,0.07)] sm:p-8">
+            <h3 className="mb-5 text-2xl font-black tracking-normal">Signal routes</h3>
+            <p className="mb-8 leading-7 text-zinc-300">
+              Short, specific messages are easiest to act on. Share the product, team, timeline, and what you need built or improved.
+            </p>
+
             <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <div className="bg-sky-100 p-3 rounded-lg border border-sky-200 dark:bg-sky-500/20 dark:border-sky-500/30">
-                  <Mail className="text-sky-700 dark:text-sky-300" size={20} />
+              {contactItems.map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-center gap-4 border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-amber-300/35">
+                  <div className="grid h-10 w-10 place-items-center rounded-md bg-white text-amber-700">
+                    <Icon size={18} />
+                  </div>
+                  <div>
+                    <p className="font-mono text-xs uppercase text-zinc-400">{label}</p>
+                    <p className="font-medium text-white">{value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-gray-900 dark:text-white font-medium">Email</p>
-                  <p className="text-gray-700 dark:text-gray-300">your.email@example.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <div className="bg-sky-100 p-3 rounded-lg border border-sky-200 dark:bg-sky-500/20 dark:border-sky-500/30">
-                  <Phone className="text-sky-700 dark:text-sky-300" size={20} />
-                </div>
-                <div>
-                  <p className="text-gray-900 dark:text-white font-medium">Phone</p>
-                  <p className="text-gray-700 dark:text-gray-300">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <div className="bg-sky-100 p-3 rounded-lg border border-sky-200 dark:bg-sky-500/20 dark:border-sky-500/30">
-                  <MapPin className="text-sky-700 dark:text-sky-300" size={20} />
-                </div>
-                <div>
-                  <p className="text-gray-900 dark:text-white font-medium">Location</p>
-                  <p className="text-gray-700 dark:text-gray-300">Your City, Country</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-          
-          {/* Contact Form */}
-          <div className="bg-white dark:bg-white/5 backdrop-blur-lg rounded-lg p-8 border border-gray-200 dark:border-white/10">
-            <form className="space-y-6">
+
+          <form className="rounded-lg border border-emerald-950/15 bg-[#fbfbf2]/85 p-5 dark:border-white/15 dark:bg-white/[0.04] sm:p-8">
+            <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="name" className="block text-gray-900 dark:text-white font-medium mb-2">
+                <label htmlFor="name" className="mb-2 block font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">
                   Name
                 </label>
                 <input
                   type="text"
                   id="name"
-                  className="w-full bg-white/40 dark:bg-white/10 border border-gray-200 dark:border-white/20 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:border-sky-400 focus:outline-none transition-colors"
-                  placeholder="Your Name"
+                  className="w-full rounded-md border border-emerald-950/15 bg-[#f6f7ef] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/15 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
+                  placeholder="Your name"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-gray-900 dark:text-white font-medium mb-2">
+                <label htmlFor="email" className="mb-2 block font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className="w-full bg-white/40 dark:bg-white/10 border border-gray-200 dark:border-white/20 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:border-sky-400 focus:outline-none transition-colors"
-                  placeholder="your.email@example.com"
+                  className="w-full rounded-md border border-emerald-950/15 bg-[#f6f7ef] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/15 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
+                  placeholder="you@example.com"
                 />
               </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-gray-900 dark:text-white font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  className="w-full bg-white/40 dark:bg-white/10 border border-gray-200 dark:border-white/20 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:border-sky-400 focus:outline-none transition-colors resize-none"
-                  placeholder="Your message..."
-                ></textarea>
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-sky-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg hover:shadow-sky-500/25"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
+            </div>
+
+            <div className="mt-5">
+              <label htmlFor="message" className="mb-2 block font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows={7}
+                className="w-full resize-none rounded-md border border-emerald-950/15 bg-[#f6f7ef] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/15 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
+                placeholder="Tell me what you are building..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-5 py-4 font-semibold text-[#f6f7ef] transition-transform duration-200 hover:-translate-y-0.5 hover:text-amber-200 dark:bg-white dark:text-zinc-950 dark:hover:text-amber-700"
+            >
+              Send message
+              <Send className="h-4 w-4" />
+            </button>
+          </form>
         </div>
       </div>
     </section>
