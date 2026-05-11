@@ -111,20 +111,15 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           </div>
         </div>
 
-        {/* Identity block */}
-        <div className="mb-7 flex items-center gap-5">
-          <LogoMark />
-          <div>
-            <div className="font-mono text-[3.1rem] font-black leading-none tracking-tight text-white md:text-[3.7rem]">
-              <span className="text-emerald-300">D</span>
-              <span className="text-amber-300">C</span>
-            </div>
-            <div className="mt-2 flex items-center gap-2">
-              <span className="h-px w-4 bg-amber-400/55" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-                Computer Engineer
-              </span>
-            </div>
+        {/* Identity block — large animated logo */}
+        <div className="mb-7 flex flex-col items-center gap-3">
+          <LogoMark large animated />
+          <div className="flex items-center gap-2">
+            <span className="h-px w-4 bg-amber-400/55" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
+              Devanshu Chhipani · Computer Engineer
+            </span>
+            <span className="h-px w-4 bg-amber-400/55" />
           </div>
         </div>
 

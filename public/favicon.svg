@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100">
+  <style>
+    .bg { fill: #0c0f0d; }
+    .stroke { stroke: #f6f7ef; }
+    .trace { stroke: #34d399; }
+    .node { fill: #fbbf24; }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f0f1e8; }
+      .stroke { stroke: #0c0f0d; }
+      .trace { stroke: #047857; }
+      .node { fill: #d97706; }
+    }
+  </style>
+  <rect class="bg" width="120" height="100" rx="14"/>
+  <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <path class="stroke" stroke-width="9" d="M12 14H44C62 14 74 30 74 50S62 86 44 86H12Z"/>
+    <path class="stroke" stroke-width="9" d="M114 26C108 18 99 14 90 14C72 14 60 30 60 50S72 86 90 86C99 86 108 82 114 74"/>
+    <g class="trace" stroke-width="2.6">
+      <path d="M24 30H36L42 36"/>
+      <path d="M24 50H40"/>
+      <path d="M24 70H36L42 64"/>
+      <path d="M76 32L84 40H94"/>
+      <path d="M74 50H86"/>
+      <path d="M76 68L84 60H94"/>
+    </g>
+  </g>
+  <g class="node">
+    <circle cx="24" cy="30" r="3.2"/>
+    <circle cx="42" cy="36" r="3.2"/>
+    <circle cx="40" cy="50" r="3.2"/>
+    <circle cx="24" cy="70" r="3.2"/>
+    <circle cx="42" cy="64" r="3.2"/>
+    <circle cx="84" cy="40" r="3.2"/>
+    <circle cx="86" cy="50" r="3.2"/>
+    <circle cx="84" cy="60" r="3.2"/>
+  </g>
+</svg>
