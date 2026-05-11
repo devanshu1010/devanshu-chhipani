@@ -5,10 +5,10 @@ interface LogoMarkProps {
 }
 
 const LogoMark = ({ compact = false, large = false, animated = false }: LogoMarkProps) => {
-  const s = large ? "h-32 w-40 md:h-36 md:w-44" : compact ? "h-8 w-8" : "h-12 w-12";
-  const stroke = large ? 7 : compact ? 9 : 8;
-  const trace = large ? 1.8 : compact ? 2.4 : 2;
-  const node = large ? 2.4 : compact ? 3 : 2.6;
+  const s = large ? "h-32 w-40 md:h-36 md:w-44" : compact ? "h-8 w-10" : "h-12 w-14";
+  const stroke = large ? 7 : compact ? 7.5 : 7.5;
+  const trace = large ? 1.8 : compact ? 2.1 : 2;
+  const node = large ? 2.4 : compact ? 2.6 : 2.5;
   const rounded = large ? "rounded-2xl" : "rounded-[7px]";
 
   return (
@@ -23,7 +23,7 @@ const LogoMark = ({ compact = false, large = false, animated = false }: LogoMark
       aria-hidden="true"
     >
       <span className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.06)_0%,transparent_58%,rgba(251,191,36,0.12)_100%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.55)_0%,transparent_58%,rgba(251,191,36,0.12)_100%)]" />
-      <svg viewBox="0 0 120 100" className="relative z-10 h-[86%] w-[86%]" role="img" aria-label="Devanshu Chhipani circuit DC logo">
+      <svg viewBox="0 0 120 100" className="relative z-10 h-[82%] w-[88%]" role="img" aria-label="Devanshu Chhipani circuit DC logo">
         {/* D letter — bold outline */}
         <path
           d="M12 14H44C62 14 74 30 74 50S62 86 44 86H12Z"

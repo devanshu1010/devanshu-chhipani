@@ -239,6 +239,110 @@
   50%       { opacity: 0.4; transform: scale(0.85); }
 }
 
+@keyframes dacChainTrace {
+  0% {
+    stroke-dashoffset: 96;
+    opacity: 0.22;
+  }
+  40%, 72% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.62;
+  }
+}
+
+@keyframes dacChainCurrent {
+  0% {
+    stroke-dashoffset: 360;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -360;
+    opacity: 0;
+  }
+}
+
+@keyframes dacChainNode {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+  45% {
+    transform: scale(1.38);
+    opacity: 1;
+  }
+}
+
+.dac-chain-loader {
+  overflow: visible;
+}
+
+.dac-chain-outline {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 8;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.dac-chain-trace,
+.dac-chain-current {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dac-chain-trace {
+  stroke: #171717;
+  stroke-width: 4;
+  stroke-dasharray: 96;
+  animation: dacChainTrace 1.35s ease-in-out infinite alternate;
+}
+
+.dac-chain-node {
+  fill: #f7f7f3;
+  stroke: #171717;
+  stroke-width: 4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dacChainNode 1.65s ease-in-out infinite;
+}
+
+.dac-chain-current {
+  stroke: #111827;
+  stroke-width: 5;
+  stroke-dasharray: 28 360;
+  opacity: 0;
+  animation: dacChainCurrent 2.3s cubic-bezier(0.55, 0, 0.45, 1) infinite;
+  filter: drop-shadow(0 0 5px rgba(17, 24, 39, 0.28));
+}
+
+@media (max-width: 640px) {
+  .dac-chain-outline {
+    stroke-width: 10;
+  }
+
+  .dac-chain-trace {
+    stroke-width: 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dac-chain-trace,
+  .dac-chain-current,
+  .dac-chain-node {
+    animation: none;
+  }
+}
+
 /* Lightning bolt traveling along circuit traces */
 @keyframes dacBolt {
   0%   { stroke-dashoffset: 90; opacity: 0; filter: drop-shadow(0 0 0 transparent); }
