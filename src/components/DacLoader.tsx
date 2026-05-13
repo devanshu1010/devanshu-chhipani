@@ -104,7 +104,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
         const next = Math.min(p + 1.35, 100);
         if (next >= 100) {
           clearInterval(interval);
-          setTimeout(() => setPhase("exit"), 360);
+          // setTimeout(() => setPhase("exit"), 360);
         }
         return next;
       });
@@ -117,8 +117,8 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
     if (phase !== "exit") return;
 
     const t = setTimeout(() => {
-      setPhase("done");
-      onComplete?.();
+      // setPhase("done");
+      // onComplete?.();
     }, 460);
 
     return () => clearTimeout(t);
