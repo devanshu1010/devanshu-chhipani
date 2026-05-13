@@ -78,13 +78,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
       </div>
 
       <div className="ml-9 sm:ml-11">
-        <div className="group flex w-full flex-col rounded-lg border border-emerald-950/15 bg-[#fbfbf2]/85 p-4 shadow-[10px_10px_0_rgba(16,185,129,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/45 hover:shadow-[10px_10px_0_rgba(251,191,36,0.12)] dark:border-white/15 dark:bg-white/[0.04] dark:shadow-[10px_10px_0_rgba(56,189,248,0.05)] dark:hover:border-amber-300/45 dark:hover:shadow-[10px_10px_0_rgba(251,191,36,0.07)] sm:p-5 md:p-6">
+        <div className="group flex w-full flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-4 shadow-[10px_10px_0_rgba(16,185,129,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/45 hover:shadow-[10px_10px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[10px_10px_0_rgba(56,189,248,0.05)] dark:hover:border-amber-300/45 dark:hover:shadow-[10px_10px_0_rgba(251,191,36,0.07)] sm:p-5 md:p-6">
           <div className="mb-3 flex items-start gap-3">
             <div className="relative flex-shrink-0">
               <img
                 src={exp.logo}
                 alt={exp.company}
-                className="h-11 w-11 rounded-md border border-zinc-950/15 object-cover dark:border-white/15"
+                className="h-11 w-11 rounded-md border border-zinc-950/15 object-cover dark:border-white/10"
               />
               <div className="absolute inset-0 rounded-md bg-gradient-to-br from-white/20 to-transparent"></div>
             </div>
@@ -93,7 +93,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
               <div className="mb-2 flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <h3 className="truncate text-lg font-bold text-zinc-950 dark:text-white">{exp.company}</h3>
-                  <p className="text-sm font-semibold text-emerald-700 group-hover:text-amber-700 dark:text-sky-300 dark:group-hover:text-amber-300">{exp.position}</p>
+                  <p className="text-sm font-semibold text-emerald-700 group-hover:text-amber-700 dark:text-emerald-400 dark:group-hover:text-amber-300">{exp.position}</p>
                 </div>
                 <span className="font-mono text-xs text-zinc-400">0{index + 1}</span>
               </div>
@@ -119,12 +119,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
             </div>
 
             {!isExpanded && (
-              <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#fbfbf2] to-transparent dark:from-[#151716]"></div>
+              <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#ffffff] to-transparent dark:from-[#151716]"></div>
             )}
 
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-3 flex items-center gap-1 font-mono text-xs font-medium uppercase text-emerald-700 transition-colors duration-200 hover:text-amber-700 dark:text-sky-300 dark:hover:text-amber-300"
+              className="mt-3 flex items-center gap-1 font-mono text-xs font-medium uppercase text-emerald-700 transition-colors duration-200 hover:text-amber-700 dark:text-emerald-400 dark:hover:text-amber-300"
             >
               {isExpanded ? "Show less" : "Read more"}
               {isExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
@@ -135,7 +135,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
             {exp.technologies.map((tech) => (
               <span
                 key={tech}
-                className="rounded-sm border border-emerald-950/10 bg-[#e9f4ec] px-2 py-1 font-mono text-[10px] font-medium uppercase text-zinc-700 transition-colors group-hover:border-amber-500/30 group-hover:bg-amber-300/15 dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 dark:group-hover:border-amber-300/30 dark:group-hover:bg-amber-300/10 sm:text-xs"
+                className="rounded-sm border border-black/8 bg-[#fafafa] px-2 py-1 font-mono text-[10px] font-medium uppercase text-zinc-700 transition-colors group-hover:border-amber-500/30 group-hover:bg-amber-300/15 dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 dark:group-hover:border-amber-300/30 dark:group-hover:bg-amber-300/10 sm:text-xs"
               >
                 {tech}
               </span>

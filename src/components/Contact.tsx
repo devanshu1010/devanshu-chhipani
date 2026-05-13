@@ -21,7 +21,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.42fr_0.58fr]">
-          <div className="rounded-lg border border-emerald-950/15 bg-zinc-950 p-6 text-[#f6f7ef] shadow-[14px_14px_0_rgba(251,191,36,0.12)] dark:border-white/15 dark:bg-[#101211] dark:shadow-[14px_14px_0_rgba(251,191,36,0.07)] sm:p-8">
+          <div className="rounded-lg border border-black/10 bg-zinc-950 p-6 text-[#ffffff] shadow-[14px_14px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-[#0a0a0a] dark:shadow-[14px_14px_0_rgba(251,191,36,0.07)] sm:p-8">
             <h3 className="mb-5 text-2xl font-black tracking-normal">Signal routes</h3>
             <p className="mb-8 leading-7 text-zinc-300">
               Short, specific messages are easiest to act on. Share the product, team, timeline, and what you need built or improved.
@@ -42,7 +42,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <form className="rounded-lg border border-emerald-950/15 bg-[#fbfbf2]/85 p-5 dark:border-white/15 dark:bg-white/[0.04] sm:p-8">
+          <form className="rounded-lg border border-black/10 bg-[#ffffff]/85 p-5 dark:border-white/10 dark:bg-white/[0.04] sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="name" className="mb-2 block font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">
@@ -51,7 +51,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  className="w-full rounded-md border border-emerald-950/15 bg-[#f6f7ef] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/15 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
+                  className="w-full rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
                   placeholder="Your name"
                 />
               </div>
@@ -63,7 +63,7 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  className="w-full rounded-md border border-emerald-950/15 bg-[#f6f7ef] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/15 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
+                  className="w-full rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
                   placeholder="you@example.com"
                 />
               </div>
@@ -76,14 +76,14 @@ const Contact = () => {
               <textarea
                 id="message"
                 rows={7}
-                className="w-full resize-none rounded-md border border-emerald-950/15 bg-[#f6f7ef] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/15 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
+                className="w-full resize-none rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-amber-600 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300"
                 placeholder="Tell me what you are building..."
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-5 py-4 font-semibold text-[#f6f7ef] transition-transform duration-200 hover:-translate-y-0.5 hover:text-amber-200 dark:bg-white dark:text-zinc-950 dark:hover:text-amber-700"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-5 py-4 font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-amber-200 dark:bg-white dark:text-zinc-950 dark:hover:text-amber-700"
             >
               Send message
               <Send className="h-4 w-4" />

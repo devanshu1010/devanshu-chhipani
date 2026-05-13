@@ -49,7 +49,7 @@ const Header = () => {
     <div className="fixed left-0 top-4 z-50 flex w-full justify-center px-3 pointer-events-none sm:top-5">
       <header className="pointer-events-auto w-full max-w-5xl">
         <nav
-          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-emerald-950/15 bg-[#f6f7ef] px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:border-white/15 dark:bg-[#0c0f0d] dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
+          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-black/10 bg-[#ffffff] px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#000000] dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
         >
           <div className="flex-shrink-0 flex items-center">
             <button 
@@ -107,7 +107,7 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden animate-fade-in px-3 pt-2">
-            <div className="mt-2 space-y-1 rounded-2xl border border-emerald-950/15 bg-[#f6f7ef] p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/15 dark:bg-[#0c0f0d]">
+            <div className="mt-2 space-y-1 rounded-2xl border border-black/10 bg-[#ffffff] p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#000000]">
               {navItems.map((item) => (
                 <button
                   key={item.name}
