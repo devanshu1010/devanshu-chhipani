@@ -45,9 +45,9 @@ const Blog = () => {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {blogPosts.map((post, index) => (
             <Link key={post.slug} to={`/blog/${post.slug}`} className="group block">
-              <article className="flex h-full min-h-[320px] flex-col rounded-lg border border-emerald-950/15 bg-[#fbfbf2]/85 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/55 hover:shadow-[10px_10px_0_rgba(251,191,36,0.12)] dark:border-white/15 dark:bg-white/[0.04] dark:hover:border-amber-300/45 dark:hover:shadow-[10px_10px_0_rgba(251,191,36,0.07)]">
+              <article className="flex h-full min-h-[320px] flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/55 hover:shadow-[10px_10px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-amber-300/45 dark:hover:shadow-[10px_10px_0_rgba(251,191,36,0.07)]">
                 <div className="mb-10 flex items-start justify-between gap-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-md bg-zinc-950 text-[#f6f7ef] shadow-[inset_0_-2px_0_rgba(251,191,36,0.72)] dark:bg-white dark:text-zinc-950">
+                  <div className="grid h-12 w-12 place-items-center rounded-md bg-zinc-950 text-[#ffffff] shadow-[inset_0_-2px_0_rgba(251,191,36,0.72)] dark:bg-white dark:text-zinc-950">
                     <FileText className="h-5 w-5" />
                   </div>
                   <span className="font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">0{index + 1}</span>

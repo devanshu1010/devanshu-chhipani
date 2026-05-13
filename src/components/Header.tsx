@@ -49,17 +49,17 @@ const Header = () => {
     <div className="fixed left-0 top-4 z-50 flex w-full justify-center px-3 pointer-events-none sm:top-5">
       <header className="pointer-events-auto w-full max-w-5xl">
         <nav
-          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-emerald-950/15 bg-[#f6f7ef] px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:border-white/15 dark:bg-[#0c0f0d] dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
+          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-black/10 bg-[#ffffff] px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#000000] dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
         >
           <div className="flex-shrink-0 flex items-center">
             <button 
               onClick={() => scrollToSection('home')}
-              className="group flex items-center gap-2 text-left text-zinc-950 transition-colors duration-300 hover:text-amber-700 dark:text-zinc-50 dark:hover:text-amber-300"
+              className="group flex items-center gap-2 text-left text-zinc-950 transition-colors duration-300 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
             >
               <LogoMark compact />
               <span className="font-mono uppercase tracking-[0.18em]">
                 <span className="block text-[12px] font-bold leading-none text-zinc-900 dark:text-zinc-50">Devanshu</span>
-                <span className="block text-[9px] font-medium text-zinc-500 group-hover:text-amber-700 dark:text-zinc-400 dark:group-hover:text-amber-300">Computer Engineer</span>
+                <span className="block text-[9px] font-medium text-zinc-500 group-hover:text-emerald-600 dark:text-zinc-400 dark:group-hover:text-emerald-400">Computer Engineer</span>
               </span>
             </button>
           </div>
@@ -70,7 +70,7 @@ const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="rounded-full px-3 py-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-600 transition-colors duration-200 hover:bg-amber-300/20 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-amber-300/10 dark:hover:text-white"
+                  className="rounded-full px-3 py-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-600 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-emerald-400/10 dark:hover:text-white"
                 >
                   {item.name}
                 </button>
@@ -79,7 +79,7 @@ const Header = () => {
             
             <button
               onClick={toggleDarkMode}
-              className="grid h-9 w-9 place-items-center rounded-full border border-zinc-950/10 text-zinc-700 transition-colors duration-200 hover:border-amber-500/50 hover:bg-zinc-950 hover:text-amber-300 dark:border-white/10 dark:text-zinc-300 dark:hover:border-amber-300/50 dark:hover:bg-white dark:hover:text-amber-700"
+              className="grid h-9 w-9 place-items-center rounded-full border border-zinc-950/10 text-zinc-700 transition-colors duration-200 hover:border-emerald-500/40 hover:bg-zinc-950 hover:text-emerald-300 dark:border-white/10 dark:text-zinc-300 dark:hover:border-emerald-400/40 dark:hover:bg-white dark:hover:text-emerald-600"
               aria-label="Toggle theme"
             >
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -97,7 +97,7 @@ const Header = () => {
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-950/10 text-zinc-700 transition-colors duration-200 hover:border-amber-500/50 hover:bg-zinc-950 hover:text-amber-300 dark:border-white/10 dark:text-zinc-300 dark:hover:border-amber-300/50 dark:hover:bg-white dark:hover:text-amber-700"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-950/10 text-zinc-700 transition-colors duration-200 hover:border-emerald-500/40 hover:bg-zinc-950 hover:text-emerald-300 dark:border-white/10 dark:text-zinc-300 dark:hover:border-emerald-400/40 dark:hover:bg-white dark:hover:text-emerald-600"
               aria-label="Open menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -107,12 +107,12 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden animate-fade-in px-3 pt-2">
-            <div className="mt-2 space-y-1 rounded-2xl border border-emerald-950/15 bg-[#f6f7ef] p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/15 dark:bg-[#0c0f0d]">
+            <div className="mt-2 space-y-1 rounded-2xl border border-black/10 bg-[#ffffff] p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#000000]">
               {navItems.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full rounded-xl px-3 py-2 text-left font-mono text-sm font-medium uppercase tracking-[0.14em] text-zinc-700 transition-colors duration-200 hover:bg-amber-300/20 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-amber-300/10 dark:hover:text-white"
+                  className="block w-full rounded-xl px-3 py-2 text-left font-mono text-sm font-medium uppercase tracking-[0.14em] text-zinc-700 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-emerald-400/10 dark:hover:text-white"
                 >
                   {item.name}
                 </button>

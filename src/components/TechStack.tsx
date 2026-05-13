@@ -59,8 +59,8 @@ const TechStack = () => {
       <div className="pointer-events-none absolute right-[10%] top-14 h-24 w-px bg-amber-400/35 dark:bg-amber-300/25" />
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <div className="inline-flex w-fit items-center gap-2 rounded-md border border-zinc-950/15 px-3 py-2 font-mono text-xs uppercase text-zinc-600 dark:border-white/15 dark:text-zinc-400">
-            <Layers className="h-4 w-4 text-emerald-700 dark:text-sky-300" />
+          <div className="inline-flex w-fit items-center gap-2 rounded-md border border-zinc-950/15 px-3 py-2 font-mono text-xs uppercase text-zinc-600 dark:border-white/10 dark:text-zinc-400">
+            <Layers className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
             Stack map
           </div>
 
@@ -74,7 +74,7 @@ const TechStack = () => {
         </div>
 
         <div className="mb-8 flex overflow-x-auto">
-          <div className="inline-flex rounded-lg border border-emerald-950/15 bg-[#e9f4ec]/70 p-1 shadow-[8px_8px_0_rgba(251,191,36,0.12)] dark:border-white/15 dark:bg-white/[0.04] dark:shadow-[8px_8px_0_rgba(251,191,36,0.07)]">
+          <div className="inline-flex rounded-lg border border-black/10 bg-[#fafafa]/70 p-1 shadow-[8px_8px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[8px_8px_0_rgba(251,191,36,0.07)]">
             {techCategories.map((category, index) => {
               const IconComponent = category.icon;
 
@@ -84,7 +84,7 @@ const TechStack = () => {
                   onClick={() => setSelectedCategory(index)}
                   className={`flex items-center gap-2 rounded-md px-5 py-3 font-semibold transition-colors duration-200 ${
                     selectedCategory === index
-                      ? "bg-zinc-950 text-[#f6f7ef] shadow-[inset_0_-2px_0_rgba(251,191,36,0.75)] dark:bg-white dark:text-zinc-950"
+                      ? "bg-zinc-950 text-[#ffffff] shadow-[inset_0_-2px_0_rgba(251,191,36,0.75)] dark:bg-white dark:text-zinc-950"
                       : "text-zinc-700 hover:bg-amber-300/20 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-amber-300/10 dark:hover:text-white"
                   }`}
                 >
@@ -97,11 +97,11 @@ const TechStack = () => {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[0.34fr_0.66fr]">
-          <div className="relative overflow-hidden rounded-lg border border-emerald-950/15 bg-zinc-950 p-6 text-[#f6f7ef] shadow-[14px_14px_0_rgba(16,185,129,0.12)] dark:border-white/15 dark:bg-[#101211] dark:shadow-[14px_14px_0_rgba(56,189,248,0.06)]">
+          <div className="relative overflow-hidden rounded-lg border border-black/10 bg-zinc-950 p-6 text-[#ffffff] shadow-[14px_14px_0_rgba(16,185,129,0.12)] dark:border-white/10 dark:bg-[#0a0a0a] dark:shadow-[14px_14px_0_rgba(56,189,248,0.06)]">
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(16,185,129,0.12),transparent_45%,rgba(251,191,36,0.1))]" />
             <div className="relative">
               <div className="mb-8 flex items-start justify-between">
-                <Braces className="h-9 w-9 text-sky-300" />
+                <Braces className="h-9 w-9 text-emerald-400" />
                 <span className="rounded-sm border border-amber-300/30 px-2 py-1 font-mono text-[10px] uppercase text-amber-200">
                   live node
                 </span>
@@ -115,7 +115,7 @@ const TechStack = () => {
                 <span className="grid h-11 w-11 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-emerald-300">
                   <ActiveIcon className="h-5 w-5" />
                 </span>
-                <div className="h-px bg-gradient-to-r from-emerald-400 via-sky-300 to-amber-300" />
+                <div className="h-px bg-gradient-to-r from-emerald-400 via-emerald-400 to-amber-300" />
                 <span className="col-span-2 flex items-center gap-2 font-mono text-[11px] uppercase text-zinc-400">
                   <Radio className="h-3.5 w-3.5 text-amber-300" />
                   connected across interface, data, and deployment decisions
@@ -124,24 +124,24 @@ const TechStack = () => {
             </div>
           </div>
 
-          <div className="relative rounded-lg border border-emerald-950/15 bg-[#fbfbf2]/80 p-4 dark:border-white/15 dark:bg-white/[0.04] sm:p-6">
+          <div className="relative rounded-lg border border-black/10 bg-[#ffffff]/80 p-4 dark:border-white/10 dark:bg-white/[0.04] sm:p-6">
             <div className="mb-5 flex items-center justify-between gap-4 border-b border-zinc-950/10 pb-4 dark:border-white/10">
               <div>
                 <p className="font-mono text-xs uppercase text-amber-700 dark:text-amber-300">signal strength</p>
                 <h3 className="mt-1 text-2xl font-black text-zinc-950 dark:text-white">{activeCategory.category} tools</h3>
               </div>
-              <Activity className="h-6 w-6 text-emerald-700 dark:text-sky-300" />
+              <Activity className="h-6 w-6 text-emerald-700 dark:text-emerald-400" />
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {activeCategory.technologies.map((tech) => (
                 <div
                   key={tech.name}
-                  className="group relative overflow-hidden rounded-md border border-emerald-950/10 bg-[#f6f7ef] p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-500/55 hover:shadow-[8px_8px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-black/20 dark:hover:border-amber-300/45 dark:hover:shadow-[8px_8px_0_rgba(251,191,36,0.07)]"
+                  className="group relative overflow-hidden rounded-md border border-black/8 bg-[#ffffff] p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-500/55 hover:shadow-[8px_8px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-black/20 dark:hover:border-amber-300/45 dark:hover:shadow-[8px_8px_0_rgba(251,191,36,0.07)]"
                 >
-                  <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/35 to-transparent dark:via-sky-300/35" />
+                  <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/35 to-transparent dark:via-emerald-400/35" />
                   <div className="mb-5 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 place-items-center rounded-md bg-zinc-950 font-mono text-xs font-bold text-[#f6f7ef] shadow-[inset_0_-2px_0_rgba(251,191,36,0.72)] dark:bg-white dark:text-zinc-950">
+                      <span className="grid h-10 w-10 place-items-center rounded-md bg-zinc-950 font-mono text-xs font-bold text-[#ffffff] shadow-[inset_0_-2px_0_rgba(251,191,36,0.72)] dark:bg-white dark:text-zinc-950">
                         {tech.signal}
                       </span>
                       <span className="text-lg font-bold text-zinc-950 dark:text-white">{tech.name}</span>
@@ -159,7 +159,7 @@ const TechStack = () => {
                           levelIndex < getProficiencyLevel(tech.proficiency)
                             ? levelIndex === getProficiencyLevel(tech.proficiency) - 1
                               ? "bg-amber-500 dark:bg-amber-300"
-                              : "bg-emerald-700 dark:bg-sky-300"
+                              : "bg-emerald-700 dark:bg-emerald-400"
                             : "bg-zinc-950/10 dark:bg-white/10"
                         }`}
                       ></span>
