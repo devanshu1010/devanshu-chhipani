@@ -72,13 +72,13 @@ const Hero = () => {
           <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
             <button 
               onClick={() => scrollToSection('experience')}
-              className="group inline-flex items-center justify-center gap-2 rounded-md bg-zinc-950 px-6 py-4 text-base font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-amber-200 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:text-amber-700"
+              className="group inline-flex items-center justify-center gap-2 rounded-md bg-zinc-950 px-6 py-4 text-base font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-amber-200 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:text-emerald-600"
             >
               View work log
               <ArrowDown className="h-5 w-5 group-hover:translate-y-1 transition-transform" />
             </button>
             
-            <button className="rounded-md border border-zinc-950/20 bg-transparent px-6 py-4 text-base font-semibold text-zinc-950 transition-colors duration-200 hover:border-amber-500/50 hover:bg-amber-300/15 dark:border-white/20 dark:text-white dark:hover:border-amber-300/45 dark:hover:bg-amber-300/10">
+            <button className="rounded-md border border-zinc-950/20 bg-transparent px-6 py-4 text-base font-semibold text-zinc-950 transition-colors duration-200 hover:border-emerald-500/40 hover:bg-amber-300/15 dark:border-white/20 dark:text-white dark:hover:border-amber-300/45 dark:hover:bg-emerald-400/10">
               Download CV
             </button>
           </div>
@@ -92,7 +92,7 @@ const Hero = () => {
               <a
                 key={label}
                 href={href}
-                className="grid h-11 w-11 place-items-center rounded-md border border-black/10 bg-[#ffffff]/70 text-zinc-700 transition-colors duration-200 hover:border-amber-500/50 hover:bg-zinc-950 hover:text-amber-300 dark:border-white/10 dark:bg-black/25 dark:text-zinc-300 dark:hover:border-amber-300/45 dark:hover:bg-white dark:hover:text-amber-700"
+                className="grid h-11 w-11 place-items-center rounded-md border border-black/10 bg-[#ffffff]/70 text-zinc-700 transition-colors duration-200 hover:border-emerald-500/40 hover:bg-zinc-950 hover:text-emerald-300 dark:border-white/10 dark:bg-black/25 dark:text-zinc-300 dark:hover:border-amber-300/45 dark:hover:bg-white dark:hover:text-emerald-600"
                 aria-label={label}
               >
                 <Icon className="h-5 w-5" />
@@ -150,7 +150,7 @@ const Hero = () => {
         
         <button 
           onClick={() => scrollToSection('experience')}
-          className="absolute bottom-6 left-1/2 grid h-11 w-11 -translate-x-1/2 place-items-center rounded-md border border-black/10 bg-[#ffffff] text-zinc-700 transition-colors hover:border-amber-500/50 hover:bg-zinc-950 hover:text-amber-300 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300 dark:hover:border-amber-300/45 dark:hover:bg-white dark:hover:text-amber-700"
+          className="absolute bottom-6 left-1/2 grid h-11 w-11 -translate-x-1/2 place-items-center rounded-md border border-black/10 bg-[#ffffff] text-zinc-700 transition-colors hover:border-emerald-500/40 hover:bg-zinc-950 hover:text-emerald-300 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300 dark:hover:border-amber-300/45 dark:hover:bg-white dark:hover:text-emerald-600"
           aria-label="Scroll to experience"
         >
           <ArrowDown className="h-5 w-5" />
