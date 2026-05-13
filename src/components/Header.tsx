@@ -57,7 +57,7 @@ const Header = () => {
               className="group flex items-center gap-2 text-left text-zinc-950 transition-colors duration-300 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
             >
               <LogoMark compact />
-              <span className="font-mono uppercase tracking-[0.18em]">
+              <span className="font-mono tracking-[0.18em]">
                 <span className="block text-[12px] font-bold leading-none text-zinc-900 dark:text-zinc-50">Devanshu</span>
                 <span className="block text-[9px] font-medium text-zinc-500 group-hover:text-emerald-600 dark:text-zinc-400 dark:group-hover:text-emerald-400">Computer Engineer</span>
               </span>
@@ -70,7 +70,7 @@ const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="rounded-full px-3 py-2 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-600 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-emerald-400/10 dark:hover:text-white"
+                  className="rounded-full px-3 py-2 font-mono text-[11px] font-medium tracking-[0.14em] text-zinc-600 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-emerald-400/10 dark:hover:text-white"
                 >
                   {item.name}
                 </button>
@@ -112,7 +112,7 @@ const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full rounded-xl px-3 py-2 text-left font-mono text-sm font-medium uppercase tracking-[0.14em] text-zinc-700 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-emerald-400/10 dark:hover:text-white"
+                  className="block w-full rounded-xl px-3 py-2 text-left font-mono text-sm font-medium tracking-[0.14em] text-zinc-700 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-emerald-400/10 dark:hover:text-white"
                 >
                   {item.name}
                 </button>

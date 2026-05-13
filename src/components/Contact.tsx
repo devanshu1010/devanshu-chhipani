@@ -1,9 +1,9 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 
 const contactItems = [
-  { icon: Mail, label: "Email", value: "your.email@example.com" },
-  { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-  { icon: MapPin, label: "Location", value: "Your City, Country" },
+  { icon: Mail, label: "Email", value: "devanshu.chhipani@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+91 84019 43394" },
+  { icon: MapPin, label: "Location", value: "Ahmedabad, Gujarat, India" },
 ];
 
 const Contact = () => {

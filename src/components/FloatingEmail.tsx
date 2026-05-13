@@ -6,11 +6,11 @@ const FloatingEmail: React.FC = () => {
       {/* Email link */}
       <div className="mb-8">
         <a
-          href="mailto:your.email@example.com"
+          href="mailto:devanshu.chhipani@gmail.com"
           className="font-mono text-sm text-zinc-500 transition-all duration-300 hover:-translate-y-1 hover:text-amber-700 dark:text-zinc-400 dark:hover:text-amber-300"
           style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
         >
-          your.email@example.com
+          devanshu.chhipani@gmail.com
         </a>
       </div>
       
