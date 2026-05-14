@@ -21,10 +21,6 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen overflow-hidden px-4 pt-28 sm:px-6 lg:px-8"
     >
-      <div className="absolute inset-0">
-        <div className="absolute left-[8%] top-36 h-px w-[84%] bg-zinc-950/20 dark:bg-white/15"></div>
-        <div className="absolute bottom-28 left-[8%] h-px w-[84%] bg-zinc-950/10 dark:bg-white/10"></div>
-      </div>
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
         <div className="space-y-8">
