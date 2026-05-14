@@ -6,25 +6,25 @@ const socialLinks = [
     name: "GitHub",
     icon: Github,
     url: "https://github.com",
-    color: "hover:text-amber-700 dark:hover:text-amber-300"
+    color: "hover:text-emerald-600 dark:hover:text-emerald-400"
   },
   {
     name: "LinkedIn",
     icon: Linkedin,
     url: "https://linkedin.com",
-    color: "hover:text-emerald-700 dark:hover:text-sky-300"
+    color: "hover:text-emerald-600 dark:hover:text-emerald-400"
   },
   {
     name: "Twitter",
     icon: Twitter,
     url: "https://twitter.com",
-    color: "hover:text-sky-700 dark:hover:text-sky-300"
+    color: "hover:text-emerald-600 dark:hover:text-emerald-400"
   },
   {
     name: "Instagram",
     icon: Instagram,
     url: "https://instagram.com",
-    color: "hover:text-amber-700 dark:hover:text-amber-300"
+    color: "hover:text-emerald-600 dark:hover:text-emerald-400"
   }
 ];
 
@@ -51,7 +51,7 @@ const FloatingSocial: React.FC = () => {
       </div>
       
       {/* Vertical line */}
-      <div className="h-24 w-px bg-gradient-to-b from-amber-500/45 to-zinc-950/20 dark:from-amber-300/45 dark:to-white/20"></div>
+      <div className="h-24 w-px bg-gradient-to-b from-emerald-500/50 to-zinc-950/20 dark:from-emerald-400/50 dark:to-white/20"></div>
     </div>
   );
 };

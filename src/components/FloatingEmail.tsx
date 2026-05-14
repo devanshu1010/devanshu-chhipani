@@ -7,7 +7,7 @@ const FloatingEmail: React.FC = () => {
       <div className="mb-8">
         <a
           href="mailto:devanshu.chhipani@gmail.com"
-          className="font-mono text-sm text-zinc-500 transition-all duration-300 hover:-translate-y-1 hover:text-amber-700 dark:text-zinc-400 dark:hover:text-amber-300"
+          className="font-mono text-sm text-zinc-500 transition-all duration-300 hover:-translate-y-1 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
           style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
         >
           devanshu.chhipani@gmail.com
@@ -15,7 +15,7 @@ const FloatingEmail: React.FC = () => {
       </div>
       
       {/* Vertical line */}
-      <div className="h-24 w-px bg-gradient-to-b from-amber-500/45 to-zinc-950/20 dark:from-amber-300/45 dark:to-white/20"></div>
+      <div className="h-24 w-px bg-gradient-to-b from-emerald-500/50 to-zinc-950/20 dark:from-emerald-400/50 dark:to-white/20"></div>
     </div>
   );
 };
