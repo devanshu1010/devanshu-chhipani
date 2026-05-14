@@ -11,9 +11,9 @@ const Contact = () => {
     <section id="contact" className="relative px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <p className="font-mono text-xs uppercase text-emerald-600 dark:text-emerald-400">Contact protocol</p>
+          <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Contact protocol</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
-            Bring a product problem. I will bring the <span className="text-emerald-600 dark:text-emerald-400">interface thinking.</span>
+            Bring a product problem. I will bring the <span className="text-indigo-600 dark:text-indigo-400">interface thinking.</span>
           </h2>
           <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
             Open to computer engineering roles, product engineering work, technical content, and teams exploring useful AI workflows.
@@ -21,7 +21,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.42fr_0.58fr]">
-          <div className="rounded-lg border border-black/10 bg-zinc-950 p-6 text-[#ffffff] shadow-[14px_14px_0_rgba(16,185,129,0.16)] dark:border-white/10 dark:bg-[#0a0a0a] dark:shadow-[14px_14px_0_rgba(16,185,129,0.10)] sm:p-8">
+          <div className="rounded-lg border border-black/10 bg-zinc-950 p-6 text-[#ffffff] dark:border-white/10 dark:bg-[#0a0a0a] sm:p-8">
             <h3 className="mb-5 text-2xl font-black tracking-normal">Signal routes</h3>
             <p className="mb-8 leading-7 text-zinc-300">
               Short, specific messages are easiest to act on. Share the product, team, timeline, and what you need built or improved.
@@ -29,8 +29,8 @@ const Contact = () => {
 
             <div className="space-y-4">
               {contactItems.map(({ icon: Icon, label, value }) => (
-                <div key={label} className="flex items-center gap-4 border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-emerald-400/40">
-                  <div className="grid h-10 w-10 place-items-center rounded-md bg-white text-emerald-700">
+                <div key={label} className="flex items-center gap-4 border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-indigo-400/30">
+                  <div className="grid h-10 w-10 place-items-center rounded-md bg-white text-indigo-600">
                     <Icon size={18} />
                   </div>
                   <div>
@@ -51,7 +51,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
-                  className="w-full rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-emerald-500 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-emerald-400"
+                  className="w-full rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-indigo-500 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-indigo-400"
                   placeholder="Your name"
                 />
               </div>
@@ -63,7 +63,7 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  className="w-full rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-emerald-500 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-emerald-400"
+                  className="w-full rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-indigo-500 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-indigo-400"
                   placeholder="you@example.com"
                 />
               </div>
@@ -76,14 +76,14 @@ const Contact = () => {
               <textarea
                 id="message"
                 rows={7}
-                className="w-full resize-none rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-emerald-500 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-emerald-400"
+                className="w-full resize-none rounded-md border border-black/10 bg-[#ffffff] px-4 py-3 text-zinc-950 outline-none transition-colors focus:border-indigo-500 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-indigo-400"
                 placeholder="Tell me what you are building..."
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-5 py-4 font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-emerald-300 dark:bg-white dark:text-zinc-950 dark:hover:text-emerald-700"
+              className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-5 py-4 font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-indigo-300 dark:bg-white dark:text-zinc-950 dark:hover:text-indigo-600"
             >
               Send message
               <Send className="h-4 w-4" />

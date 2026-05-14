@@ -35,7 +35,7 @@ const CursorGlow = () => {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[5] hidden h-[360px] w-[360px] rounded-full bg-emerald-500/10 blur-3xl lg:block dark:bg-emerald-400/10"
+      className="pointer-events-none fixed left-0 top-0 z-[5] hidden h-[360px] w-[360px] rounded-full bg-indigo-500/[0.07] blur-3xl lg:block dark:bg-indigo-400/[0.06]"
       style={{ willChange: "transform", transform: "translate3d(-1000px,-1000px,0)" }}
     />
   );

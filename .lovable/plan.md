@@ -1,102 +1,86 @@
-## Goal
+# Plan: Editorial refinement + remove section divider lines
 
-Refine the site to a true Apple-minimal palette: pure white in light mode, pure black in dark mode, with two restrained accent colors used sparingly for elegance and hierarchy. **No structural changes** — only color tokens are touched.
+## 1. Remove the horizontal line between sections
 
-## The palette
-
-### Neutrals (the "main" color)
-
-| Role | Light mode | Dark mode |
-|---|---|---|
-| Page background | `#ffffff` pure white | `#000000` pure black |
-| Elevated surface (navbar pill, cards) | `#ffffff` with `border-black/8` | `#0a0a0a` with `border-white/8` |
-| Primary text | `#0a0a0a` near-black | `#fafafa` near-white |
-| Secondary text | `zinc-600` | `zinc-400` |
-| Muted / dividers | `black/8` | `white/8` |
-
-This makes ~95% of every screen pure black or pure white. Quiet, confident, Apple-like.
-
-### Accents (used sparingly — 5% of the surface)
-
-| Accent | Hex | Where it appears |
-|---|---|---|
-| **Emerald** (signature) | `#10b981` (emerald-500) | Primary CTAs, active nav state, logo glow, link hover, focus ring |
-| **Amber** (highlight) | `#f59e0b` (amber-500) | Section badges/chips, "now" / "live" indicators, selection highlight, secondary hover |
-| **Gradient** (hero only) | emerald → amber, 135° | Hero headline word, primary button hover sweep, logo background glow |
-
-**Rule of use:** never two accents on the same element. Emerald = action, Amber = status. Everything else is neutral.
-
-## Where each color goes
-
-### Header / Navbar (`src/components/Header.tsx`)
-- Light: white pill, `border-black/8`, text near-black, hover text → emerald-600
-- Dark: `#0a0a0a` pill, `border-white/8`, text near-white, hover text → emerald-400
-- Active nav item: subtle emerald underline dot or `emerald/10` background
-- Theme toggle hover ring: emerald
-
-### Hero (`src/components/Hero.tsx`)
-- Background: pure white / pure black (no tinted glows)
-- Headline: neutral, with **one** word in the emerald→amber gradient
-- Primary CTA: solid black on white / solid white on black, hover reveals emerald→amber gradient sweep
-- Secondary CTA: ghost/outline in neutral border
-
-### Sections (Experience, TechStack, Blog, Contact)
-- Backgrounds: pure neutral, alternating with subtle `black/[0.02]` (light) or `white/[0.02]` (dark) bands for rhythm
-- Section eyebrow chips: emerald text on `emerald/8` bg, `emerald/20` border
-- Card hover: border shifts to `emerald/30`, no fill change
-- Tags / pills: amber for "current/live", neutral for everything else
-- Links: neutral text, emerald underline on hover
-
-### Logo
-- Already inverts per theme — keep as-is. Logo glow tint in loader stays emerald→amber.
-
-### Selection & focus
-- Selection: `emerald/20` background
-- Focus ring: emerald-500 at 60% opacity
-
-## Token changes (`src/index.css`)
+In `src/pages/Index.tsx`, the wrapper applies a `::before` divider to every `<section>`:
 
 ```
-:root  (light)
-  --background: 0 0% 100%        /* pure white */
-  --foreground: 0 0% 4%          /* near black */
-  --card: 0 0% 100%
-  --border: 0 0% 92%             /* black/8 */
-  --primary: 160 84% 39%         /* emerald (unchanged) */
-  --accent:  38 92% 50%          /* amber */
-  --ring:    160 84% 39%         /* emerald */
-
-.dark
-  --background: 0 0% 0%          /* pure black */
-  --foreground: 0 0% 98%
-  --card: 0 0% 4%                /* #0a0a0a */
-  --border: 0 0% 14%             /* white/8 */
-  --primary: 160 84% 45%         /* slightly brighter emerald for dark */
-  --accent:  38 92% 55%
-  --ring:    160 84% 45%
+[&>section]:before:h-px [&>section]:before:bg-zinc-950/10 dark:[&>section]:before:bg-white/10
 ```
 
-Body backgrounds in `body` / `.dark body` updated to `#ffffff` / `#000000`. Selection colors updated to emerald tint.
+Action: delete the entire `[&>section]:before:*` utility chain. Sections will flow continuously with no visible rule. Hero already has its own internal hairlines — those stay.
 
-## Out of scope
+## 2. Re-tune the theme to the new editorial palette
 
-- No layout, spacing, typography, or component structure changes
-- No copy changes
-- Logo and loader animations untouched
-- No new sections or components
+Goal: 90% monochrome, ~8% primary accent (indigo), ~2% secondary (cyan). Drop emerald/amber as the dominant accent system. Keep all layouts, components, spacing, and copy unchanged.
 
-## Files touched
+### Tokens — `src/index.css`
 
-- `src/index.css` — tokens, body bg, selection
-- `src/components/Header.tsx` — neutral surfaces, emerald hover
-- `src/pages/Index.tsx` — remove tinted ambient glows
-- `src/components/Hero.tsx` — neutral bg, gradient headline word, neutral CTA with emerald→amber hover
-- `src/components/Experience.tsx`, `TechStack.tsx`, `Blog.tsx`, `Contact.tsx` — swap hardcoded colored backgrounds/borders to neutral + emerald/amber accents per the rules above
+Light:
+- `--background` `#FFFFFF` (already)
+- `--foreground` `#0A0A0A` (already)
+- `--muted-foreground` → `#64748B` (slate-500)
+- `--border` / `--input` → `#E2E8F0` (slate-200)
+- `--secondary` / `--muted` → `#F8FAFC` (slate-50)
+- `--primary` → `#4F46E5` (indigo-600)
+- `--accent` → `#0891B2` (cyan-600)
+- `--ring` → `#4F46E5`
 
-## Memory update (after approval)
+Dark:
+- `--background` `#000000` (already)
+- `--foreground` `#FAFAFA` (already)
+- `--muted-foreground` → `#94A3B8` (slate-400)
+- `--border` / `--input` → `#1E293B` (slate-800)
+- `--secondary` / `--muted` / `--card` → `#0A0A0A`
+- `--primary` → `#818CF8` (indigo-400)
+- `--accent` → `#22D3EE` (cyan-400)
+- `--ring` → `#818CF8`
 
-Update `mem://style/theme` to record: pure white / pure black neutrals, emerald (`#10b981`) as action accent, amber (`#f59e0b`) as status accent, gradient reserved for hero + logo glow only.
+Selection: indigo-tinted (`rgba(79,70,229,0.18)` / `rgba(129,140,248,0.28)`).
+
+`@keyframes glow`: replace emerald/amber with indigo→cyan (kept only because referenced; intensity reduced).
+
+### Component sweep (color-only, no structure)
+
+Replace every hardcoded `emerald-*` / `amber-*` / yellow utility with the new system. Mapping:
+
+| Old | New |
+|---|---|
+| `emerald-600` / `emerald-400` (text, border, ring) | `indigo-600` / `indigo-400` |
+| `emerald-500/10..40` (bg, border tint) | `indigo-500/10..30` |
+| `amber-*` (status chips, "live" dot, eyebrows) | `cyan-600` / `cyan-400` (and `cyan-500/10` surfaces) |
+| Gradient `emerald → amber` (hero word, logo glow, button hover) | Gradient `indigo-500 → cyan-400` (used only on hero headline word + logo loader glow) |
+| `shadow-[…rgba(16,185,129,…)]` / amber shadows | Remove or replace with `border` + soft `shadow-black/5` (per "borders over shadows") |
+
+Files touched (color tokens / classnames only):
+- `src/components/Header.tsx` — hover text → indigo, hover ring → indigo, active item subtle indigo dot
+- `src/components/Hero.tsx` — drop colored block-shadows, recolor terminal accents (terminal `online` chip → cyan, `Terminal` icon → indigo), CTA stays neutral with indigo hover text
+- `src/components/Experience.tsx` — eyebrows → indigo on `indigo-500/8`, "current" badge → cyan, card hover border → `indigo/30`
+- `src/components/TechStack.tsx` — proficiency bars `indigo-500`, signal-code badges → neutral border with `indigo` text on hover, active tab rail indicator → indigo
+- `src/components/Blog.tsx` — link hover → indigo, "new" tag → cyan, drop colored block-shadows
+- `src/components/Contact.tsx` — input focus ring → indigo, send button → neutral + indigo hover, drop emerald shadow
+- `src/components/FloatingEmail.tsx`, `FloatingSocial.tsx` — handle/hover → indigo, dot indicator → cyan
+- `src/components/CursorGlow.tsx` — glow color `bg-indigo-500/8 blur-3xl` (lower opacity, calmer)
+- `src/components/DacLoader.tsx` + `LogoMark.tsx` — logo glow gradient → indigo→cyan; lightning trace tints adjusted (`#a5b4fc` / `#67e8f9`) to match
+
+### Motion / shadow discipline
+
+- Remove the colored `shadow-[NN_NN_0_rgba(...)]` block-shadows on hero terminal, blog cards, contact card. Replace with a 1px border + `shadow-sm` only where elevation is needed.
+- `CursorGlow` opacity dropped (10% → 6%) and blur kept; size unchanged. No new animations introduced.
+- Existing transitions left as-is (already 200ms ease).
+
+### Out of scope
+
+- No layout, spacing, typography, copy, or component structure changes
+- No new sections, no removed sections
+- Loader animation logic untouched (only color values)
+- Logo geometry untouched
+
+## 3. Memory updates after approval
+
+- Update `mem://style/theme` with the new indigo/cyan palette and the "90/8/2" color-usage rule.
+- Add a short constraint memory: no inter-section divider lines (rejected).
 
 ## Permission gate
 
-Per your earlier instruction, I will **ask for permission before committing** any of these theme changes.
+Per your standing instruction, I will ask for approval before committing these changes.

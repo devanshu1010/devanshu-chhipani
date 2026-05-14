@@ -40,7 +40,7 @@ const Index = () => {
         <CursorGlow />
         <FloatingSocial />
         <FloatingEmail />
-        <div className="animate-page-in [&>section]:relative [&>section]:before:pointer-events-none [&>section]:before:absolute [&>section]:before:left-[8%] [&>section]:before:right-[8%] [&>section]:before:top-0 [&>section]:before:h-px [&>section]:before:bg-zinc-950/10 dark:[&>section]:before:bg-white/10 [&>section:first-child]:before:hidden">
+        <div className="animate-page-in">
           <Header />
           <Hero />
           <Experience />

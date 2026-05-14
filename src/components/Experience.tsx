@@ -73,12 +73,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
   return (
     <div className="relative mb-10 sm:mb-14 md:mb-16">
       <div className="absolute left-0 top-6 z-10">
-        <div className="h-3 w-3 border-2 border-zinc-950 bg-amber-500 dark:border-white dark:bg-amber-300"></div>
+        <div className="h-3 w-3 border-2 border-zinc-950 bg-cyan-600 dark:border-white dark:bg-cyan-400"></div>
         <div className="absolute left-1/2 top-3 h-28 w-px -translate-x-px bg-zinc-950/20 dark:bg-white/20 sm:h-36"></div>
       </div>
 
       <div className="ml-9 sm:ml-11">
-        <div className="group flex w-full flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-4 shadow-[10px_10px_0_rgba(16,185,129,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/45 hover:shadow-[10px_10px_0_rgba(251,191,36,0.12)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[10px_10px_0_rgba(56,189,248,0.05)] dark:hover:border-amber-300/45 dark:hover:shadow-[10px_10px_0_rgba(251,191,36,0.07)] sm:p-5 md:p-6">
+        <div className="group flex w-full flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-indigo-400/30 sm:p-5 md:p-6">
           <div className="mb-3 flex items-start gap-3">
             <div className="relative flex-shrink-0">
               <img
@@ -93,7 +93,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
               <div className="mb-2 flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <h3 className="truncate text-lg font-bold text-zinc-950 dark:text-white">{exp.company}</h3>
-                  <p className="text-sm font-semibold text-emerald-700 group-hover:text-amber-700 dark:text-emerald-400 dark:group-hover:text-amber-300">{exp.position}</p>
+                  <p className="text-sm font-semibold text-indigo-600 group-hover:text-indigo-700 dark:text-indigo-400 dark:group-hover:text-indigo-300">{exp.position}</p>
                 </div>
                 <span className="font-mono text-xs text-zinc-400">0{index + 1}</span>
               </div>
@@ -101,7 +101,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
               <p className="font-mono text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">
                 {formatDate(exp.start)} -{" "}
                 {exp.present ? (
-                  <span className="font-bold text-amber-700 dark:text-amber-300">PRESENT</span>
+                  <span className="font-bold text-cyan-600 dark:text-cyan-400">PRESENT</span>
                 ) : (
                   formatDate(exp.end)
                 )}
@@ -124,7 +124,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
 
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-3 flex items-center gap-1 font-mono text-xs font-medium uppercase text-emerald-700 transition-colors duration-200 hover:text-amber-700 dark:text-emerald-400 dark:hover:text-amber-300"
+              className="mt-3 flex items-center gap-1 font-mono text-xs font-medium uppercase text-indigo-600 transition-colors duration-200 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
               {isExpanded ? "Show less" : "Read more"}
               {isExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
@@ -135,7 +135,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
             {exp.technologies.map((tech) => (
               <span
                 key={tech}
-                className="rounded-sm border border-black/8 bg-[#fafafa] px-2 py-1 font-mono text-[10px] font-medium uppercase text-zinc-700 transition-colors group-hover:border-amber-500/30 group-hover:bg-amber-300/15 dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 dark:group-hover:border-amber-300/30 dark:group-hover:bg-amber-300/10 sm:text-xs"
+                className="rounded-sm border border-black/8 bg-[#fafafa] px-2 py-1 font-mono text-[10px] font-medium uppercase text-zinc-700 transition-colors group-hover:border-indigo-500/25 group-hover:bg-indigo-500/[0.06] dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 dark:group-hover:border-indigo-400/30 dark:group-hover:bg-indigo-400/[0.06] sm:text-xs"
               >
                 {tech}
               </span>
@@ -152,9 +152,9 @@ const Experience = () => {
     <section id="experience" className="relative overflow-hidden px-3 py-16 sm:px-6 md:py-24 lg:px-8">
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-12 grid gap-5 md:mb-16 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <p className="font-mono text-xs uppercase text-amber-700 dark:text-amber-300">Work log</p>
+          <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Work log</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
-            Built in teams where interfaces have to <span className="text-amber-600 dark:text-amber-300">earn trust.</span>
+            Built in teams where interfaces have to <span className="text-indigo-600 dark:text-indigo-400">earn trust.</span>
           </h2>
           <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
             A timeline of computer engineering work, technical writing, and developer education across AI, fintech, and learning platforms.
