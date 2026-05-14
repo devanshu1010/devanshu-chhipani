@@ -33,9 +33,9 @@ const Blog = () => {
     <section id="blog" className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28 lg:px-8">
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-12 grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
-          <p className="font-mono text-xs uppercase text-emerald-600 dark:text-emerald-400">Field notes</p>
+          <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Field notes</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
-            Writing that documents the <span className="text-emerald-600 dark:text-emerald-400">thinking</span> behind the code.
+            Writing that documents the <span className="text-indigo-600 dark:text-indigo-400">thinking</span> behind the code.
           </h2>
           <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
             Technical posts on product architecture, CSS, TypeScript, and the small decisions that make software easier to maintain.
@@ -45,9 +45,9 @@ const Blog = () => {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {blogPosts.map((post, index) => (
             <Link key={post.slug} to={`/blog/${post.slug}`} className="group block">
-              <article className="flex h-full min-h-[320px] flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/55 hover:shadow-[10px_10px_0_rgba(16,185,129,0.14)] dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-emerald-400/45 dark:hover:shadow-[10px_10px_0_rgba(16,185,129,0.10)]">
+              <article className="flex h-full min-h-[320px] flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-indigo-400/30">
                 <div className="mb-10 flex items-start justify-between gap-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-md bg-zinc-950 text-[#ffffff] shadow-[inset_0_-2px_0_rgba(16,185,129,0.85)] dark:bg-white dark:text-zinc-950">
+                  <div className="grid h-12 w-12 place-items-center rounded-md bg-zinc-950 text-[#ffffff] shadow-[inset_0_-2px_0_rgba(79,70,229,0.85)] dark:bg-white dark:text-zinc-950 dark:shadow-[inset_0_-2px_0_rgba(129,140,248,0.85)]">
                     <FileText className="h-5 w-5" />
                   </div>
                   <span className="font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">0{index + 1}</span>
@@ -58,7 +58,7 @@ const Blog = () => {
                   <span>{post.readTime}</span>
                 </div>
 
-                <h3 className="mb-4 text-2xl font-black leading-tight tracking-normal text-zinc-950 transition-colors group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-400">
+                <h3 className="mb-4 text-2xl font-black leading-tight tracking-normal text-zinc-950 transition-colors group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
                   {post.title}
                 </h3>
 
@@ -66,7 +66,7 @@ const Blog = () => {
 
                 <div className="flex items-center justify-between border-t border-zinc-950/10 pt-4 text-sm font-semibold text-zinc-950 dark:border-white/10 dark:text-white">
                   <span>{post.date}</span>
-                  <ArrowUpRight className="h-5 w-5 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-600 dark:group-hover:text-emerald-400" />
+                  <ArrowUpRight className="h-5 w-5 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
                 </div>
               </article>
             </Link>
