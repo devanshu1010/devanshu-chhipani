@@ -1,19 +1,9 @@
 
 import { ArrowDown, CircuitBoard, Github, Linkedin, Mail, Terminal } from 'lucide-react';
-import type { MouseEvent } from 'react';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
-
-  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -29,22 +19,11 @@ const Hero = () => {
     <section
       id="home"
       ref={heroRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setMousePosition(null)}
       className="relative min-h-screen overflow-hidden px-4 pt-28 sm:px-6 lg:px-8"
     >
       <div className="absolute inset-0">
         <div className="absolute left-[8%] top-36 h-px w-[84%] bg-zinc-950/20 dark:bg-white/15"></div>
         <div className="absolute bottom-28 left-[8%] h-px w-[84%] bg-zinc-950/10 dark:bg-white/10"></div>
-        {mousePosition && (
-          <div
-            className="absolute h-72 w-72 rounded-full border border-amber-400/20 bg-amber-400/10 blur-2xl transition-all duration-200 ease-out dark:bg-amber-300/10"
-            style={{
-              left: mousePosition.x - 144,
-              top: mousePosition.y - 144,
-            }}
-          ></div>
-        )}
       </div>
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
