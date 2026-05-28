@@ -1,86 +1,50 @@
-# Plan: Editorial refinement + remove section divider lines
+## Goal
 
-## 1. Remove the horizontal line between sections
+Apply an Apple/Vercel/Linear–grade layout system to the portfolio. Pure structure pass: container widths, spacing scale, radii, alignment, density. No new content, no animation work, accent palette unchanged (monochrome + indigo/cyan already locked).
 
-In `src/pages/Index.tsx`, the wrapper applies a `::before` divider to every `<section>`:
+## 1. Tokens (`tailwind.config.ts` + `src/index.css`)
 
-```
-[&>section]:before:h-px [&>section]:before:bg-zinc-950/10 dark:[&>section]:before:bg-white/10
-```
+- Spacing scale: lock to `4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 120, 160` via Tailwind `spacing` extension (e.g. `section`, `section-md`, `section-sm` = 120/96/72).
+- Radii: extend `borderRadius` → `md: 12px`, `lg: 16px`, `xl: 24px`. Buttons 16, inputs 16, cards 24.
+- Container: introduce `.container-page` (max-w 1280, px 16/20/24 responsive) and `.container-prose` (max-w 720) and `.container-hero` (max-w 900) utilities in `index.css`.
+- Borders: standard `border-black/[0.06]` light / `border-white/[0.08]` dark.
+- Remove background grid texture in `Index.tsx` (visual noise); keep plain `bg-white` / `bg-black`.
+- `CursorGlow` opacity further reduced or removed on non-hero sections — keep but at 4%.
 
-Action: delete the entire `[&>section]:before:*` utility chain. Sections will flow continuously with no visible rule. Hero already has its own internal hairlines — those stay.
+## 2. Section rhythm (`Index.tsx` + every section component)
 
-## 2. Re-tune the theme to the new editorial palette
+- Every `<section>` uses identical vertical padding: `py-[72px] md:py-[96px] lg:py-[120px]`.
+- Remove per-section ad-hoc paddings (`py-20`, etc.).
+- Wrap inner content in `container-page`.
+- Consistent block: eyebrow (mono uppercase 11px, indigo) → H2 → supporting text (max-w-prose) → main → optional CTA.
 
-Goal: 90% monochrome, ~8% primary accent (indigo), ~2% secondary (cyan). Drop emerald/amber as the dominant accent system. Keep all layouts, components, spacing, and copy unchanged.
+## 3. Hero (`Hero.tsx`)
 
-### Tokens — `src/index.css`
+- Left-aligned, content max-w ~900px, right column kept but trimmed.
+- Drop the bottom scroll-down floating button (clutter).
+- Pin all spacing to scale (gap-24, mt-32, etc.).
+- Stat tiles: thin 1px borders, radius 12, no inner gradients.
 
-Light:
-- `--background` `#FFFFFF` (already)
-- `--foreground` `#0A0A0A` (already)
-- `--muted-foreground` → `#64748B` (slate-500)
-- `--border` / `--input` → `#E2E8F0` (slate-200)
-- `--secondary` / `--muted` → `#F8FAFC` (slate-50)
-- `--primary` → `#4F46E5` (indigo-600)
-- `--accent` → `#0891B2` (cyan-600)
-- `--ring` → `#4F46E5`
+## 4. Header (`Header.tsx`)
 
-Dark:
-- `--background` `#000000` (already)
-- `--foreground` `#FAFAFA` (already)
-- `--muted-foreground` → `#94A3B8` (slate-400)
-- `--border` / `--input` → `#1E293B` (slate-800)
-- `--secondary` / `--muted` / `--card` → `#0A0A0A`
-- `--primary` → `#818CF8` (indigo-400)
-- `--accent` → `#22D3EE` (cyan-400)
-- `--ring` → `#818CF8`
+- Keep pill nav but align to same `container-page` max width (1280).
+- Reduce shadow to `shadow-sm` only; remove the heavy custom shadow.
+- Radii consistent (pill stays full).
 
-Selection: indigo-tinted (`rgba(79,70,229,0.18)` / `rgba(129,140,248,0.28)`).
+## 5. Cards / sections
 
-`@keyframes glow`: replace emerald/amber with indigo→cyan (kept only because referenced; intensity reduced).
+- Experience, TechStack, Blog, Contact: card radius → `rounded-3xl` (24), inner radii 16; remove any leftover heavy shadows; ensure single border style.
+- Project/blog cards capped at `max-w-[700px]` in single-column contexts.
+- TechStack: tighten density, remove decorative bars if loud — keep restrained mono bars.
 
-### Component sweep (color-only, no structure)
+## 6. Floating UI
 
-Replace every hardcoded `emerald-*` / `amber-*` / yellow utility with the new system. Mapping:
+- `FloatingEmail`, `FloatingSocial`: keep but reduce footprint, neutral borders, radius 16, no glow.
 
-| Old | New |
-|---|---|
-| `emerald-600` / `emerald-400` (text, border, ring) | `indigo-600` / `indigo-400` |
-| `emerald-500/10..40` (bg, border tint) | `indigo-500/10..30` |
-| `amber-*` (status chips, "live" dot, eyebrows) | `cyan-600` / `cyan-400` (and `cyan-500/10` surfaces) |
-| Gradient `emerald → amber` (hero word, logo glow, button hover) | Gradient `indigo-500 → cyan-400` (used only on hero headline word + logo loader glow) |
-| `shadow-[…rgba(16,185,129,…)]` / amber shadows | Remove or replace with `border` + soft `shadow-black/5` (per "borders over shadows") |
+## 7. Out of scope
 
-Files touched (color tokens / classnames only):
-- `src/components/Header.tsx` — hover text → indigo, hover ring → indigo, active item subtle indigo dot
-- `src/components/Hero.tsx` — drop colored block-shadows, recolor terminal accents (terminal `online` chip → cyan, `Terminal` icon → indigo), CTA stays neutral with indigo hover text
-- `src/components/Experience.tsx` — eyebrows → indigo on `indigo-500/8`, "current" badge → cyan, card hover border → `indigo/30`
-- `src/components/TechStack.tsx` — proficiency bars `indigo-500`, signal-code badges → neutral border with `indigo` text on hover, active tab rail indicator → indigo
-- `src/components/Blog.tsx` — link hover → indigo, "new" tag → cyan, drop colored block-shadows
-- `src/components/Contact.tsx` — input focus ring → indigo, send button → neutral + indigo hover, drop emerald shadow
-- `src/components/FloatingEmail.tsx`, `FloatingSocial.tsx` — handle/hover → indigo, dot indicator → cyan
-- `src/components/CursorGlow.tsx` — glow color `bg-indigo-500/8 blur-3xl` (lower opacity, calmer)
-- `src/components/DacLoader.tsx` + `LogoMark.tsx` — logo glow gradient → indigo→cyan; lightning trace tints adjusted (`#a5b4fc` / `#67e8f9`) to match
+- No copy changes, no new sections, no animation rewrites, no color palette change, no logo/loader change.
 
-### Motion / shadow discipline
+## Files touched
 
-- Remove the colored `shadow-[NN_NN_0_rgba(...)]` block-shadows on hero terminal, blog cards, contact card. Replace with a 1px border + `shadow-sm` only where elevation is needed.
-- `CursorGlow` opacity dropped (10% → 6%) and blur kept; size unchanged. No new animations introduced.
-- Existing transitions left as-is (already 200ms ease).
-
-### Out of scope
-
-- No layout, spacing, typography, copy, or component structure changes
-- No new sections, no removed sections
-- Loader animation logic untouched (only color values)
-- Logo geometry untouched
-
-## 3. Memory updates after approval
-
-- Update `mem://style/theme` with the new indigo/cyan palette and the "90/8/2" color-usage rule.
-- Add a short constraint memory: no inter-section divider lines (rejected).
-
-## Permission gate
-
-Per your standing instruction, I will ask for approval before committing these changes.
+`tailwind.config.ts`, `src/index.css`, `src/pages/Index.tsx`, `src/components/Header.tsx`, `src/components/Hero.tsx`, `src/components/Experience.tsx`, `src/components/TechStack.tsx`, `src/components/Blog.tsx`, `src/components/Contact.tsx`, `src/components/FloatingEmail.tsx`, `src/components/FloatingSocial.tsx`, `src/components/CursorGlow.tsx`.
