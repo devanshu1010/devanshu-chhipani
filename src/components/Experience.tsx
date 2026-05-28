@@ -149,9 +149,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
 
 const Experience = () => {
   return (
-    <section id="experience" className="section-y relative overflow-hidden">
-      <div className="container-page relative">
-        <div className="mb-20 max-w-[880px] space-y-6 lg:mb-24">
+    <section id="experience" className="section-showcase section-flow relative overflow-hidden">
+      <div className="container-wide relative">
+        <div className="mb-20 max-w-[780px] space-y-6 lg:mb-24">
           <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Work log</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
             Built in teams where interfaces have to <span className="text-indigo-600 dark:text-indigo-400">earn trust.</span>
@@ -162,11 +162,11 @@ const Experience = () => {
         </div>
 
         <div className="hidden md:block">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.56fr_0.44fr] lg:gap-10">
             <div>
               {experienceData.map((exp, index) => (index % 2 === 0 ? <ExperienceCard key={exp.company} exp={exp} index={index} /> : null))}
             </div>
-            <div className="lg:mt-32">
+            <div className="lg:mt-36">
               {experienceData.map((exp, index) => (index % 2 === 1 ? <ExperienceCard key={exp.company} exp={exp} index={index} /> : null))}
             </div>
           </div>

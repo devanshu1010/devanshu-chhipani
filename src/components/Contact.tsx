@@ -8,9 +8,9 @@ const contactItems = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="section-y relative">
+    <section id="contact" className="section-tight section-flow relative">
       <div className="container-page">
-        <div className="mb-20 max-w-[880px] space-y-6 lg:mb-24">
+        <div className="mb-16 max-w-[720px] space-y-6 lg:mb-20">
           <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Contact protocol</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
             Bring a product problem. I will bring the <span className="text-indigo-600 dark:text-indigo-400">interface thinking.</span>
@@ -20,14 +20,14 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.42fr_0.58fr]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.4fr_0.6fr] lg:gap-10">
           <div className="rounded-lg border border-black/10 bg-zinc-950 p-6 text-[#ffffff] dark:border-white/10 dark:bg-[#0a0a0a] sm:p-8">
             <h3 className="mb-5 text-2xl font-black tracking-normal">Signal routes</h3>
             <p className="mb-8 leading-7 text-zinc-300">
               Short, specific messages are easiest to act on. Share the product, team, timeline, and what you need built or improved.
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               {contactItems.map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-4 border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-indigo-400/30">
                   <div className="grid h-10 w-10 place-items-center rounded-md bg-white text-indigo-600">
@@ -42,7 +42,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <form className="rounded-lg border border-black/10 bg-[#ffffff]/85 p-5 dark:border-white/10 dark:bg-white/[0.04] sm:p-8">
+          <form className="rounded-lg border border-black/10 bg-[#ffffff]/85 p-6 dark:border-white/10 dark:bg-white/[0.04] sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="name" className="mb-2 block font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">

@@ -19,10 +19,10 @@ const Hero = () => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen overflow-hidden pt-30"
+      className="relative min-h-screen overflow-hidden pt-24 sm:pt-28"
     >
-      <div className="container-page relative z-10 grid min-h-[calc(100vh-120px)] items-center gap-16 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
-        <div className="max-w-[880px] space-y-8">
+      <div className="container-wide relative z-10 grid min-h-[calc(100vh-112px)] items-start gap-14 pb-14 pt-8 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+        <div className="max-w-[760px] space-y-8 lg:col-span-7 xl:col-span-6 xl:pt-10">
           <div className="inline-flex items-center gap-3 rounded-md border border-black/10 bg-[#ffffff] px-3 py-2 font-mono text-xs uppercase text-zinc-600 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300">
             <span className="h-2 w-2 bg-cyan-600 dark:bg-cyan-400"></span>
             Available for selected computer engineering work
@@ -75,7 +75,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="relative pb-16 lg:pb-0">
+        <div className="relative pb-8 lg:col-span-4 lg:col-start-8 lg:pb-0 xl:col-span-4">
           <div className="rounded-2xl border border-black/[0.06] bg-zinc-950 text-[#ffffff] dark:border-white/[0.08] dark:bg-[#0a0a0a]">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2 font-mono text-xs uppercase text-zinc-400">
@@ -112,6 +112,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
+        <div className="hidden xl:block xl:col-span-2" aria-hidden="true" />
         
       </div>
     </section>
