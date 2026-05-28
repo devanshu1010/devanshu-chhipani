@@ -13,19 +13,16 @@ import TechStack from '../components/TechStack';
 import { destroyLenis, initLenis } from '../lib/lenis';
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => !sessionStorage.getItem('loaderShown'));
 
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-  }, []);
-
-  useEffect(() => {
+useEffect(() => {
     if (isLoading) return;
     initLenis();
     return destroyLenis;
   }, [isLoading]);
 
   const handleLoaderComplete = () => {
+    sessionStorage.setItem('loaderShown', '1');
     setIsLoading(false);
   };
 

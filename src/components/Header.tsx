@@ -5,7 +5,7 @@ import LogoMark from './LogoMark';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => document.documentElement.classList.contains('dark'));
 
   useEffect(() => {
     if (isDarkMode) {
@@ -46,10 +46,10 @@ const Header = () => {
   ];
 
   return (
-    <div className="fixed left-0 top-4 z-50 flex w-full justify-center px-3 pointer-events-none sm:top-5">
+    <div className="sticky left-0 top-4 z-50 flex w-full justify-center px-3 pointer-events-none sm:top-5">
       <header className="pointer-events-auto w-full max-w-5xl">
         <nav
-          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-black/10 bg-[#ffffff] px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#000000] dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
+          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-black/10 bg-white/75 px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] backdrop-blur-md dark:border-white/10 dark:bg-black/75 dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
         >
           <div className="flex-shrink-0 flex items-center">
             <button 
@@ -107,7 +107,7 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden animate-fade-in px-3 pt-2">
-            <div className="mt-2 space-y-1 rounded-2xl border border-black/10 bg-[#ffffff] p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#000000]">
+            <div className="mt-2 space-y-1 rounded-2xl border border-black/10 bg-white/80 p-2 shadow-[0_18px_45px_rgba(15,23,42,0.12)] backdrop-blur-md dark:border-white/10 dark:bg-black/80">
               {navItems.map((item) => (
                 <button
                   key={item.name}
