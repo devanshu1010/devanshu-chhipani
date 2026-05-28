@@ -30,8 +30,8 @@ const blogPosts = [
 
 const Blog = () => {
   return (
-    <section id="blog" className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28 lg:px-8">
-      <div className="relative mx-auto max-w-7xl">
+    <section id="blog" className="section-y relative overflow-hidden">
+      <div className="container-page relative">
         <div className="mb-12 grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
           <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Field notes</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">

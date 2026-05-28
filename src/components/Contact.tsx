@@ -8,8 +8,8 @@ const contactItems = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+    <section id="contact" className="section-y relative">
+      <div className="container-page">
         <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Contact protocol</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
