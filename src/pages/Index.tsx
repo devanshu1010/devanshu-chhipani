@@ -33,7 +33,6 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-white text-zinc-950 transition-colors duration-500 dark:bg-black dark:text-zinc-50">
       <div className="relative">
-        <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-[size:44px_44px] opacity-70 dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)]"></div>
         <CursorGlow />
         <FloatingSocial />
         <FloatingEmail />

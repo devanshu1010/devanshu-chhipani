@@ -23,6 +23,23 @@ export default {
 				'sans': ['Inter', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 				'display': ['SF Pro Display', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
 			},
+			spacing: {
+				'1': '4px',
+				'2': '8px',
+				'3': '12px',
+				'4': '16px',
+				'6': '24px',
+				'8': '32px',
+				'12': '48px',
+				'16': '64px',
+				'20': '80px',
+				'24': '96px',
+				'30': '120px',
+				'40': '160px',
+				'section-sm': '72px',
+				'section-md': '96px',
+				'section-lg': '120px',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -69,9 +86,12 @@ export default {
 				}
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: '8px',
+				md: '12px',
+				lg: '16px',
+				xl: '24px',
+				'2xl': '24px',
+				'3xl': '24px'
 			},
 			boxShadow: {
 				'apple': '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',

@@ -167,6 +167,36 @@
 }
 
 @layer utilities {
+  /* Container system */
+  .container-page {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-left: 20px; padding-right: 20px; }
+  }
+  @media (min-width: 1024px) {
+    .container-page { padding-left: 24px; padding-right: 24px; }
+  }
+  .container-prose { max-width: 720px; margin-left: auto; margin-right: auto; }
+  .container-hero { max-width: 900px; }
+
+  /* Section vertical rhythm */
+  .section-y {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+  @media (min-width: 768px) {
+    .section-y { padding-top: 96px; padding-bottom: 96px; }
+  }
+  @media (min-width: 1024px) {
+    .section-y { padding-top: 120px; padding-bottom: 120px; }
+  }
+
   /* Text clipping utilities */
   .line-clamp-3 {
     display: -webkit-box;
