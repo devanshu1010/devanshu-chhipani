@@ -47,9 +47,9 @@ const Header = () => {
 
   return (
     <div className="sticky left-0 top-4 z-50 flex w-full justify-center px-3 pointer-events-none sm:top-5">
-      <header className="pointer-events-auto w-full max-w-5xl">
+      <header className="pointer-events-auto w-full max-w-[1280px]">
         <nav
-          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-black/10 bg-white/75 px-3 py-2 shadow-[0_18px_55px_rgba(15,23,42,0.12)] backdrop-blur-md dark:border-white/10 dark:bg-black/75 dark:shadow-[0_18px_55px_rgba(0,0,0,0.42)] sm:px-4"
+          className="relative mx-auto flex items-center justify-between gap-4 rounded-full border border-black/[0.06] bg-white/80 px-3 py-2 shadow-sm backdrop-blur-md dark:border-white/[0.08] dark:bg-black/80 sm:px-4"
         >
           <div className="flex-shrink-0 flex items-center">
             <button 

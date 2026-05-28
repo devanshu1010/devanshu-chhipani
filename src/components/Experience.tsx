@@ -149,8 +149,8 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
 
 const Experience = () => {
   return (
-    <section id="experience" className="relative overflow-hidden px-3 py-16 sm:px-6 md:py-24 lg:px-8">
-      <div className="relative mx-auto max-w-6xl">
+    <section id="experience" className="section-y relative overflow-hidden">
+      <div className="container-page relative">
         <div className="mb-12 grid gap-5 md:mb-16 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Work log</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">

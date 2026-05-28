@@ -52,11 +52,8 @@ const TechStack = () => {
   const active = techCategories[selected];
 
   return (
-    <section
-      id="tech"
-      className="relative overflow-hidden px-4 py-24 sm:px-6 md:py-32 lg:px-8"
-    >
-      <div className="relative mx-auto max-w-6xl">
+    <section id="tech" className="section-y relative overflow-hidden">
+      <div className="container-page relative">
         {/* Header */}
         <div className="mb-16 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/[0.05] px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-indigo-600 dark:border-indigo-400/25 dark:bg-indigo-400/[0.05] dark:text-indigo-400">

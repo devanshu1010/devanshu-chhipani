@@ -19,10 +19,9 @@ const Hero = () => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen overflow-hidden px-4 pt-28 sm:px-6 lg:px-8"
+      className="relative min-h-screen overflow-hidden pt-30"
     >
-
-      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
+      <div className="container-page relative z-10 grid min-h-[calc(100vh-120px)] items-center gap-16 lg:grid-cols-[1.08fr_0.92fr]">
         <div className="space-y-8">
           <div className="inline-flex items-center gap-3 rounded-md border border-black/10 bg-[#ffffff] px-3 py-2 font-mono text-xs uppercase text-zinc-600 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300">
             <span className="h-2 w-2 bg-cyan-600 dark:bg-cyan-400"></span>
@@ -123,13 +122,6 @@ const Hero = () => {
           </div>
         </div>
         
-        <button 
-          onClick={() => scrollToSection('experience')}
-          className="absolute bottom-6 left-1/2 grid h-11 w-11 -translate-x-1/2 place-items-center rounded-md border border-black/10 bg-[#ffffff] text-zinc-700 transition-colors hover:border-indigo-500/40 hover:bg-zinc-950 hover:text-indigo-300 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300 dark:hover:border-indigo-400/40 dark:hover:bg-white dark:hover:text-indigo-600"
-          aria-label="Scroll to experience"
-        >
-          <ArrowDown className="h-5 w-5" />
-        </button>
       </div>
     </section>
   );
