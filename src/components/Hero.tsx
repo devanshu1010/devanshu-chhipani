@@ -21,8 +21,8 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen overflow-hidden pt-30"
     >
-      <div className="container-page relative z-10 grid min-h-[calc(100vh-120px)] items-center gap-16 lg:grid-cols-[1.08fr_0.92fr]">
-        <div className="space-y-8">
+      <div className="container-page relative z-10 grid min-h-[calc(100vh-120px)] items-center gap-16 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
+        <div className="max-w-[880px] space-y-8">
           <div className="inline-flex items-center gap-3 rounded-md border border-black/10 bg-[#ffffff] px-3 py-2 font-mono text-xs uppercase text-zinc-600 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300">
             <span className="h-2 w-2 bg-cyan-600 dark:bg-cyan-400"></span>
             Available for selected computer engineering work
@@ -34,16 +34,16 @@ const Hero = () => {
               Systems-minded product engineering
             </p>
 
-            <h1 className="max-w-5xl text-5xl font-black leading-[0.94] tracking-normal text-zinc-950 dark:text-zinc-50 sm:text-6xl lg:text-8xl">
+            <h1 className="text-5xl font-black leading-[0.94] tracking-normal text-zinc-950 dark:text-zinc-50 sm:text-6xl lg:text-7xl">
               Devanshu Chhipani builds software with engineering logic inside.
             </h1>
 
-            <p className="max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-300 sm:text-xl">
+            <p className="max-w-[640px] text-lg leading-8 text-zinc-600 dark:text-zinc-300">
               Computer Engineer focused on React, TypeScript, dashboards, APIs, and practical AI-era product experiences. I design systems that feel precise, fast, and human enough to trust.
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
+          <div className="flex flex-col gap-3 pt-8 sm:flex-row sm:items-center">
             <button 
               onClick={() => scrollToSection('experience')}
               className="group inline-flex items-center justify-center gap-2 rounded-md bg-zinc-950 px-6 py-4 text-base font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-indigo-300 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:text-indigo-600"
@@ -76,7 +76,7 @@ const Hero = () => {
         </div>
 
         <div className="relative pb-16 lg:pb-0">
-          <div className="rounded-lg border border-black/10 bg-zinc-950 text-[#ffffff] shadow-sm dark:border-white/10 dark:bg-[#0a0a0a]">
+          <div className="rounded-2xl border border-black/[0.06] bg-zinc-950 text-[#ffffff] dark:border-white/[0.08] dark:bg-[#0a0a0a]">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2 font-mono text-xs uppercase text-zinc-400">
                 <Terminal className="h-4 w-4 text-indigo-400" />
@@ -85,23 +85,8 @@ const Hero = () => {
               <span className="font-mono text-xs text-cyan-400">online</span>
             </div>
 
-            <div className="space-y-6 p-5 sm:p-7">
-              <div className="grid grid-cols-3 gap-3 font-mono text-xs text-zinc-400">
-                <div className="border border-white/10 p-3">
-                  <span className="block text-2xl font-bold text-white">40%</span>
-                  faster loads
-                </div>
-                <div className="border border-white/10 p-3">
-                  <span className="block text-2xl font-bold text-white">5+</span>
-                  product teams
-                </div>
-                <div className="border border-white/10 p-3">
-                  <span className="block text-2xl font-bold text-white">100k</span>
-                  readers
-                </div>
-              </div>
-
-              <pre className="overflow-hidden rounded-md border border-white/10 bg-black/35 p-4 text-left font-mono text-xs leading-6 text-zinc-300 sm:text-sm">
+            <div className="space-y-8 p-6 sm:p-8">
+              <pre className="overflow-hidden rounded-lg border border-white/10 bg-black/35 p-5 text-left font-mono text-xs leading-7 text-zinc-300 sm:text-sm">
 {`const developer = {
   name: "Devanshu Chhipani",
   stack: ["React", "TypeScript", "Next.js"],
@@ -110,13 +95,19 @@ const Hero = () => {
 };`}
               </pre>
 
-              <div className="grid gap-3">
-                {["Designs UI states before decoration", "Builds APIs into calm product flows", "Writes so other developers can move faster"].map((item) => (
-                  <div key={item} className="flex items-center gap-3 border border-white/10 bg-white/[0.03] px-3 py-3 text-sm text-zinc-200">
-                    <span className="h-2 w-2 bg-cyan-400"></span>
-                    {item}
-                  </div>
-                ))}
+              <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
+                <div>
+                  <span className="block text-2xl font-semibold text-white">40%</span>
+                  faster loads
+                </div>
+                <div>
+                  <span className="block text-2xl font-semibold text-white">5+</span>
+                  teams
+                </div>
+                <div>
+                  <span className="block text-2xl font-semibold text-white">100k</span>
+                  readers
+                </div>
               </div>
             </div>
           </div>

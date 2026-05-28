@@ -55,8 +55,8 @@ const TechStack = () => {
     <section id="tech" className="section-y relative overflow-hidden">
       <div className="container-page relative">
         {/* Header */}
-        <div className="mb-16 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/[0.05] px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-indigo-600 dark:border-indigo-400/25 dark:bg-indigo-400/[0.05] dark:text-indigo-400">
+        <div className="mb-20 max-w-[880px] space-y-6 lg:mb-24">
+          <div className="inline-flex w-fit items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
             <Layers className="h-3.5 w-3.5" />
             Stack map
           </div>
@@ -65,7 +65,7 @@ const TechStack = () => {
             <br />
             <span className="text-indigo-600 dark:text-indigo-400">wired into one system.</span>
           </h2>
-          <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300 lg:col-start-2">
+          <p className="max-w-[640px] text-lg leading-8 text-zinc-600 dark:text-zinc-300">
             A compact view of the technologies I reach for to turn ambiguous product ideas into stable interfaces, APIs, and deployment flows.
           </p>
         </div>

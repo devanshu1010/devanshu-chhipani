@@ -10,12 +10,12 @@ const Contact = () => {
   return (
     <section id="contact" className="section-y relative">
       <div className="container-page">
-        <div className="mb-12 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <div className="mb-20 max-w-[880px] space-y-6 lg:mb-24">
           <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Contact protocol</p>
           <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
             Bring a product problem. I will bring the <span className="text-indigo-600 dark:text-indigo-400">interface thinking.</span>
           </h2>
-          <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
+          <p className="max-w-[640px] text-lg leading-8 text-zinc-600 dark:text-zinc-300">
             Open to computer engineering roles, product engineering work, technical content, and teams exploring useful AI workflows.
           </p>
         </div>
