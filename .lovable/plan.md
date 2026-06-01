@@ -1,50 +1,43 @@
-## Goal
+# Favicon Exploration — Images Only
 
-Apply an Apple/Vercel/Linear–grade layout system to the portfolio. Pure structure pass: container widths, spacing scale, radii, alignment, density. No new content, no animation work, accent palette unchanged (monochrome + indigo/cyan already locked).
+You asked for favicon ideas as **images only**, with no code changes. I'll produce two sets of concept renders saved to `/mnt/documents/` so you can preview, compare, and pick a direction. The current `index.html` and `public/favicon.svg` stay untouched.
 
-## 1. Tokens (`tailwind.config.ts` + `src/index.css`)
+## Set A — Refinements of your current DAC favicon
 
-- Spacing scale: lock to `4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 120, 160` via Tailwind `spacing` extension (e.g. `section`, `section-md`, `section-sm` = 120/96/72).
-- Radii: extend `borderRadius` → `md: 12px`, `lg: 16px`, `xl: 24px`. Buttons 16, inputs 16, cards 24.
-- Container: introduce `.container-page` (max-w 1280, px 16/20/24 responsive) and `.container-prose` (max-w 720) and `.container-hero` (max-w 900) utilities in `index.css`.
-- Borders: standard `border-black/[0.06]` light / `border-white/[0.08]` dark.
-- Remove background grid texture in `Index.tsx` (visual noise); keep plain `bg-white` / `bg-black`.
-- `CursorGlow` opacity further reduced or removed on non-hero sections — keep but at 4%.
+Constraint: keep the existing font, geometry, and "DAC" letterforms exactly as drawn. Only adjust **size, weight balance, padding, and contrast** inside the tile. 3 variants:
 
-## 2. Section rhythm (`Index.tsx` + every section component)
+1. **A1 — Tighter padding**: Reduce inner padding so DAC fills ~78% of the tile (currently ~55%). Same dark `#121413` background, same white letterforms. Reads much stronger at 16×16 and 32×32 browser tab sizes.
+2. **A2 — Rounded tile + optical centering**: Same letterforms, but the outer container becomes a `rounded-[22%]` squircle (Apple/iOS app-icon feel), with letters nudged 2% up for optical balance. Premium, app-icon quality.
+3. **A3 — Inverted contrast**: White tile, dark `#121413` letterforms — better for light-mode browser tabs and pinned tabs. Same geometry untouched.
 
-- Every `<section>` uses identical vertical padding: `py-[72px] md:py-[96px] lg:py-[120px]`.
-- Remove per-section ad-hoc paddings (`py-20`, etc.).
-- Wrap inner content in `container-page`.
-- Consistent block: eyebrow (mono uppercase 11px, indigo) → H2 → supporting text (max-w-prose) → main → optional CTA.
+All three are rendered at 512×512 PNG so you can judge them at real favicon scale.
 
-## 3. Hero (`Hero.tsx`)
+## Set B — Concepts built from your uploaded SVG
 
-- Left-aligned, content max-w ~900px, right column kept but trimmed.
-- Drop the bottom scroll-down floating button (clutter).
-- Pin all spacing to scale (gap-24, mt-32, etc.).
-- Stat tiles: thin 1px borders, radius 12, no inner gradients.
+Your uploaded SVG is a dark tile with a stylized white mark. I'll generate 3 polished interpretations that keep its silhouette but make it portfolio-grade:
 
-## 4. Header (`Header.tsx`)
+1. **B1 — Clean monogram tile**: Trace the existing mark, sharpen anchor points, true geometric stroke widths, dark `#0A0A0A` tile, off-white mark `#FAFAFA`. Editorial, no effects.
+2. **B2 — Squircle app-icon**: Same mark inside a 22%-radius squircle with a subtle 1px inner stroke at `rgba(255,255,255,0.06)`. Matches the Apple/Vercel/Linear vibe already locked into the project.
+3. **B3 — Light-mode pair**: A light variant (white tile, dark mark) paired with B1 so you have a theme-aware favicon set.
 
-- Keep pill nav but align to same `container-page` max width (1280).
-- Reduce shadow to `shadow-sm` only; remove the heavy custom shadow.
-- Radii consistent (pill stays full).
+## Deliverables
 
-## 5. Cards / sections
+Six PNG renders + a single side-by-side comparison sheet:
 
-- Experience, TechStack, Blog, Contact: card radius → `rounded-3xl` (24), inner radii 16; remove any leftover heavy shadows; ensure single border style.
-- Project/blog cards capped at `max-w-[700px]` in single-column contexts.
-- TechStack: tighten density, remove decorative bars if loud — keep restrained mono bars.
+/mnt/documents/favicon-A1-tight-padding.png
+/mnt/documents/favicon-A2-squircle.png
+/mnt/documents/favicon-A3-inverted.png
+/mnt/documents/favicon-B1-clean-monogram.png
+/mnt/documents/favicon-B2-squircle-stroke.png
+/mnt/documents/favicon-B3-light-pair.png
+/mnt/documents/favicon-comparison-sheet.png
 
-## 6. Floating UI
+Each rendered at 512×512 (comparison sheet at 1536×1024), shown also at simulated 32×32 and 16×16 sizes on the comparison sheet so you can judge real-world legibility.
 
-- `FloatingEmail`, `FloatingSocial`: keep but reduce footprint, neutral borders, radius 16, no glow.
+## Out of scope
 
-## 7. Out of scope
+- No edits to `index.html`, `public/favicon.svg`, `LogoMark.tsx`, or any component.
+- No new assets uploaded via `lovable-assets`.
+- No theme/loader changes.
 
-- No copy changes, no new sections, no animation rewrites, no color palette change, no logo/loader change.
-
-## Files touched
-
-`tailwind.config.ts`, `src/index.css`, `src/pages/Index.tsx`, `src/components/Header.tsx`, `src/components/Hero.tsx`, `src/components/Experience.tsx`, `src/components/TechStack.tsx`, `src/components/Blog.tsx`, `src/components/Contact.tsx`, `src/components/FloatingEmail.tsx`, `src/components/FloatingSocial.tsx`, `src/components/CursorGlow.tsx`.
+After you pick a winner from the sheet, a follow-up build task can swap the actual favicon file.
