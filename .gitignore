@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Agent skills cache (skills live globally in ~/.claude/skills)
+.skills/
+.claude/skills/
+.agents/
+.codex/
+
