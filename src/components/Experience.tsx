@@ -1,181 +1,62 @@
 import React from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
-const experienceData = [
+interface ExperienceItem {
+  period: string;
+  company: string;
+  role: string;
+  technologies: string;
+  summary: string;
+}
+
+const experiences: ExperienceItem[] = [
   {
-    company: "Optimus AI Lab",
-    position: "Mid-level Computer Engineer",
-    logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=128&q=80",
-    start: "Nov 25, 2024",
-    end: "",
-    present: true,
-    description:
-      "Developed and maintained dynamic, user-centric web apps for top organizations and government agencies using React, TypeScript, and modern development practices.",
-    technologies: ["React", "TypeScript", "Node.js", "AWS"],
+    period: "2025 — Present",
+    company: "Silver Touch Technologies Ltd",
+    role: "Software Engineer",
+    technologies: "ASP.NET Core, Entity Framework Core, PostgreSQL, SignalR, React, Next.js, Tailwind CSS",
+    summary: "Engineering low-code form generation, sub-workflow automation pipelines with circular dependency checks, route/action-level RBAC, and SignalR real-time vendor notification engines."
   },
   {
-    company: "Paydestal",
-    position: "Computer Engineer",
-    logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=128&q=80",
-    start: "Sep 11, 2024",
-    end: "Jan 8, 2025",
-    present: false,
-    description:
-      "Built fintech dashboards, integrated APIs, and optimized product journeys for usability, security, and compliance-minded workflows.",
-    technologies: ["React", "Next.js", "TailwindCSS", "REST APIs"],
-  },
-  {
-    company: "Educative",
-    position: "Project Author",
-    logo: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=128&q=80",
-    start: "Dec 5, 2023",
-    end: "Sep 16, 2024",
-    present: false,
-    description:
-      "Created interactive and practical guides on Next.js, TypeScript, and React for thousands of developers worldwide.",
-    technologies: ["Next.js", "TypeScript", "React", "Technical Writing"],
-  },
-  {
-    company: "Freecodecamp",
-    position: "Technical Writer",
-    logo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=128&q=80",
-    start: "Aug 25, 2022",
-    end: "Dec 6, 2023",
-    present: false,
-    description:
-      "Wrote technical articles on JavaScript frameworks for a global audience, reaching over 100k readers monthly.",
-    technologies: ["JavaScript", "React", "Vue.js", "Content Creation"],
-  },
+    period: "2024",
+    company: "Swaroop.ai",
+    role: "Full Stack Intern",
+    technologies: "Next.js, Node.js, FastAPI, Clerk Authentication, WebSockets",
+    summary: "Reduced network overhead and latency by ~40% by migrating repeated HTTP polling into real-time duplex WebSockets. Developed foundational Node.js & FastAPI endpoints."
+  }
 ];
 
-function formatDate(str: string) {
-  if (!str) return "";
-  const d = new Date(str);
-  if (Number.isNaN(d.getTime())) return str.toUpperCase();
-
-  return d
-    .toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric",
-    })
-    .toUpperCase()
-    .replace(/,/g, "");
-}
-
-interface ExperienceCardProps {
-  exp: (typeof experienceData)[0];
-  index: number;
-}
-
-const ExperienceCard: React.FC<ExperienceCardProps> = ({ exp, index }) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-
+const Experience: React.FC = () => {
   return (
-    <div className="relative mb-10 sm:mb-14 md:mb-16">
-      <div className="absolute left-0 top-6 z-10">
-        <div className="h-3 w-3 border-2 border-zinc-950 bg-cyan-600 dark:border-white dark:bg-cyan-400"></div>
-        <div className="absolute left-1/2 top-3 h-28 w-px -translate-x-px bg-zinc-950/20 dark:bg-white/20 sm:h-36"></div>
-      </div>
+    <section id="experience" className="relative py-24">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <h2 className="text-[32px] sm:text-[40px] font-semibold tracking-[-0.025em] text-zinc-950 dark:text-zinc-50 mb-12">
+          Experience
+        </h2>
 
-      <div className="ml-9 sm:ml-11">
-        <div className="group flex w-full flex-col rounded-lg border border-black/10 bg-[#ffffff]/85 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-indigo-400/30 sm:p-5 md:p-6">
-          <div className="mb-3 flex items-start gap-3">
-            <div className="relative flex-shrink-0">
-              <img
-                src={exp.logo}
-                alt={exp.company}
-                className="h-11 w-11 rounded-md border border-zinc-950/15 object-cover dark:border-white/10"
-              />
-              <div className="absolute inset-0 rounded-md bg-gradient-to-br from-white/20 to-transparent"></div>
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <div className="mb-2 flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <h3 className="truncate text-lg font-bold text-zinc-950 dark:text-white">{exp.company}</h3>
-                  <p className="text-sm font-semibold text-indigo-600 group-hover:text-indigo-700 dark:text-indigo-400 dark:group-hover:text-indigo-300">{exp.position}</p>
-                </div>
-                <span className="font-mono text-xs text-zinc-400">0{index + 1}</span>
-              </div>
-
-              <p className="font-mono text-xs font-medium uppercase text-zinc-500 dark:text-zinc-400">
-                {formatDate(exp.start)} -{" "}
-                {exp.present ? (
-                  <span className="font-bold text-cyan-600 dark:text-cyan-400">PRESENT</span>
-                ) : (
-                  formatDate(exp.end)
-                )}
-              </p>
-            </div>
-          </div>
-
-          <div className="relative">
+        <div className="flex flex-col">
+          {experiences.map((exp, idx) => (
             <div
-              className={`overflow-hidden text-sm leading-relaxed text-zinc-700 transition-all duration-300 ease-in-out dark:text-zinc-300 ${
-                isExpanded ? "max-h-72" : "max-h-16"
-              }`}
+              key={idx}
+              className="py-8 border-t border-black/[0.08] dark:border-white/[0.08] flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors px-2 -mx-2 rounded-sm"
             >
-              <p>{exp.description}</p>
+              <div className="w-36 text-zinc-500 dark:text-zinc-400 text-sm font-mono shrink-0">
+                {exp.period}
+              </div>
+              <div className="flex-1">
+                <div className="text-[17px] sm:text-[18px] font-medium text-zinc-950 dark:text-zinc-100 mb-1">
+                  {exp.company} <span className="text-zinc-400 dark:text-zinc-600 font-normal mx-1">·</span> {exp.role}
+                </div>
+                <div className="text-[13px] text-blue-600 dark:text-blue-400 font-mono mb-2">
+                  {exp.technologies}
+                </div>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl">
+                  {exp.summary}
+                </p>
+              </div>
             </div>
-
-            {!isExpanded && (
-              <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#ffffff] to-transparent dark:from-[#151716]"></div>
-            )}
-
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-3 flex items-center gap-1 font-mono text-xs font-medium uppercase text-indigo-600 transition-colors duration-200 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
-            >
-              {isExpanded ? "Show less" : "Read more"}
-              {isExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-            </button>
-          </div>
-
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {exp.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-sm border border-black/8 bg-[#fafafa] px-2 py-1 font-mono text-[10px] font-medium uppercase text-zinc-700 transition-colors group-hover:border-indigo-500/25 group-hover:bg-indigo-500/[0.06] dark:border-white/10 dark:bg-white/10 dark:text-zinc-300 dark:group-hover:border-indigo-400/30 dark:group-hover:bg-indigo-400/[0.06] sm:text-xs"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Experience = () => {
-  return (
-    <section id="experience" className="section-showcase section-flow relative overflow-hidden">
-      <div className="container-wide relative">
-        <div className="mb-20 max-w-[780px] space-y-6 lg:mb-24">
-          <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Work log</p>
-          <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
-            Built in teams where interfaces have to <span className="text-indigo-600 dark:text-indigo-400">earn trust.</span>
-          </h2>
-          <p className="max-w-[640px] text-lg leading-8 text-zinc-600 dark:text-zinc-300">
-            A timeline of computer engineering work, technical writing, and developer education across AI, fintech, and learning platforms.
-          </p>
-        </div>
-
-        <div className="hidden md:block">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.56fr_0.44fr] lg:gap-10">
-            <div>
-              {experienceData.map((exp, index) => (index % 2 === 0 ? <ExperienceCard key={exp.company} exp={exp} index={index} /> : null))}
-            </div>
-            <div className="lg:mt-36">
-              {experienceData.map((exp, index) => (index % 2 === 1 ? <ExperienceCard key={exp.company} exp={exp} index={index} /> : null))}
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6 md:hidden">
-          {experienceData.map((exp, index) => (
-            <ExperienceCard key={exp.company} exp={exp} index={index} />
           ))}
+          {/* Bottom border on last item */}
+          <div className="border-b border-black/[0.08] dark:border-white/[0.08]" />
         </div>
       </div>
     </section>

@@ -1,102 +1,80 @@
-import { ArrowUpRight, FileText } from "lucide-react";
+import React from "react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const blogPosts = [
+interface ArticleItem {
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  slug: string;
+}
+
+const articles: ArticleItem[] = [
   {
-    title: "Building Scalable React Applications",
-    excerpt: "Architecture notes for React applications that stay readable as teams, routes, and product states grow.",
-    date: "March 15, 2024",
-    readTime: "5 min",
-    category: "React",
-    slug: "building-scalable-react-applications",
+    title: "Engineering Enterprise Workflow Engines with ASP.NET Core & EF Core",
+    excerpt: "Architectural strategies for dynamic form modeling, sub-workflow acyclic graphs, and multi-tenant RBAC enforcement.",
+    date: "Jan 2025",
+    readTime: "8 min read",
+    slug: "building-scalable-react-applications"
   },
   {
-    title: "Modern CSS Techniques for Better UX",
-    excerpt: "Practical CSS patterns for responsive polish, interaction feedback, and interfaces that do not fight the user.",
-    date: "March 10, 2024",
-    readTime: "4 min",
-    category: "CSS",
-    slug: "modern-css-techniques",
+    title: "Designing RAG Pipelines with ChromaDB, Vector Embeddings & FastAPI",
+    excerpt: "Practical lessons on chunking strategies, heuristic keyword gating before LLM inference, and low-latency semantic indexing.",
+    date: "Dec 2024",
+    readTime: "7 min read",
+    slug: "modern-css-techniques"
   },
   {
-    title: "TypeScript Best Practices",
-    excerpt: "How to use TypeScript as a design tool for safer data flow and clearer engineering contracts.",
-    date: "March 5, 2024",
-    readTime: "6 min",
-    category: "TypeScript",
-    slug: "typescript-best-practices",
-  },
+    title: "Real-Time Systems at Scale: From HTTP Polling to WebSockets & SignalR",
+    excerpt: "How streaming duplex sockets cut network latency by 40% and eliminate persistent server connection exhaustion.",
+    date: "Oct 2024",
+    readTime: "6 min read",
+    slug: "typescript-best-practices"
+  }
 ];
 
-const Blog = () => {
-  const featuredPost = blogPosts[0];
-  const secondaryPosts = blogPosts.slice(1);
-
+const Blog: React.FC = () => {
   return (
-    <section id="blog" className="section-showcase section-flow relative overflow-hidden">
-      <div className="container-wide relative">
-        <div className="mb-20 max-w-[780px] space-y-6 lg:mb-24">
-          <p className="font-mono text-xs uppercase text-indigo-600 dark:text-indigo-400">Field notes</p>
-          <h2 className="text-4xl font-black leading-tight tracking-normal text-zinc-950 dark:text-white sm:text-5xl">
-            Writing that documents the <span className="text-indigo-600 dark:text-indigo-400">thinking</span> behind the code.
-          </h2>
-          <p className="max-w-[640px] text-lg leading-8 text-zinc-600 dark:text-zinc-300">
-            Technical posts on product architecture, CSS, TypeScript, and the small decisions that make software easier to maintain.
-          </p>
-        </div>
+    <section id="writing" className="relative py-24">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <h2 className="text-[32px] sm:text-[40px] font-semibold tracking-[-0.025em] text-zinc-950 dark:text-zinc-50 mb-12">
+          Writing
+        </h2>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
-          <Link to={`/blog/${featuredPost.slug}`} className="group block lg:col-span-8">
-            <article className="flex min-h-[540px] h-full flex-col rounded-2xl border border-black/[0.06] bg-[#ffffff]/90 p-8 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/35 dark:border-white/[0.08] dark:bg-white/[0.04] dark:hover:border-indigo-400/35 sm:p-10">
-              <div className="mb-12 flex items-start justify-between gap-4">
-                <div className="grid h-12 w-12 place-items-center rounded-md bg-zinc-950 text-[#ffffff] shadow-[inset_0_-2px_0_rgba(79,70,229,0.85)] dark:bg-white dark:text-zinc-950 dark:shadow-[inset_0_-2px_0_rgba(129,140,248,0.85)]">
-                  <FileText className="h-5 w-5" />
+        <div className="flex flex-col mb-8">
+          {articles.map((art, idx) => (
+            <Link
+              key={idx}
+              to={`/blog/${art.slug}`}
+              className="group py-8 border-t border-black/[0.08] dark:border-white/[0.08] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors px-2 -mx-2 rounded-sm"
+            >
+              <div className="max-w-2xl">
+                <h3 className="text-[20px] sm:text-[24px] font-semibold text-zinc-950 dark:text-zinc-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {art.title}
+                </h3>
+                <p className="text-[15px] sm:text-[16px] text-zinc-600 dark:text-zinc-400 mb-3 leading-relaxed">
+                  {art.excerpt}
+                </p>
+                <div className="text-[13px] text-zinc-400 dark:text-zinc-500 font-mono">
+                  {art.date} · {art.readTime}
                 </div>
-                <span className="font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">Featured 01</span>
               </div>
-
-              <div className="mb-6 flex items-center justify-between gap-4 font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">
-                <span>{featuredPost.category}</span>
-                <span>{featuredPost.readTime}</span>
+              <div className="text-zinc-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all transform group-hover:translate-x-1 duration-200">
+                <ArrowRight className="h-6 w-6" />
               </div>
-
-              <h3 className="mb-5 max-w-3xl text-4xl font-black leading-[1.02] tracking-tight text-zinc-950 transition-colors group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400 sm:text-5xl">
-                {featuredPost.title}
-              </h3>
-
-              <p className="mb-10 max-w-2xl flex-1 text-lg leading-8 text-zinc-700 dark:text-zinc-300">{featuredPost.excerpt}</p>
-
-              <div className="flex items-center justify-between border-t border-zinc-950/10 pt-5 text-sm font-semibold text-zinc-950 dark:border-white/10 dark:text-white">
-                <span>{featuredPost.date}</span>
-                <ArrowUpRight className="h-5 w-5 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
-              </div>
-            </article>
-          </Link>
-
-          <div className="grid gap-6 lg:col-span-4">
-            {secondaryPosts.map((post, index) => (
-              <Link key={post.slug} to={`/blog/${post.slug}`} className="group block">
-                <article className="flex min-h-[252px] h-full flex-col rounded-2xl border border-black/[0.06] bg-[#ffffff]/80 p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:hover:border-indigo-400/30">
-                  <div className="mb-6 flex items-center justify-between gap-4">
-                    <span className="font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">0{index + 2}</span>
-                    <span className="font-mono text-xs uppercase text-zinc-500 dark:text-zinc-400">{post.readTime}</span>
-                  </div>
-
-                  <h3 className="mb-3 text-2xl font-black leading-tight tracking-normal text-zinc-950 transition-colors group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
-                    {post.title}
-                  </h3>
-
-                  <p className="mb-6 line-clamp-3 flex-1 leading-7 text-zinc-700 dark:text-zinc-300">{post.excerpt}</p>
-
-                  <div className="flex items-center justify-between border-t border-zinc-950/10 pt-4 text-sm font-semibold text-zinc-950 dark:border-white/10 dark:text-white">
-                    <span>{post.date}</span>
-                    <ArrowUpRight className="h-4 w-4 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
+            </Link>
+          ))}
+          {/* Bottom hairline */}
+          <div className="border-b border-black/[0.08] dark:border-white/[0.08]" />
         </div>
+
+        <Link
+          to="/blog/building-scalable-react-applications"
+          className="inline-flex items-center text-[15px] font-medium text-zinc-950 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        >
+          View all writing <span className="ml-1 text-lg leading-none">&rarr;</span>
+        </Link>
       </div>
     </section>
   );

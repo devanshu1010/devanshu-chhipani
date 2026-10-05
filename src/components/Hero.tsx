@@ -1,5 +1,3 @@
-
-import { ArrowDown, CircuitBoard, Github, Linkedin, Mail, Terminal } from 'lucide-react';
 import { useRef } from 'react';
 
 const Hero = () => {
@@ -19,101 +17,59 @@ const Hero = () => {
     <section
       id="home"
       ref={heroRef}
-      className="relative min-h-screen overflow-hidden pt-24 sm:pt-28"
+      className="relative min-h-[90vh] flex flex-col items-center justify-center text-center py-20 px-4"
     >
-      <div className="container-wide relative z-10 grid min-h-[calc(100vh-112px)] items-start gap-14 pb-14 pt-8 lg:grid-cols-12 lg:gap-8 xl:gap-12">
-        <div className="max-w-[760px] space-y-8 lg:col-span-7 xl:col-span-6 xl:pt-10">
-          <div className="inline-flex items-center gap-3 rounded-md border border-black/10 bg-[#ffffff] px-3 py-2 font-mono text-xs uppercase text-zinc-600 dark:border-white/10 dark:bg-black/30 dark:text-zinc-300">
-            <span className="h-2 w-2 bg-cyan-600 dark:bg-cyan-400"></span>
-            Available for selected computer engineering work
-          </div>
-
-          <div className="space-y-6">
-            <p className="flex items-center gap-2 font-mono text-sm uppercase text-indigo-600 dark:text-indigo-400">
-              <CircuitBoard className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-              Systems-minded product engineering
-            </p>
-
-            <h1 className="text-5xl font-black leading-[0.94] tracking-normal text-zinc-950 dark:text-zinc-50 sm:text-6xl lg:text-7xl">
-              Devanshu Chhipani builds software with engineering logic inside.
-            </h1>
-
-            <p className="max-w-[640px] text-lg leading-8 text-zinc-600 dark:text-zinc-300">
-              Computer Engineer focused on React, TypeScript, dashboards, APIs, and practical AI-era product experiences. I design systems that feel precise, fast, and human enough to trust.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3 pt-8 sm:flex-row sm:items-center">
-            <button 
-              onClick={() => scrollToSection('experience')}
-              className="group inline-flex items-center justify-center gap-2 rounded-md bg-zinc-950 px-6 py-4 text-base font-semibold text-[#ffffff] transition-transform duration-200 hover:-translate-y-0.5 hover:text-indigo-300 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:text-indigo-600"
-            >
-              View work log
-              <ArrowDown className="h-5 w-5 group-hover:translate-y-1 transition-transform" />
-            </button>
-            
-            <button className="rounded-md border border-zinc-950/20 bg-transparent px-6 py-4 text-base font-semibold text-zinc-950 transition-colors duration-200 hover:border-indigo-500/40 hover:bg-indigo-500/[0.06] dark:border-white/20 dark:text-white dark:hover:border-indigo-400/40 dark:hover:bg-indigo-400/[0.06]">
-              Download CV
-            </button>
-          </div>
-
-          <div className="flex gap-3 pt-2">
-            {[
-              { icon: Github, href: "#", label: "GitHub" },
-              { icon: Linkedin, href: "#", label: "LinkedIn" },
-              { icon: Mail, href: "#", label: "Email" }
-            ].map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                className="grid h-11 w-11 place-items-center rounded-md border border-black/10 bg-[#ffffff]/70 text-zinc-700 transition-colors duration-200 hover:border-indigo-500/40 hover:bg-zinc-950 hover:text-indigo-300 dark:border-white/10 dark:bg-black/25 dark:text-zinc-300 dark:hover:border-indigo-400/40 dark:hover:bg-white dark:hover:text-indigo-600"
-                aria-label={label}
-              >
-                <Icon className="h-5 w-5" />
-              </a>
-            ))}
-          </div>
+      {/* 240px Gradient Orb with subtle circuit emblem */}
+      <div 
+        className="w-[240px] h-[240px] rounded-full bg-gradient-to-br from-blue-500 to-purple-600 blur-[80px] opacity-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 pointer-events-none"
+        aria-hidden="true"
+      />
+      
+      <div className="relative w-[220px] h-[220px] sm:w-[240px] sm:h-[240px] rounded-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 shadow-[0_0_80px_rgba(59,130,246,0.25)] mb-10 flex items-center justify-center p-[2px] transition-transform duration-500 hover:scale-[1.02]">
+        <div className="w-full h-full rounded-full bg-white/85 dark:bg-[#0a0a0a]/85 backdrop-blur-md flex flex-col items-center justify-center text-zinc-900 dark:text-white/90 relative overflow-hidden group">
+          {/* Subtle circuit overlay echoing the loader */}
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-400 via-transparent to-transparent pointer-events-none" />
+          <img
+            src="/dac-loader-mark.svg"
+            alt="Devanshu Chhipani identity mark"
+            className="w-16 h-16 select-none filter drop-shadow-[0_0_8px_rgba(59,130,246,0.3)] dark:invert"
+            draggable={false}
+          />
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 dark:text-blue-400 mt-2 font-medium">
+            AI / Systems
+          </span>
         </div>
+      </div>
 
-        <div className="relative pb-8 lg:col-span-4 lg:col-start-8 lg:pb-0 xl:col-span-4">
-          <div className="rounded-2xl border border-black/[0.06] bg-zinc-950 text-[#ffffff] dark:border-white/[0.08] dark:bg-[#0a0a0a]">
-            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-              <div className="flex items-center gap-2 font-mono text-xs uppercase text-zinc-400">
-                <Terminal className="h-4 w-4 text-indigo-400" />
-                devanshu.ai-context
-              </div>
-              <span className="font-mono text-xs text-cyan-400">online</span>
-            </div>
+      {/* Main Title matching wireframe: text-[64px] font-semibold tracking-[-0.035em] */}
+      <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-semibold tracking-[-0.035em] leading-tight mb-4 text-zinc-950 dark:text-zinc-50">
+        Devanshu Chhipani
+      </h1>
 
-            <div className="space-y-8 p-6 sm:p-8">
-              <pre className="overflow-hidden rounded-lg border border-white/10 bg-black/35 p-5 text-left font-mono text-xs leading-7 text-zinc-300 sm:text-sm">
-{`const developer = {
-  name: "Devanshu Chhipani",
-  stack: ["React", "TypeScript", "Next.js"],
-  mode: "computer engineering + AI workflows",
-  output: "interfaces people can operate"
-};`}
-              </pre>
+      {/* Role subhead matching wireframe */}
+      <h2 className="text-[17px] sm:text-[18px] text-zinc-500 dark:text-zinc-400 mb-4 font-normal">
+        Software Engineer <span className="mx-2 text-zinc-400 dark:text-zinc-600">·</span> AI Practitioner
+      </h2>
 
-              <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-                <div>
-                  <span className="block text-2xl font-semibold text-white">40%</span>
-                  faster loads
-                </div>
-                <div>
-                  <span className="block text-2xl font-semibold text-white">5+</span>
-                  teams
-                </div>
-                <div>
-                  <span className="block text-2xl font-semibold text-white">100k</span>
-                  readers
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="hidden xl:block xl:col-span-2" aria-hidden="true" />
-        
+      {/* Tagline matching wireframe */}
+      <p className="text-[15px] sm:text-[16px] text-zinc-600 dark:text-zinc-400 font-normal mb-10 max-w-lg leading-relaxed">
+        Building interfaces that think clearly.
+      </p>
+
+      {/* CTAs matching wireframe */}
+      <div className="flex items-center gap-4">
+        <button
+          onClick={() => scrollToSection('work')}
+          className="px-6 py-2.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition-colors shadow-sm shadow-blue-500/20 active:scale-[0.98]"
+        >
+          View Work
+        </button>
+        <button
+          onClick={() => scrollToSection('contact')}
+          className="px-6 py-2.5 rounded-full bg-transparent border border-black/10 dark:border-white/10 text-zinc-900 dark:text-zinc-100 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/5 transition-colors active:scale-[0.98]"
+        >
+          Get in Touch
+        </button>
       </div>
     </section>
   );

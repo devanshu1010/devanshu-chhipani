@@ -9,7 +9,6 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
     document.documentElement.classList.contains("dark")
   );
 
-  // Keep in sync if theme changes while loader is visible
   useEffect(() => {
     const obs = new MutationObserver(() => {
       setIsDark(document.documentElement.classList.contains("dark"));
@@ -19,7 +18,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   }, []);
 
   useEffect(() => {
-    const t = setTimeout(() => setPhase("run"), 120);
+    const t = setTimeout(() => setPhase("run"), 100);
     return () => clearTimeout(t);
   }, []);
 
@@ -28,14 +27,14 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
 
     const interval = setInterval(() => {
       setProgress((p) => {
-        const next = Math.min(p + 1.35, 100);
+        const next = Math.min(p + 1.8, 100);
         if (next >= 100) {
           clearInterval(interval);
-          setTimeout(() => setPhase("exit"), 360);
+          setTimeout(() => setPhase("exit"), 250);
         }
         return next;
       });
-    }, 22);
+    }, 18);
 
     return () => clearInterval(interval);
   }, [phase]);
@@ -46,7 +45,7 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
     const t = setTimeout(() => {
       setPhase("done");
       onComplete?.();
-    }, 460);
+    }, 420);
 
     return () => clearTimeout(t);
   }, [phase, onComplete]);
@@ -57,51 +56,49 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   const isExit = phase === "exit";
   const pct = Math.floor(progress);
 
-  const bg = isDark ? "#0a0a0a" : "#f7f7f3";
-  const gradientOverlay = isDark
-    ? "radial-gradient(ellipse at center,rgba(30,30,30,0.78),rgba(10,10,10,0.34) 58%,rgba(5,5,5,0.5))"
-    : "radial-gradient(ellipse at center,rgba(255,255,255,0.78),rgba(226,226,219,0.34) 58%,rgba(210,210,204,0.5))";
-  const textColor = isDark ? "#a1a1aa" : "#71717a";
-  const trackColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.15)";
-  const fillColor = isDark ? "#71717a" : "#52525b";
+  const bg = isDark ? "#0a0a0a" : "#fafafa";
+  const textColor = isDark ? "#a1a1a1" : "#525252";
+  const trackColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
+  const fillColor = "#3b82f6"; // Refined blue accent
 
   return (
     <div
       className="fixed inset-0 z-50 grid place-items-center overflow-hidden"
       style={{
         backgroundColor: bg,
-        color: isDark ? "#f4f4f5" : "#09090b",
+        color: isDark ? "#ededed" : "#171717",
         opacity: isExit ? 0 : 1,
-        transition: isExit ? "opacity 0.42s ease" : undefined,
+        transition: isExit ? "opacity 0.4s ease" : undefined,
       }}
     >
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: gradientOverlay }}
+      {/* Subtle ambient glow matching the hero orb */}
+      <div 
+        className="pointer-events-none absolute w-[300px] h-[300px] rounded-full bg-blue-500/15 blur-[90px] -z-10"
+        aria-hidden="true"
       />
+
       <div
-        className="relative flex w-[min(82vw,620px)] flex-col items-center"
+        className="relative flex w-[min(70vw,340px)] flex-col items-center"
         style={{
           opacity: isEnter ? 0 : 1,
           transform: isEnter ? "scale(0.96)" : "scale(1)",
-          transition:
-            "opacity 0.52s ease, transform 0.72s cubic-bezier(0.16,1,0.3,1)",
+          transition: "opacity 0.48s ease, transform 0.64s cubic-bezier(0.16,1,0.3,1)",
         }}
       >
         <img
           src="/dac-loader-mark.svg"
-          alt="Devanshu Chhipani loading mark"
-          className={`block h-auto w-full select-none${isDark ? " invert" : ""}`}
+          alt="Devanshu Chhipani circuit identity mark"
+          className={`block h-auto w-full select-none ${isDark ? "invert" : ""}`}
           draggable={false}
         />
 
         <div
-          className="mt-3 flex items-center justify-center gap-4 font-mono text-[11px] uppercase tracking-[0.24em]"
+          className="mt-6 flex items-center justify-center gap-4 font-mono text-[11px] uppercase tracking-[0.24em]"
           style={{ color: textColor }}
         >
-          <span>Loading</span>
+          <span>Initializing</span>
           <span
-            className="h-px w-16 overflow-hidden rounded-full"
+            className="h-[2px] w-20 overflow-hidden rounded-full"
             style={{ backgroundColor: trackColor }}
           >
             <span
@@ -109,11 +106,12 @@ const DacLoader: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
               style={{
                 width: `${progress}%`,
                 backgroundColor: fillColor,
-                transition: "width 0.08s linear",
+                boxShadow: "0 0 8px rgba(59,130,246,0.6)",
+                transition: "width 0.06s linear",
               }}
             />
           </span>
-          <span className="w-10 tabular-nums" style={{ color: textColor }}>
+          <span className="w-10 tabular-nums text-right font-medium" style={{ color: isDark ? "#ededed" : "#171717" }}>
             {String(pct).padStart(3, "0")}%
           </span>
         </div>
