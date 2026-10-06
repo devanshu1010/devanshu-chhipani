@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <defs>
+    <linearGradient id="avatarGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e131f" />
+      <stop offset="100%" stop-color="#05070c" />
+    </linearGradient>
+    <linearGradient id="glassReflection" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.1" />
+    </linearGradient>
+    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Ambient Outer Glow -->
+  <circle cx="128" cy="128" r="116" fill="none" stroke="url(#avatarGlow)" stroke-width="2" stroke-opacity="0.4" />
+  
+  <!-- Base Background -->
+  <circle cx="128" cy="128" r="112" fill="url(#bgGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+  
+  <!-- Hair & Head Contour -->
+  <!-- Shoulders -->
+  <path d="M56 226 C68 186 92 170 128 170 C164 170 188 186 200 226" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round" opacity="0.85" />
+  
+  <!-- Collar / Neckline -->
+  <path d="M112 172 C120 182 136 182 144 172" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" />
+  
+  <!-- Neck -->
+  <path d="M114 154 L114 170 M142 154 L142 170" fill="none" stroke="#e2e8f0" stroke-width="2" opacity="0.5" />
+
+  <!-- Jawline / Chin with beard contour -->
+  <path d="M86 116 C86 154 102 168 128 168 C154 168 170 154 170 116" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round" />
+  <!-- Subtle beard shadow/texture -->
+  <path d="M96 130 C104 154 116 162 128 162 C140 162 152 154 160 130" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6" />
+  <!-- Smile -->
+  <path d="M116 142 C122 147 134 147 140 142" fill="none" stroke="#e2e8f0" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Mustache -->
+  <path d="M114 135 C122 133 126 135 128 136 C130 135 134 133 142 135" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Ears -->
+  <path d="M86 106 C80 108 78 122 86 126" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+  <path d="M170 106 C176 108 178 122 170 126" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Glasses (Signature Feature) -->
+  <!-- Left Lens -->
+  <circle cx="106" cy="108" r="16" fill="url(#glassReflection)" stroke="#38bdf8" stroke-width="2.5" />
+  <!-- Right Lens -->
+  <circle cx="150" cy="108" r="16" fill="url(#glassReflection)" stroke="#38bdf8" stroke-width="2.5" />
+  <!-- Bridge -->
+  <path d="M122 108 C125 106 131 106 134 108" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Temples (Frame Sides) -->
+  <path d="M90 108 L84 106 M166 108 L172 106" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Eyes behind glasses -->
+  <ellipse cx="106" cy="108" rx="4" ry="4.5" fill="#f8fafc" />
+  <circle cx="107" cy="107" r="2" fill="#0f172a" />
+  <circle cx="108" cy="106" r="0.8" fill="#ffffff" />
+  
+  <ellipse cx="150" cy="108" rx="4" ry="4.5" fill="#f8fafc" />
+  <circle cx="149" cy="107" r="2" fill="#0f172a" />
+  <circle cx="150" cy="106" r="0.8" fill="#ffffff" />
+
+  <!-- Eyebrows -->
+  <path d="M93 92 C100 89 113 90 119 94" fill="none" stroke="#e2e8f0" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M163 92 C156 89 143 90 137 94" fill="none" stroke="#e2e8f0" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Hair (Swoop / Texture) -->
+  <path d="M82 106 C80 78 98 56 128 56 C158 56 176 76 174 104 C170 86 156 70 134 70 C114 70 96 82 82 106 Z" fill="#f1f5f9" />
+  <!-- Subtle blue hair reflection streak -->
+  <path d="M106 62 C120 60 142 64 154 74" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.6" />
+
+  <!-- Tech Node Dot (Corner Indicator) -->
+  <circle cx="188" cy="188" r="7" fill="#10b981" stroke="#05070c" stroke-width="2.5" />
+</svg>
+
