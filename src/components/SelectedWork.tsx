@@ -1,345 +1,306 @@
-import React, { useState } from "react";
-import { ArrowUpRight, Play, CheckCircle2, RefreshCw, Terminal, Layers, Activity } from "lucide-react";
-import { FadeUp } from "./FadeUp";
+import React, { useRef } from 'react';
+import { usePersona } from '../context/PersonaContext';
+import { ArrowUpRight, Github, Activity, Database, Cpu, Layout, Server, Lock } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 
-interface RagSample {
-  query: string;
-  matchedChunk: string;
-  similarity: string;
-  latency: string;
-  tokens: string;
+// Register GSAP Plugins
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-const ragSamples: RagSample[] = [
-  {
-    query: "workflow-acyclic-graphs",
-    matchedChunk: "Directed Acyclic Graph (DAG) validation implemented via Kahn's algorithm in ASP.NET Core, detecting circular dependency in dynamic form workflows at submission.",
-    similarity: "0.964",
-    latency: "38ms",
-    tokens: "192 t/s"
-  },
-  {
-    query: "chromadb-vector-indexing",
-    matchedChunk: "ChromaDB collection configured with 384-dimensional dense vectors using all-MiniLM-L6-v2 embeddings. Metadata filters partition documents by technical domain.",
-    similarity: "0.938",
-    latency: "44ms",
-    tokens: "215 t/s"
-  },
-  {
-    query: "postgres-jsonb-indexing",
-    matchedChunk: "PostgreSQL GIN indexing on jsonb_path_ops over dynamic form submission schemas, reducing nested property lookups from 180ms to sub-8ms in enterprise tables.",
-    similarity: "0.979",
-    latency: "29ms",
-    tokens: "180 t/s"
-  }
-];
-
 const SelectedWork: React.FC = () => {
-  const [activeRagIndex, setActiveRagIndex] = useState<number>(0);
-  const activeRag = ragSamples[activeRagIndex];
-  const [formMode, setFormMode] = useState<'preview' | 'schema'>('preview');
-  const [selectedRole, setSelectedRole] = useState<'Admin' | 'Reviewer' | 'Vendor'>('Admin');
-  const [signalrEvents, setSignalrEvents] = useState<string[]>([
-    "Vendor #1084 submitted compliance docs (14ms)",
-    "Workflow #492 transitioned to 'Approved' by Manager",
-    "SignalR heartbeat OK · 42 connected enterprise clients"
-  ]);
+  const { persona } = usePersona();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const addSignalrEvent = () => {
-    const randomId = Math.floor(1000 + Math.random() * 9000);
-    const ms = Math.floor(10 + Math.random() * 25);
-    const newEvent = `Vendor #${randomId} verified & state updated (${ms}ms)`;
-    setSignalrEvents((prev) => [newEvent, prev[0], prev[1]]);
-  };
+  useGSAP(() => {
+    if (!containerRef.current) return;
+    
+    const cards = gsap.utils.toArray('.bento-card');
+    
+    // Kill existing triggers to prevent duplicates on re-render/persona toggle
+    ScrollTrigger.getAll().forEach(t => {
+      if (t.vars.id === 'bento-trigger') t.kill();
+    });
+
+    cards.forEach((card: HTMLElement, i) => {
+      gsap.fromTo(
+        card,
+        { 
+          clipPath: 'inset(100% 0 0 0)',
+          y: 40,
+        },
+        {
+          clipPath: 'inset(0% 0 0 0)',
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            id: 'bento-trigger',
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          }
+        }
+      );
+    });
+  }, { scope: containerRef, dependencies: [persona] });
+
+  const renderSEProjects = () => (
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[400px]">
+      {/* Featured Project - Full Width */}
+      <div className="bento-card md:col-span-12 group relative rounded-3xl overflow-hidden bg-white dark:bg-[#111111] border border-black/[0.08] dark:border-white/[0.08] p-8 flex flex-col lg:flex-row gap-8">
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="px-3 py-1 text-xs font-mono rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              Production Ready
+            </span>
+            <span className="px-3 py-1 text-xs font-mono rounded-full bg-zinc-100 dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.08] text-zinc-600 dark:text-zinc-400">
+              v2.4.1
+            </span>
+          </div>
+          <h3 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4">
+            Enterprise Vendor Portal
+          </h3>
+          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-md">
+            A comprehensive vendor management system built with Next.js and ASP.NET Core, featuring real-time SignalR workflows and RBAC authorization.
+          </p>
+          <div className="flex gap-4 items-center mt-auto">
+            <button className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-sm font-medium hover:scale-105 transition-transform">
+              View Project <ArrowUpRight size={16} />
+            </button>
+            <a href="#" className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">
+              <Github size={20} />
+            </a>
+          </div>
+        </div>
+        <div className="flex-1 relative flex items-center justify-center min-h-[300px]">
+          {/* Abstract Mac Mockup */}
+          <div className="w-[120%] h-full max-h-[340px] absolute right-[-10%] rounded-l-2xl border-y border-l border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 shadow-2xl flex flex-col overflow-hidden">
+            <div className="h-8 border-b border-zinc-200 dark:border-zinc-800 flex items-center px-4 gap-2 bg-white/50 dark:bg-zinc-950/50">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+            </div>
+            <div className="flex-1 p-6 grid grid-cols-3 gap-4">
+               <div className="col-span-1 space-y-4">
+                 <div className="h-20 rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse" />
+                 <div className="h-20 rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse delay-75" />
+                 <div className="h-20 rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse delay-150" />
+               </div>
+               <div className="col-span-2 rounded bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-sm p-4 flex flex-col gap-4">
+                 <div className="h-8 w-1/3 rounded bg-zinc-100 dark:bg-zinc-900" />
+                 <div className="flex-1 rounded bg-zinc-50 dark:bg-zinc-900/50 border border-dashed border-zinc-200 dark:border-zinc-800 flex items-center justify-center">
+                    <Activity className="text-zinc-300 dark:text-zinc-700 w-12 h-12" />
+                 </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Grid Items */}
+      <div className="bento-card md:col-span-7 group rounded-3xl overflow-hidden bg-white dark:bg-[#111111] border border-black/[0.08] dark:border-white/[0.08] p-8 flex flex-col justify-between">
+        <div>
+          <div className="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-6">
+            <Layout className="text-blue-600 dark:text-blue-400" size={24} />
+          </div>
+          <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-2">Dynamic Form Engine</h3>
+          <p className="text-zinc-600 dark:text-zinc-400 mb-6 max-w-sm">
+            Low-code orchestration engine generating dynamic enterprise forms with complex circular dependency validation.
+          </p>
+        </div>
+        {/* Abstract Mobile Mockups */}
+        <div className="h-48 w-full relative overflow-hidden rounded-xl bg-zinc-50 dark:bg-zinc-900/50 border border-black/[0.04] dark:border-white/[0.04] flex items-end justify-center gap-4 px-8 pt-8">
+            <div className="w-1/2 h-[90%] bg-white dark:bg-zinc-950 rounded-t-2xl border-x border-t border-zinc-200 dark:border-zinc-800 shadow-lg p-4 transition-transform group-hover:-translate-y-2">
+              <div className="w-1/3 h-1 mx-auto bg-zinc-200 dark:bg-zinc-800 rounded-full mb-6" />
+              <div className="space-y-3">
+                <div className="h-4 w-3/4 bg-zinc-100 dark:bg-zinc-900 rounded" />
+                <div className="h-4 w-full bg-zinc-100 dark:bg-zinc-900 rounded" />
+                <div className="h-10 w-full bg-zinc-100 dark:bg-zinc-900 rounded mt-4" />
+              </div>
+            </div>
+            <div className="w-1/2 h-[75%] bg-white dark:bg-zinc-950 rounded-t-2xl border-x border-t border-zinc-200 dark:border-zinc-800 shadow-lg p-4 transition-transform group-hover:translate-y-2">
+              <div className="space-y-3 mt-4">
+                <div className="h-16 w-full bg-zinc-100 dark:bg-zinc-900 rounded" />
+                <div className="h-16 w-full bg-zinc-100 dark:bg-zinc-900 rounded" />
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div className="bento-card md:col-span-5 group rounded-3xl overflow-hidden bg-zinc-950 text-white p-8 flex flex-col justify-between relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-zinc-800 via-zinc-950 to-zinc-950 opacity-50" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-8">
+             <div className="flex -space-x-2">
+                <div className="w-8 h-8 rounded-full border-2 border-zinc-950 bg-emerald-500" />
+                <div className="w-8 h-8 rounded-full border-2 border-zinc-950 bg-blue-500" />
+             </div>
+             <Github size={24} className="text-zinc-500" />
+          </div>
+          <h3 className="text-2xl font-semibold mb-2">Open Source</h3>
+          <p className="text-zinc-400 text-sm mb-6">
+            Contributing to the React ecosystem and sharing system architecture patterns.
+          </p>
+        </div>
+        
+        {/* Fake GitHub Activity Graph */}
+        <div className="relative z-10 mt-auto bg-white/5 rounded-xl border border-white/10 p-4">
+          <div className="flex items-center justify-between text-xs text-zinc-500 mb-3">
+             <span>782 contributions</span>
+             <span>2024</span>
+          </div>
+          <div className="grid grid-cols-12 gap-1">
+             {Array.from({ length: 36 }).map((_, i) => (
+                <div 
+                  key={i} 
+                  className={`aspect-square rounded-[2px] ${
+                    Math.random() > 0.7 ? 'bg-emerald-500/80' : 
+                    Math.random() > 0.4 ? 'bg-emerald-500/40' : 'bg-white/10'
+                  }`}
+                />
+             ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAIProjects = () => (
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[400px]">
+      {/* Featured AI Project */}
+      <div className="bento-card md:col-span-12 group rounded-3xl overflow-hidden bg-[#050505] border border-white/[0.08] p-8 flex flex-col lg:flex-row gap-8 relative">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
+        
+        <div className="flex-1 flex flex-col justify-center relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="px-3 py-1 text-xs font-mono rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              RAG Pipeline
+            </span>
+            <span className="text-xs font-mono text-zinc-500">
+              38ms inference latency
+            </span>
+          </div>
+          <h3 className="text-3xl font-semibold tracking-tight text-white mb-4">
+            InsightMesh Retrieval Engine
+          </h3>
+          <p className="text-zinc-400 leading-relaxed mb-8 max-w-md">
+            A high-throughput semantic search pipeline isolating dense technical intelligence from unstructured documentation using FastAPI and ChromaDB.
+          </p>
+          <div className="flex gap-4 items-center mt-auto">
+            <button className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium transition-colors">
+              Read Paper <ArrowUpRight size={16} />
+            </button>
+          </div>
+        </div>
+        
+        {/* Abstract Architecture Diagram */}
+        <div className="flex-1 relative z-10 min-h-[300px] flex items-center justify-center p-6">
+           <div className="w-full max-w-md bg-white/5 border border-white/10 rounded-2xl p-6 font-mono text-xs text-indigo-200">
+              <div className="flex justify-between items-center mb-8 relative">
+                {/* Connection lines */}
+                <div className="absolute top-1/2 left-0 w-full h-[1px] bg-indigo-500/30 -z-10" />
+                
+                <div className="bg-black border border-indigo-500/50 rounded-lg p-3 flex flex-col items-center gap-2">
+                  <Database size={20} className="text-indigo-400" />
+                  <span>ChromaDB</span>
+                </div>
+                
+                <div className="bg-indigo-500/20 border border-indigo-500 rounded-lg p-4 flex flex-col items-center gap-2">
+                  <Cpu size={24} className="text-indigo-300" />
+                  <span className="font-bold text-white">Embeddings</span>
+                </div>
+                
+                <div className="bg-black border border-indigo-500/50 rounded-lg p-3 flex flex-col items-center gap-2">
+                  <Server size={20} className="text-indigo-400" />
+                  <span>FastAPI</span>
+                </div>
+              </div>
+              
+              <div className="bg-black/50 rounded-lg p-4 border border-white/5 space-y-2">
+                <div className="flex justify-between text-zinc-500">
+                  <span>VECTOR SIMILARITY</span>
+                  <span className="text-emerald-400">0.942 COSINE</span>
+                </div>
+                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-indigo-500 w-[94%]" />
+                </div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <div className="bento-card md:col-span-5 group rounded-3xl overflow-hidden bg-zinc-950 border border-white/[0.08] p-8 flex flex-col justify-between">
+        <div>
+           <div className="w-12 h-12 rounded-full bg-rose-500/10 flex items-center justify-center mb-6 border border-rose-500/20">
+              <Lock className="text-rose-400" size={24} />
+           </div>
+           <h3 className="text-2xl font-semibold text-white mb-2">Adversarial Defense</h3>
+           <p className="text-zinc-400 mb-6 max-w-sm">
+             Research on securing LLM endpoints against prompt injection and data extraction attacks.
+           </p>
+        </div>
+        {/* Terminal Simulation */}
+        <div className="mt-8 bg-black rounded-lg border border-white/10 p-4 font-mono text-[10px] text-emerald-400 space-y-2 overflow-hidden">
+           <div>&gt; init defense-layer --strict</div>
+           <div className="text-zinc-500">Loading heuristics... OK</div>
+           <div>&gt; block_injection("Ignore previous instructions")</div>
+           <div className="text-rose-400">[DENIED] Malicious payload detected</div>
+           <div className="animate-pulse">_</div>
+        </div>
+      </div>
+
+      <div className="bento-card md:col-span-7 group rounded-3xl overflow-hidden bg-white dark:bg-[#111111] border border-black/[0.08] dark:border-white/[0.08] p-8 flex flex-col justify-between">
+        <div className="flex flex-col lg:flex-row gap-8 h-full">
+           <div className="flex-1 flex flex-col justify-center">
+             <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 mb-2">Computer Vision</h3>
+             <p className="text-zinc-600 dark:text-zinc-400 mb-6">
+               Edge-deployed object detection models optimized for low-power IoT devices using TensorFlow Lite.
+             </p>
+             <div className="flex flex-wrap gap-2 mt-auto">
+                {['TFLite', 'OpenCV', 'Edge TPU'].map(t => (
+                  <span key={t} className="px-2 py-1 text-[10px] font-mono rounded bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400">
+                    {t}
+                  </span>
+                ))}
+             </div>
+           </div>
+           <div className="flex-1 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-black/[0.04] dark:border-white/[0.04] p-4 relative overflow-hidden flex items-center justify-center">
+              {/* Bounding Box Simulation */}
+              <div className="absolute w-32 h-32 border-2 border-blue-500/50 rounded-lg flex items-start justify-start p-1 transition-transform group-hover:scale-110">
+                 <div className="bg-blue-500 text-white text-[8px] font-mono px-1 rounded-sm">Person 98%</div>
+              </div>
+              <div className="absolute w-20 h-20 top-8 right-12 border-2 border-emerald-500/50 rounded-lg flex items-start justify-start p-1 transition-transform group-hover:translate-x-2">
+                 <div className="bg-emerald-500 text-white text-[8px] font-mono px-1 rounded-sm">Laptop 92%</div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <section id="work" className="relative py-24 border-b border-black/[0.08] dark:border-white/[0.08]">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <FadeUp>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-            <div>
-              <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 font-medium mb-2">
-                PROOF OF CRAFT
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-zinc-950 dark:text-zinc-50">
-                Selected Systems & Work
-              </h2>
-            </div>
-            <p className="text-sm font-mono text-zinc-500 dark:text-zinc-400">
-              Interactive system sandboxes · Click to test telemetry
-            </p>
+    <section id="work" className="relative py-32 border-t border-black/[0.08] dark:border-white/[0.08]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6" ref={containerRef}>
+        
+        <div className="flex flex-col mb-16 gap-4">
+          <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-blue-600 dark:text-indigo-400 font-medium">
+            PROOF OF CRAFT
           </div>
-        </FadeUp>
-
-        <div className="space-y-8">
-          
-          <FadeUp delay={100}>
-            <div className="bg-white dark:bg-[#111111] rounded-xl p-6 sm:p-8 border border-black/[0.08] dark:border-white/[0.08] w-full transition-all">
-              <div className="w-full bg-zinc-950 border border-black/[0.08] dark:border-white/[0.12] rounded-lg mb-6 overflow-hidden text-zinc-300 font-mono text-xs">
-                <div className="h-10 border-b border-white/[0.08] bg-zinc-900/90 flex items-center justify-between px-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                    <span className="text-[11px] text-zinc-400 ml-2">insightmesh.repl/semantic-search</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-[11px] text-emerald-400">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>CHROMADB CONNECTED</span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-zinc-900/40 border-b border-white/[0.06] flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] text-zinc-500 uppercase tracking-wider">Simulate Query:</span>
-                  {ragSamples.map((sample, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setActiveRagIndex(idx)}
-                      className={`px-2.5 py-1 rounded text-[11px] transition-all border ${
-                        activeRagIndex === idx
-                          ? 'bg-blue-600/30 border-blue-500 text-blue-300 font-medium'
-                          : 'bg-zinc-800/60 border-white/[0.08] text-zinc-400 hover:text-zinc-200 hover:border-white/20'
-                      }`}
-                    >
-                      `{sample.query}`
-                    </button>
-                  ))}
-                </div>
-
-                <div className="p-5 space-y-4">
-                  <div className="flex items-center gap-2 text-[12px] text-zinc-400">
-                    <span className="text-blue-400 font-semibold">$</span>
-                    <span className="text-zinc-200 font-semibold">GET /api/v1/search?query={activeRag.query}&amp;top_k=1</span>
-                  </div>
-
-                  <div className="p-3.5 rounded bg-zinc-900/80 border border-white/[0.06] space-y-2">
-                    <div className="flex items-center justify-between text-[11px] text-zinc-500">
-                      <span>TOP VECTOR RESULT // RECALL CHUNK</span>
-                      <span className="text-blue-400 font-mono">COSINE: {activeRag.similarity}</span>
-                    </div>
-                    <p className="text-zinc-200 font-sans text-sm leading-relaxed">
-                      "{activeRag.matchedChunk}"
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                    <div className="p-2.5 rounded bg-zinc-900/50 border border-white/[0.04]">
-                      <div className="text-[10px] text-zinc-500">EMBEDDING LATENCY</div>
-                      <div className="text-sm font-semibold text-emerald-400">{activeRag.latency}</div>
-                    </div>
-                    <div className="p-2.5 rounded bg-zinc-900/50 border border-white/[0.04]">
-                      <div className="text-[10px] text-zinc-500">COSINE SIMILARITY</div>
-                      <div className="text-sm font-semibold text-blue-400">{activeRag.similarity}</div>
-                    </div>
-                    <div className="p-2.5 rounded bg-zinc-900/50 border border-white/[0.04]">
-                      <div className="text-[10px] text-zinc-500">INFERENCE SPEED</div>
-                      <div className="text-sm font-semibold text-zinc-200">{activeRag.tokens}</div>
-                    </div>
-                    <div className="p-2.5 rounded bg-zinc-900/50 border border-white/[0.04]">
-                      <div className="text-[10px] text-zinc-500">VECTOR DB</div>
-                      <div className="text-sm font-semibold text-zinc-200">ChromaDB 384d</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
-                <div className="max-w-2xl">
-                  <div className="text-xs font-mono uppercase text-blue-600 dark:text-blue-400 mb-1 tracking-wider">
-                    AI / SEMANTIC RETRIEVAL ENGINE · OPEN SOURCE
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-zinc-950 dark:text-zinc-100 mb-2">
-                    InsightMesh — Technical Knowledge Retrieval System
-                  </h3>
-                  <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mb-4 leading-relaxed">
-                    A high-throughput semantic search pipeline isolating dense technical intelligence from unstructured documentation. Uses FastAPI and ChromaDB with hybrid BM25 + dense vector reranking, achieving sub-50ms query latencies under Groq inference acceleration.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Python", "FastAPI", "ChromaDB", "Groq API", "RAG", "Vector Search", "REST APIs"].map((t) => (
-                      <span
-                        key={t}
-                        className="px-2.5 py-1 text-xs font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-black/50 border border-black/[0.06] dark:border-white/[0.08] rounded"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <a
-                  href="https://github.com/devanshu1010"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-black/[0.12] dark:border-white/[0.15] text-xs font-mono uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:bg-black/5 dark:hover:bg-white/5 transition-colors shrink-0"
-                >
-                  <span>GitHub Source</span>
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
-              </div>
-            </div>
-          </FadeUp>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <FadeUp delay={100}>
-              <div className="bg-white dark:bg-[#111111] rounded-xl p-6 border border-black/[0.08] dark:border-white/[0.08] flex flex-col h-full justify-between">
-                <div>
-                  <div className="w-full bg-zinc-50 dark:bg-zinc-950 border border-black/[0.08] dark:border-white/[0.08] rounded-lg mb-6 overflow-hidden">
-                    <div className="h-9 border-b border-black/[0.06] dark:border-white/[0.06] bg-zinc-100 dark:bg-zinc-900/60 flex items-center justify-between px-3 text-[11px] font-mono">
-                      <span className="text-zinc-600 dark:text-zinc-400">Dynamic Form Engine</span>
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => setFormMode('preview')}
-                          className={`px-2 py-0.5 rounded text-[10px] ${
-                            formMode === 'preview'
-                              ? 'bg-white dark:bg-zinc-800 text-zinc-950 dark:text-zinc-100 shadow-xs'
-                              : 'text-zinc-500 hover:text-zinc-900'
-                          }`}
-                        >
-                          UI
-                        </button>
-                        <button
-                          onClick={() => setFormMode('schema')}
-                          className={`px-2 py-0.5 rounded text-[10px] ${
-                            formMode === 'schema'
-                              ? 'bg-white dark:bg-zinc-800 text-zinc-950 dark:text-zinc-100 shadow-xs'
-                              : 'text-zinc-500 hover:text-zinc-900'
-                          }`}
-                        >
-                          Schema JSON
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="p-4 min-h-[170px] flex flex-col justify-center">
-                      {formMode === 'preview' ? (
-                        <div className="space-y-3">
-                          <div>
-                            <label className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 block mb-1">
-                              SELECT WORKFLOW ROLE (RBAC):
-                            </label>
-                            <div className="flex gap-2">
-                              {(['Admin', 'Reviewer', 'Vendor'] as const).map((role) => (
-                                <button
-                                  key={role}
-                                  type="button"
-                                  onClick={() => setSelectedRole(role)}
-                                  className={`px-2.5 py-1 rounded text-xs font-mono border transition-all ${
-                                    selectedRole === role
-                                      ? 'bg-blue-600 text-white border-blue-600'
-                                      : 'bg-white dark:bg-zinc-900 border-black/10 dark:border-white/10 text-zinc-700 dark:text-zinc-300'
-                                  }`}
-                                >
-                                  {role}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="p-2.5 rounded bg-white dark:bg-zinc-900/60 border border-black/[0.06] dark:border-white/[0.06] text-xs font-mono text-zinc-600 dark:text-zinc-300 flex items-center justify-between">
-                            <span>Permissions: {selectedRole === 'Admin' ? 'Read · Write · Publish' : selectedRole === 'Reviewer' ? 'Read · Approve' : 'Read Only'}</span>
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                          </div>
-                        </div>
-                      ) : (
-                        <pre className="text-[10px] font-mono text-zinc-700 dark:text-zinc-300 overflow-x-auto p-2 bg-zinc-100 dark:bg-zinc-900/80 rounded">
-{`{
-  "formId": "dyn_vendor_approval",
-  "roleAccess": ["${selectedRole}"],
-  "validation": { "strictDAG": true },
-  "schemaVersion": 2
-}`}
-                        </pre>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="text-[11px] font-mono uppercase text-blue-600 dark:text-blue-400 mb-1">
-                    SILVER TOUCH TECHNOLOGIES LTD
-                  </div>
-                  <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-100 mb-2">
-                    Dynamic Form Platform & Workflow Automation
-                  </h3>
-                  <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
-                    Low-code orchestration engine generating dynamic enterprise forms, multi-stage approval pipelines, Kahn's algorithm circular dependency detection, and granular RBAC authorization.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-black/[0.06] dark:border-white/[0.06]">
-                  {["ASP.NET Core", "EF Core", "PostgreSQL", "Next.js", "RBAC"].map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 text-[11px] font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 border border-black/[0.06] dark:border-white/[0.08] rounded"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
-
-            <FadeUp delay={200}>
-              <div className="bg-white dark:bg-[#111111] rounded-xl p-6 border border-black/[0.08] dark:border-white/[0.08] flex flex-col h-full justify-between">
-                <div>
-                  <div className="w-full bg-zinc-950 border border-black/[0.08] dark:border-white/[0.12] rounded-lg mb-6 overflow-hidden">
-                    <div className="h-9 border-b border-white/[0.08] bg-zinc-900/80 flex items-center justify-between px-3 text-[11px] font-mono">
-                      <div className="flex items-center gap-1.5 text-zinc-300">
-                        <Activity className="w-3 h-3 text-emerald-400" />
-                        <span>SignalR WebSocket Hub</span>
-                      </div>
-                      <button
-                        onClick={addSignalrEvent}
-                        type="button"
-                        className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] bg-blue-600/30 text-blue-300 border border-blue-500/40 hover:bg-blue-600/50"
-                      >
-                        <RefreshCw className="w-2.5 h-2.5" />
-                        <span>Push Event</span>
-                      </button>
-                    </div>
-
-                    <div className="p-3.5 space-y-2 min-h-[170px] flex flex-col justify-center font-mono text-[11px]">
-                      {signalrEvents.map((evt, idx) => (
-                        <div
-                          key={idx}
-                          className={`p-2 rounded border transition-all ${
-                            idx === 0
-                              ? 'bg-blue-950/40 border-blue-500/40 text-blue-200'
-                              : 'bg-zinc-900/60 border-white/[0.04] text-zinc-400'
-                          }`}
-                        >
-                          <span className="text-zinc-500 mr-2">&gt;</span>
-                          <span>{evt}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="text-[11px] font-mono uppercase text-blue-600 dark:text-blue-400 mb-1">
-                    SILVER TOUCH TECHNOLOGIES LTD
-                  </div>
-                  <h3 className="text-lg font-semibold text-zinc-950 dark:text-zinc-100 mb-2">
-                    Enterprise Vendor Portal & Real-Time Hub
-                  </h3>
-                  <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
-                    Centralized backend with SignalR event streaming, persistent read status tracking, automated approval workflows, and indexed PostgreSQL stored procedures handling thousands of concurrent updates.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-black/[0.06] dark:border-white/[0.06]">
-                  {["ASP.NET Core", "SignalR", "PostgreSQL", "React", "Next.js"].map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 text-[11px] font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 border border-black/[0.06] dark:border-white/[0.08] rounded"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-
+          <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+            Selected Work
+          </h2>
         </div>
+
+        {persona === 'se' ? renderSEProjects() : renderAIProjects()}
+
       </div>
     </section>
   );

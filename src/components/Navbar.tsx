@@ -1,11 +1,14 @@
-import { Moon, Sun, Menu, X, Command } from 'lucide-react';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { getLenis } from '../lib/lenis';
+import { useLenis } from 'lenis/react';
 import LogoMark from './LogoMark';
+import { usePersona } from '../context/PersonaContext';
+import { motion } from 'framer-motion';
 
-const Header = () => {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => document.documentElement.classList.contains('dark'));
+  const { persona, togglePersona } = usePersona();
 
   useEffect(() => {
     if (isDarkMode) {
@@ -19,12 +22,13 @@ const Header = () => {
     setIsDarkMode(!isDarkMode);
   };
 
+  const lenis = useLenis();
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (!element) return;
 
     const targetY = element.getBoundingClientRect().top + window.scrollY - 56;
-    const lenis = getLenis();
 
     if (lenis) {
       lenis.scrollTo(targetY, {
@@ -49,7 +53,8 @@ const Header = () => {
         '3': 'work',
         '4': 'experience',
         '5': 'stack',
-        '6': 'contact',
+        '6': 'writing',
+        '7': 'contact',
       };
 
       if (keyMap[e.key]) {
@@ -67,7 +72,8 @@ const Header = () => {
     { name: 'Work', href: 'work', key: '3' },
     { name: 'Experience', href: 'experience', key: '4' },
     { name: 'Stack', href: 'stack', key: '5' },
-    { name: 'Contact', href: 'contact', key: '6' },
+    { name: 'Writing', href: 'writing', key: '6' },
+    { name: 'Contact', href: 'contact', key: '7' },
   ];
 
   return (
@@ -102,10 +108,44 @@ const Header = () => {
           ))}
         </div>
 
-        {/* Right: Controls (Theme Toggle & Keyboard Nav indicator) */}
+        {/* Right: Controls */}
         <div className="flex items-center gap-2.5">
+          {/* Dual Persona Toggle */}
+          <div className="hidden lg:flex items-center p-0.5 bg-black/5 dark:bg-white/5 rounded-full border border-black/10 dark:border-white/10 mr-2">
+            <button
+              onClick={() => persona !== 'se' && togglePersona()}
+              className={`relative px-3 py-1 text-[11px] font-semibold rounded-full z-10 transition-colors ${
+                persona === 'se' ? 'text-white' : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white/70'
+              }`}
+            >
+              SE
+              {persona === 'se' && (
+                <motion.div
+                  layoutId="active-persona-nav"
+                  className="absolute inset-0 bg-blue-500 rounded-full -z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </button>
+            <button
+              onClick={() => persona !== 'ai' && togglePersona()}
+              className={`relative px-3 py-1 text-[11px] font-semibold rounded-full z-10 transition-colors ${
+                persona === 'ai' ? 'text-white' : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white/70'
+              }`}
+            >
+              AI
+              {persona === 'ai' && (
+                <motion.div
+                  layoutId="active-persona-nav"
+                  className="absolute inset-0 bg-indigo-500 rounded-full -z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </button>
+          </div>
+
           <span className="hidden lg:inline-flex items-center gap-1 text-[11px] font-mono text-zinc-400 dark:text-zinc-500 mr-1">
-            <kbd className="px-1.5 py-0.5 rounded border border-black/10 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900 text-[10px]">1-6</kbd>
+            <kbd className="px-1.5 py-0.5 rounded border border-black/10 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900 text-[10px]">1-7</kbd>
             <span>nav</span>
           </span>
 
@@ -131,6 +171,21 @@ const Header = () => {
       {/* Mobile Drawer */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-[56px] left-0 right-0 bg-white/95 dark:bg-[#0e0e0e]/95 backdrop-blur-xl border-b border-black/[0.08] dark:border-white/[0.08] p-6 shadow-xl flex flex-col gap-4">
+          <div className="flex p-1 bg-black/5 dark:bg-white/5 rounded-full mb-4">
+            <button
+              onClick={() => { togglePersona(); setIsMenuOpen(false); }}
+              className={`flex-1 py-2 text-xs font-semibold rounded-full ${persona === 'se' ? 'bg-blue-500 text-white' : 'text-zinc-500'}`}
+            >
+              Software Eng
+            </button>
+            <button
+              onClick={() => { togglePersona(); setIsMenuOpen(false); }}
+              className={`flex-1 py-2 text-xs font-semibold rounded-full ${persona === 'ai' ? 'bg-indigo-500 text-white' : 'text-zinc-500'}`}
+            >
+              AI Eng
+            </button>
+          </div>
+
           {navItems.map((item) => (
             <button
               key={item.name}
@@ -147,4 +202,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
