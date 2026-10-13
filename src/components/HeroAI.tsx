@@ -1,68 +1,96 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Line, Sphere, PerspectiveCamera } from '@react-three/drei';
+import React, { useRef, useMemo, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
+import { ArrowUpRight, Sparkles, Network, Database, Cpu } from 'lucide-react';
 
-// Procedural neural nodes
-const NeuralNetwork = () => {
-  const group = useRef<THREE.Group>(null);
+// High-Performance Instanced Neural Mesh
+interface NeuralMeshProps {
+  nodeCount: number;
+}
 
-  // Create random nodes
-  const nodeCount = 35;
-  const nodes = useMemo(() => {
-    return Array.from({ length: nodeCount }).map(() => ({
-      position: new THREE.Vector3(
-        (Math.random() - 0.5) * 8,
-        (Math.random() - 0.5) * 8,
-        (Math.random() - 0.5) * 8
-      ),
-    }));
-  }, []);
+const InstancedNeuralGraph: React.FC<NeuralMeshProps> = ({ nodeCount }) => {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const linesRef = useRef<THREE.LineSegments>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
-  // Create connections
-  const lines = useMemo(() => {
-    const linesArr = [];
+  // Generate node positions in 3D latent space
+  const { positions, linePositions } = useMemo(() => {
+    const pos: THREE.Vector3[] = [];
+    for (let i = 0; i < nodeCount; i++) {
+      pos.push(
+        new THREE.Vector3(
+          (Math.random() - 0.5) * 8.5,
+          (Math.random() - 0.5) * 8.5,
+          (Math.random() - 0.5) * 7.5
+        )
+      );
+    }
+
+    const segments: number[] = [];
+    const maxDist = 3.6;
+
     for (let i = 0; i < nodeCount; i++) {
       for (let j = i + 1; j < nodeCount; j++) {
-        if (nodes[i].position.distanceTo(nodes[j].position) < 3.5) {
-          linesArr.push([nodes[i].position, nodes[j].position]);
+        if (pos[i].distanceTo(pos[j]) < maxDist) {
+          segments.push(pos[i].x, pos[i].y, pos[i].z);
+          segments.push(pos[j].x, pos[j].y, pos[j].z);
         }
       }
     }
-    return linesArr;
-  }, [nodes]);
 
-  useFrame((state) => {
-    if (group.current) {
-      // Gentle rotation
-      group.current.rotation.y = state.clock.elapsedTime * 0.1;
-      group.current.rotation.x = state.clock.elapsedTime * 0.05;
-      
-      // Follow mouse
-      const targetX = (state.pointer.x * state.viewport.width) / 4;
-      const targetY = (state.pointer.y * state.viewport.height) / 4;
-      group.current.position.x += (targetX - group.current.position.x) * 0.03;
-      group.current.position.y += (targetY - group.current.position.y) * 0.03;
+    return {
+      positions: pos,
+      linePositions: new Float32Array(segments)
+    };
+  }, [nodeCount]);
+
+  // Set initial instance matrices
+  useEffect(() => {
+    if (!meshRef.current) return;
+    const dummy = new THREE.Object3D();
+    positions.forEach((pos, idx) => {
+      dummy.position.copy(pos);
+      dummy.scale.setScalar(0.08 + (idx % 3) * 0.03);
+      dummy.updateMatrix();
+      meshRef.current?.setMatrixAt(idx, dummy.matrix);
+    });
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, [positions]);
+
+  // Frame animation with pointer interpolation
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.12;
+      groupRef.current.rotation.x += delta * 0.06;
+
+      const targetX = (state.pointer.x * 2.0);
+      const targetY = (state.pointer.y * 2.0);
+      groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05;
+      groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05;
     }
   });
 
   return (
-    <group ref={group}>
-      {nodes.map((node, i) => (
-        <Sphere key={i} args={[0.06, 16, 16]} position={node.position}>
-          <meshBasicMaterial color="#6366f1" transparent opacity={0.6} />
-        </Sphere>
-      ))}
-      {lines.map((line, i) => (
-        <Line 
-          key={i} 
-          points={line as [THREE.Vector3, THREE.Vector3]} 
-          color="#3730a3" 
-          lineWidth={1.5} 
-          transparent 
-          opacity={0.25} 
-        />
-      ))}
+    <group ref={groupRef}>
+      {/* Single Draw-Call Instanced Nodes */}
+      <instancedMesh ref={meshRef} args={[undefined, undefined, nodeCount]}>
+        <sphereGeometry args={[1, 16, 16]} />
+        <meshBasicMaterial color="#06b6d4" transparent opacity={0.75} />
+      </instancedMesh>
+
+      {/* Synaptic Edge Lines */}
+      <lineSegments ref={linesRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={linePositions.length / 3}
+            array={linePositions}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <lineBasicMaterial color="#0284c7" transparent opacity={0.28} linewidth={1} />
+      </lineSegments>
     </group>
   );
 };
@@ -73,67 +101,117 @@ const HeroAI: React.FC = () => {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Hardware concurrency budget gating
+  const isHighPerformance = typeof navigator !== 'undefined' && (navigator.hardwareConcurrency || 4) > 4;
+  const activeNodeCount = isHighPerformance ? 44 : 26;
+
   return (
     <section
-      className="relative min-h-[82vh] flex items-center justify-center px-4 sm:px-6 py-16 max-w-[1200px] mx-auto w-full"
+      id="home"
+      className="relative min-h-[100dvh] flex items-center justify-center px-4 sm:px-6 pt-24 pb-12 max-w-[1200px] mx-auto w-full"
     >
-      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-        {/* Left: Minimal, confident AI intro (6 cols) */}
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* Left Column: AI Researcher Positioning (6 cols) */}
         <div className="lg:col-span-6 flex flex-col items-start text-left relative z-10">
-          {/* Single-line live presence badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.08] text-[12px] font-mono text-indigo-600 dark:text-indigo-400 mb-6">
+          {/* Latent Projection Badge */}
+          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/[0.04] border border-black/10 dark:border-white/10 text-[11px] font-mono text-cyan-700 dark:text-cyan-400 mb-6">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </span>
-            <span className="text-zinc-950 dark:text-zinc-200 font-medium">Model Inference Ready</span>
+            <span className="text-zinc-950 dark:text-zinc-200 font-semibold tracking-wide">LATENT MANIFOLD PROJECTION</span>
+            <span className="text-zinc-400 dark:text-zinc-600">/</span>
+            <span>EMBED-768D</span>
+            <span className="text-zinc-400 dark:text-zinc-600">/</span>
+            <span>BF16</span>
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.035em] text-zinc-950 dark:text-zinc-50 leading-[1.08] mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.035em] text-zinc-950 dark:text-zinc-50 leading-[1.06] mb-4">
             Devanshu Chhipani
           </h1>
 
-          {/* Role */}
-          <p className="text-lg sm:text-xl text-zinc-500 dark:text-zinc-400 font-normal mb-5">
-            AI Practitioner <span className="mx-1 text-zinc-300 dark:text-zinc-700">·</span> Research & ML
+          {/* Role Specification */}
+          <p className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 font-normal mb-5 flex items-center gap-2">
+            <span>AI Practitioner</span>
+            <span className="text-zinc-300 dark:text-zinc-700">/</span>
+            <span className="text-cyan-600 dark:text-cyan-400 font-mono text-sm">Applied Research &amp; Evaluation</span>
           </p>
 
-          {/* One calm sentence */}
+          {/* Concise Value Thesis (< 20 words) */}
           <p className="text-[15px] sm:text-[16px] text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-md font-normal">
-            Building intelligent retrieval systems and researching large-scale semantic reasoning.
+            Developing frontier semantic retrieval architectures, high-dimensional vector pipelines, and agentic reasoning benchmarks.
           </p>
 
-          {/* Minimal CTA pills */}
-          <div className="flex items-center gap-3">
+          {/* Button-in-Button Action Group */}
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => scrollToSection('work')}
-              className="px-6 py-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-medium hover:bg-indigo-700 dark:hover:bg-indigo-400 transition-all shadow-xs active:scale-[0.98]"
+              className="group inline-flex items-center rounded-full bg-cyan-600 dark:bg-cyan-500 text-white pl-6 pr-2 py-2 text-sm font-medium hover:bg-cyan-700 dark:hover:bg-cyan-400 transition-all shadow-md active:scale-[0.98]"
             >
-              View Research
+              <span>Explore Research</span>
+              <span className="ml-3 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <ArrowUpRight className="w-4 h-4 stroke-[1.8]" />
+              </span>
             </button>
+
             <button
               onClick={() => scrollToSection('contact')}
-              className="px-6 py-2.5 rounded-full bg-transparent border border-black/[0.12] dark:border-white/[0.12] text-zinc-900 dark:text-zinc-100 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/5 transition-colors active:scale-[0.98]"
+              className="inline-flex items-center rounded-full px-6 py-3 border border-black/15 dark:border-white/15 text-zinc-900 dark:text-zinc-100 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/5 transition-colors active:scale-[0.98]"
             >
-              Collaborate
+              <span>Dispatch Agent Query</span>
             </button>
           </div>
         </div>
 
-        {/* Right: 3D Interactive Canvas (6 cols) */}
-        <div className="lg:col-span-6 w-full h-[400px] lg:h-[500px] relative rounded-2xl overflow-hidden pointer-events-auto cursor-crosshair border border-black/[0.04] dark:border-white/[0.04] bg-gradient-to-br from-zinc-50/50 to-zinc-100/50 dark:from-[#0a0a0a]/50 dark:to-[#111]/50">
-          <Canvas dpr={[1, 2]}>
-            <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} color="#6366f1" />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
-            <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-              <NeuralNetwork />
-            </Float>
-          </Canvas>
-          {/* Subtle overlay gradient to blend edges */}
-          <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_60px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_0_60px_rgba(10,10,10,0.8)]" />
+        {/* Right Column: Double-Bezel 3D Neural Viewport (6 cols) */}
+        <div className="lg:col-span-6 w-full">
+          {/* Outer Shell */}
+          <div className="p-1.5 sm:p-2 rounded-[2rem] bg-black/[0.04] dark:bg-white/[0.03] border border-black/10 dark:border-white/10 shadow-2xl">
+            {/* Inner Core */}
+            <div className="rounded-[calc(2rem-0.5rem)] bg-zinc-900 dark:bg-[#070b10] border border-black/[0.06] dark:border-white/[0.06] overflow-hidden relative h-[420px] sm:h-[480px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
+              {/* Telemetry Header */}
+              <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-5 py-3 border-b border-white/10 bg-black/40 backdrop-blur-md">
+                <div className="flex items-center gap-2">
+                  <Network className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="font-mono text-[11px] text-zinc-300">neural.latent.space</span>
+                </div>
+                <div className="flex items-center gap-3 font-mono text-[10px] text-cyan-400">
+                  <span className="flex items-center gap-1">
+                    <Database className="w-3 h-3" />
+                    <span>768-D</span>
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Cpu className="w-3 h-3" />
+                    <span>FP8 KV</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* R3F WebGL Canvas */}
+              <Canvas
+                dpr={[1, 1.75]}
+                camera={{ position: [0, 0, 9], fov: 50 }}
+                className="w-full h-full cursor-grab active:cursor-grabbing"
+              >
+                <PerspectiveCamera makeDefault position={[0, 0, 9]} fov={50} />
+                <ambientLight intensity={0.6} />
+                <pointLight position={[8, 8, 8]} intensity={1.2} color="#06b6d4" />
+                <pointLight position={[-8, -8, -8]} intensity={0.6} color="#3b82f6" />
+                <InstancedNeuralGraph nodeCount={activeNodeCount} />
+              </Canvas>
+
+              {/* Subtle edge vignette */}
+              <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_60px_rgba(7,11,16,0.9)]" />
+
+              {/* Bottom HUD metrics strip */}
+              <div className="absolute bottom-0 inset-x-0 z-20 flex items-center justify-between px-5 py-2.5 border-t border-white/10 bg-black/40 backdrop-blur-md font-mono text-[10px] text-zinc-400">
+                <span>GRAPH NODES: {activeNodeCount}</span>
+                <span className="text-emerald-400 font-semibold">INTERACTIVE VIEWPORT</span>
+                <span>DRAW CALLS: 1</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -141,4 +219,3 @@ const HeroAI: React.FC = () => {
 };
 
 export default HeroAI;
-

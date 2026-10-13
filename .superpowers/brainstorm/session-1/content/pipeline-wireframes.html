@@ -1,0 +1,142 @@
+<h2>Pipeline Architecture Showcase — Wireframe Comparison</h2>
+<p class="subtitle">Comparing 3 architectural storytelling models for Devanshu's SE vs AI dual persona</p>
+
+<div class="options" data-multiselect="false">
+  <!-- OPTION A (RECOMMENDED) -->
+  <div class="option selected" data-choice="case1" onclick="toggleSelect(this)" style="margin-bottom: 24px; border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.03);">
+    <div class="letter" style="background: #3b82f6; color: white;">A</div>
+    <div class="content" style="width: 100%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <h3 style="margin: 0; font-size: 18px; color: #60a5fa;">Case 1: Interactive Step-by-Step Flow Simulator (Recommended)</h3>
+        <span style="font-size: 11px; font-family: monospace; padding: 2px 8px; border-radius: 999px; background: rgba(59, 130, 246, 0.15); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3);">RECOMMENDED</span>
+      </div>
+      <p style="margin: 0 0 16px 0; color: #94a3b8; font-size: 13px;">Visitors step through or scrub an animated data packet across the entire pipeline. Click any node to inspect real data payloads, database schemas, and telemetry latency.</p>
+
+      <!-- SE & AI Side-by-Side Wireframe Mockup -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;">
+        
+        <!-- SE Mode Mockup -->
+        <div style="background: #09090b; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px;">
+            <span style="font-size: 11px; font-family: monospace; color: #3b82f6; font-weight: 600;">[SE MODE] Enterprise Request Pipeline</span>
+            <span style="font-size: 10px; font-family: monospace; color: #10b981; background: rgba(16,185,129,0.1); padding: 1px 6px; border-radius: 4px;">p99 &lt; 24ms</span>
+          </div>
+          <!-- Node flow diagram -->
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 14px; overflow-x: auto; padding: 4px 0;">
+            <div style="background: #18181b; border: 1px solid #3b82f6; border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #93c5fd; min-width: 60px;">1. Client Form</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #e2e8f0; min-width: 65px;">2. Kahn DAG</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #e2e8f0; min-width: 65px;">3. RBAC Auth</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #e2e8f0; min-width: 65px;">4. PG JSONB</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #18181b; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #10b981; min-width: 60px;">5. SignalR</div>
+          </div>
+          <!-- Node Inspector Drawer -->
+          <div style="background: #121215; border: 1px dashed rgba(59,130,246,0.3); border-radius: 8px; padding: 10px; font-family: monospace; font-size: 11px;">
+            <div style="color: #60a5fa; font-weight: 600; margin-bottom: 4px;">● Node: Kahn's Algorithm Validation</div>
+            <div style="color: #94a3b8; font-size: 10px; line-height: 1.4;">Resolves dynamic field dependencies. Checks for circular cycle deadlocks across 100+ nested form controls before persisting schema.</div>
+            <div style="margin-top: 6px; color: #10b981; font-size: 10px;">Status: 0 Cycles Detected · Exec Time: 1.4ms</div>
+          </div>
+        </div>
+
+        <!-- AI Mode Mockup -->
+        <div style="background: #06050b; border: 1px solid rgba(99,102,241,0.25); border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px;">
+            <span style="font-size: 11px; font-family: monospace; color: #818cf8; font-weight: 600;">[AI MODE] RAG Inference Pipeline</span>
+            <span style="font-size: 10px; font-family: monospace; color: #a855f7; background: rgba(168,85,247,0.1); padding: 1px 6px; border-radius: 4px;">Latent Match 0.94</span>
+          </div>
+          <!-- Node flow diagram -->
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 14px; overflow-x: auto; padding: 4px 0;">
+            <div style="background: #131127; border: 1px solid rgba(99,102,241,0.3); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #c7d2fe; min-width: 60px;">1. Raw Query</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #131127; border: 1px solid #818cf8; border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #e0e7ff; min-width: 65px;">2. Dense Embed</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #131127; border: 1px solid rgba(99,102,241,0.3); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #c7d2fe; min-width: 65px;">3. ChromaDB</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #131127; border: 1px solid rgba(99,102,241,0.3); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #c7d2fe; min-width: 65px;">4. Reranker</div>
+            <span style="color: #64748b; font-size: 10px;">→</span>
+            <div style="background: #131127; border: 1px solid rgba(99,102,241,0.3); border-radius: 6px; padding: 6px 8px; font-size: 10px; font-family: monospace; text-align: center; color: #a855f7; min-width: 60px;">5. LLaMA-3 Stream</div>
+          </div>
+          <!-- Node Inspector Drawer -->
+          <div style="background: #0f0d1f; border: 1px dashed rgba(129,140,248,0.4); border-radius: 8px; padding: 10px; font-family: monospace; font-size: 11px;">
+            <div style="color: #a5b4fc; font-weight: 600; margin-bottom: 4px;">● Node: Dense Embeddings & Vector Space</div>
+            <div style="color: #94a3b8; font-size: 10px; line-height: 1.4;">Projecting token sequences into 1536-dimensional hyper-space. Cosine distance calculated against 50k pre-indexed tech docs.</div>
+            <div style="margin-top: 6px; color: #c084fc; font-size: 10px;">Similarity: 0.942 · Search Time: 18ms</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="option" data-choice="case2" onclick="toggleSelect(this)" style="margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02);">
+    <div class="letter">B</div>
+    <div class="content" style="width: 100%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <h3 style="margin: 0; font-size: 18px; color: #e2e8f0;">Case 2: Architectural Blueprint Cards & Telemetry Matrices</h3>
+        <span style="font-size: 11px; font-family: monospace; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.05); color: #94a3b8; border: 1px solid rgba(255,255,255,0.1);">DEEP SCHEMATICS</span>
+      </div>
+      <p style="margin: 0 0 16px 0; color: #94a3b8; font-size: 13px;">Full-width Swiss architectural cards with switchable tabs: [System Topology] | [Data Contract / Schema] | [Failure Recovery / Latency SLAs]. Static elegance with hover-highlighting.</p>
+
+      <div style="background: #0a0a0c; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px;">
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <button style="padding: 4px 10px; font-size: 11px; font-family: monospace; background: white; color: black; border-radius: 6px; border: none; font-weight: 600;">[Topology Map]</button>
+          <button style="padding: 4px 10px; font-size: 11px; font-family: monospace; background: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">[Schema Contract]</button>
+          <button style="padding: 4px 10px; font-size: 11px; font-family: monospace; background: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">[Failover & Recovery]</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px; background: #121216; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+          <div style="font-family: monospace; font-size: 11px; color: #cbd5e1; line-height: 1.6;">
+            <div>┌─── Ingress: Cloudflare API Gateway (mTLS auth)</div>
+            <div>├─── Orchestration: ASP.NET Core 8 WebAPI Cluster</div>
+            <div>│    ├── Dependency Graph Worker (Kahn DAG)</div>
+            <div>│    └── Event Hub (SignalR Core WebSocket)</div>
+            <div>└─── Persistence: PostgreSQL 16 (JSONB GIN Indexed)</div>
+          </div>
+          <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 12px; font-family: monospace; font-size: 10px; color: #94a3b8;">
+            <div style="color: #10b981; font-weight: 600;">METRICS:</div>
+            <div>• p50 Latency: 4.2ms</div>
+            <div>• p99 Latency: 18.5ms</div>
+            <div>• Max Schemas: 100+</div>
+            <div>• Zero-Downtime Migration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="option" data-choice="case3" onclick="toggleSelect(this)" style="margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02);">
+    <div class="letter">C</div>
+    <div class="content" style="width: 100%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <h3 style="margin: 0; font-size: 18px; color: #e2e8f0;">Case 3: Interactive CLI & Jupyter Scratchpad Terminal</h3>
+        <span style="font-size: 11px; font-family: monospace; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.05); color: #94a3b8; border: 1px solid rgba(255,255,255,0.1);">HACKER / TERMINAL</span>
+      </div>
+      <p style="margin: 0 0 16px 0; color: #94a3b8; font-size: 13px;">Code-centric view. SE mode is an executable C#/Linux shell with load-testing triggers. AI mode is a Jupyter notebook cell with slider knobs for Top-K, temperature, and semantic vector weights.</p>
+
+      <div style="background: #070709; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px; font-family: monospace;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444;"></span>
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b;"></span>
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+          <span style="color: #64748b; font-size: 11px; margin-left: 8px;">devanshu@infra-mesh: ~</span>
+        </div>
+        <div style="color: #10b981; font-size: 11px; line-height: 1.5;">
+          <div>$ ./run-pipeline-benchmark --target="vendor-portal-dynamic-engine" --workers=16</div>
+          <div style="color: #94a3b8;">[INFO] Spawning 16 concurrent workers against ASP.NET Core endpoint...</div>
+          <div style="color: #94a3b8;">[INFO] Verifying Kahn's topological sort across 124 dynamic form nodes...</div>
+          <div style="color: #60a5fa;">[SUCCESS] 0 cycles, 100% contract validation, 2,400 req/sec sustained.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 32px; padding: 16px; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px;">
+  <h4 style="margin: 0 0 8px 0; color: #60a5fa; font-size: 14px;">Why Case 1 is Recommended:</h4>
+  <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.6;">Case 1 directly solves both of your goals: (1) It delivers distinct animation cycles for each mode (stepped mechanical packet tracing for SE vs smooth floating vector field for AI), and (2) It turns Devanshu's real enterprise .NET & BITS Pilani AI work into an engaging, visual interactive story that non-technical recruiters and principal engineers can immediately grasp and explore.</p>
+</div>
+

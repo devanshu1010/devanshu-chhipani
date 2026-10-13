@@ -95,11 +95,22 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: 'Geist', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Fixed tactile grain overlay */
+  .tactile-noise-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.025;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   ::selection {
