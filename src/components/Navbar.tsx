@@ -29,7 +29,7 @@ const Navbar = () => {
     const element = document.getElementById(sectionId);
     if (!element) return;
 
-    const targetY = element.getBoundingClientRect().top + window.scrollY - 80;
+    const targetY = element.getBoundingClientRect().top + window.scrollY - 64;
 
     if (lenis) {
       lenis.scrollTo(targetY, {
@@ -77,8 +77,8 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
-      <nav className="pointer-events-auto w-full max-w-[1080px] h-[52px] sm:h-[56px] bg-white/85 dark:bg-[#0d0d0d]/85 backdrop-blur-2xl border border-black/[0.08] dark:border-white/10 rounded-full flex items-center justify-between px-4 sm:px-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[56px] sm:h-[60px] bg-white/85 dark:bg-[#08080a]/85 backdrop-blur-2xl border-b border-black/[0.08] dark:border-white/[0.08] transition-colors">
+      <nav className="w-full max-w-[1200px] h-full mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Logo Mark */}
         <button
           onClick={() => scrollToSection('home')}
@@ -176,11 +176,11 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            className="pointer-events-auto absolute top-16 left-3 right-3 bg-white/95 dark:bg-[#0e0e0e]/95 backdrop-blur-2xl border border-black/[0.08] dark:border-white/10 p-5 rounded-3xl shadow-2xl flex flex-col gap-3"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="md:hidden absolute top-[56px] sm:top-[60px] left-0 right-0 bg-white/95 dark:bg-[#08080a]/95 backdrop-blur-2xl border-b border-black/[0.08] dark:border-white/[0.08] p-5 shadow-2xl flex flex-col gap-3"
           >
             <div className="flex p-1 bg-black/5 dark:bg-white/5 rounded-full mb-2">
               <button

@@ -67,7 +67,7 @@ const Index = () => {
       {/* Vertical Side Spine for 5-Stage Story Progress */}
       <CircuitSpine />
 
-      {/* Floating Island Navigation */}
+      {/* Pinned Top Navigation */}
       <Navbar />
 
       <main className="w-full max-w-[1200px] mx-auto pt-0">
